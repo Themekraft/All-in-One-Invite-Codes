@@ -269,21 +269,15 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 			require_once dirname( __FILE__ ) . '/includes/resources/freemius/start.php';
 
 			$all_in_one_invite_codes_core_fs = fs_dynamic_init( array(
-				'id'              => '391',
-				'slug'            => 'all_in_one_invite_codes',
+				'id'              => '3322',
+				'slug'            => 'all-in-one-invite-codes',
 				'type'            => 'plugin',
-				'public_key'      => 'pk_dea3d8c1c831caf06cfea10c7114c',
-				'is_premium'      => true,
+				'public_key'      => 'pk_955be38b0c4d2a2914a9f4bc98355',
+				'is_premium'      => false,
 				'has_addons'      => true,
-				'has_paid_plans'  => true,
-				'trial'           => array(
-					'days'               => 14,
-					'is_require_payment' => true,
-				),
-				'has_affiliation' => 'all',
+				'has_paid_plans'  => false,
 				'menu'            => array(
-					'slug'       => 'edit.php?post_type=all_in_one_invite_codes',
-					'first-path' => $first_path,
+					'slug'       => 'edit.php?post_type=tk_invite_codes',
 					'support'    => false,
 					'contact'    => true,
 					'addons'     => true,
