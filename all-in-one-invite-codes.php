@@ -158,6 +158,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		public function includes() {
 
 			require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . 'functions.php' );
+			require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . 'default-registration.php' );
 
 			if ( is_admin() ) {
 				require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/admin-settings.php' );
