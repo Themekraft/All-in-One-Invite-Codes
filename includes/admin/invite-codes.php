@@ -60,8 +60,8 @@ function all_in_one_invite_codes_add_action_buttons( $actions, $post ) {
 
 		$preview_page_id = get_option( 'buddyforms_preview_page', true );
 
-		$actions['resent']       = '<a href="#" id="all_in_one_disable_invite_code">Disable</a>';
-		$actions['disable']  = '<a href="#" id="all_in_one_resent_invite_code">Resent Invitation</a>';
+		$actions['resent']       = '<a href="#" data-post_id="' . $post->ID . '" id="all_in_one_disable_invite_code">Disable</a>';
+		$actions['disable']  = '<a href="#" data-post_id="' . $post->ID . '" id="all_in_one_resent_invite_code">Resent Invitation</a>';
 
 
 	}
@@ -98,7 +98,15 @@ function custom_tk_invite_codes_columns( $columns, $post_id = false ) {
 			echo get_post_meta( $post_id, 'tk_all_in_one_invite_code', true );
 			break;
 		case 'status' :
-			echo empty( get_post_meta( $post_id, 'tk_all_in_one_invite_code_status', true ) ) ? __( 'Active', 'all-in-one-invite-codes' ) : __( 'Used', 'all-in-one-invite-codes' );;
+			$status = get_post_meta( $post_id, 'tk_all_in_one_invite_code_status', true );
+
+			switch ( $status ) {
+				case 'disabled' :
+					$status = __( 'Disabled', 'all-in-one-invite-codes' );
+					break;
+			}
+
+			echo empty( $status ) ? __( 'Active', 'all-in-one-invite-codes' ) : $status;
 			break;
 		case 'email' :
 			echo isset( $all_in_one_invite_codes_options['email'] ) ? $all_in_one_invite_codes_options['email'] : '--';
@@ -157,6 +165,13 @@ function all_in_one_invite_codes_hide_publishing_actions() {
                 jQuery('body').find('h1:first').remove();
                 jQuery('body').find('#post-body-content').remove();
                 jQuery('body').find('.wp-heading-inline').remove();
+
+
+                jQuery('body').find('.postbox-container h2').text('Disabled');
+                jQuery('body').find('#publish').remove();
+                jQuery("#post :input").prop("disabled", true);
+
+
             });
         </script>
 		<?php
@@ -179,11 +194,14 @@ function all_in_one_invite_codes_add_button_to_submit_box() {
 		return;
 	}
 
+	if( get_post_status() != 'publish'){
+		return;
+    }
 	?>
 
     <div id="all-in-one-invite-codes-actions" class="misc-pub-section">
-        <p><a href="#" id="all_in_one_disable_invite_code" class="button button-large bf_button_action">Disable This Invite Code</a></p>
-        <p><a href="#" id="all_in_one_resent_invite_code" class="button button-large bf_button_action">Resent Invitation Mail</a></p>
+        <p><a href="#" data-post_id="<?php echo $post->ID ?>" id="all_in_one_disable_invite_code" class="button button-large bf_button_action">Disable This Invite Code</a></p>
+        <p><a href="#" data-post_id="<?php echo $post->ID ?>" id="all_in_one_resent_invite_code" class="button button-large bf_button_action">Resent Invitation Mail</a></p>
         <div class="clear"></div>
     </div>
 
