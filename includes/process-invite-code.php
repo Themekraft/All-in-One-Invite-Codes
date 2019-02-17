@@ -1,6 +1,6 @@
 <?php
 
-function all_in_one_invite_codes_validate_code( $code, $email = ''){
+function all_in_one_invite_codes_validate_code( $code, $user_email = '' ) {
 
 
 	$args  = array(
@@ -22,17 +22,25 @@ function all_in_one_invite_codes_validate_code( $code, $email = ''){
 			$status = get_post_meta( get_the_ID(), 'tk_all_in_one_invite_code_status', true );
 			if ( $status ) {
 				$result['error'] = __( 'Invite code invalid', 'all-in-one-invite-code' );
+
 				return $result;
 			} else {
 
 				$all_in_one_invite_codes_options = get_post_meta( get_the_ID(), 'all_in_one_invite_codes_options', true );
 
-				if( isset( $all_in_one_invite_codes_options['email'] ) ) {
+				if ( isset( $all_in_one_invite_codes_options['email'] ) ) {
 
-					if($all_in_one_invite_codes_options['email'] != $user_email ){
+					if ( ! empty( $all_in_one_invite_codes_options['email'] ) && $all_in_one_invite_codes_options['email'] != $user_email ) {
 						$result['error'] = __( 'eMail address does not below to this invite code.', 'all-in-one-invite-code' );
+
 						return $result;
 					}
+
+					if ( empty( $all_in_one_invite_codes_options['email'] ) ) {
+						$all_in_one_invite_codes_options['email'] = $user_email;
+						update_post_meta( get_the_ID(), 'all_in_one_invite_codes_options', $all_in_one_invite_codes_options );
+					}
+
 				}
 
 				update_post_meta( get_the_ID(), 'tk_all_in_one_invite_code_status', 'used' );
@@ -43,6 +51,7 @@ function all_in_one_invite_codes_validate_code( $code, $email = ''){
 
 	} else {
 		$result['error'] = __( 'Invite code not exist', 'all-in-one-invite-code' );
+
 		return $result;
 
 	}
