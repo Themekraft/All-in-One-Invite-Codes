@@ -3,6 +3,10 @@
 function all_in_one_invite_codes_validate_code( $code, $user_email = '' ) {
 
 
+	if( ! all_in_one_invite_codes_is_default_registration() ){
+		return;
+	}
+
 	$args  = array(
 		'post_type'  => 'tk_invite_codes',
 		'meta_query' => array(

@@ -3,6 +3,11 @@
 add_action( 'register_form', 'all_in_one_invite_codesregister_form' );
 function all_in_one_invite_codesregister_form() {
 
+
+	if( ! all_in_one_invite_codes_is_default_registration() ){
+		return;
+	}
+
 	$tk_invite_code = ( ! empty( $_POST['tk_invite_code'] ) ) ? sanitize_text_field( $_POST['tk_invite_code'] ) : '';
 
 	?>
@@ -16,6 +21,11 @@ function all_in_one_invite_codesregister_form() {
 
 add_filter( 'registration_errors', 'all_in_one_invite_codesregistration_errors', 10, 3 );
 function all_in_one_invite_codesregistration_errors( $errors, $sanitized_user_login, $user_email ) {
+
+
+	if( ! all_in_one_invite_codes_is_default_registration() ){
+		return;
+	}
 
 	if ( empty( $_POST['tk_invite_code'] ) || ! empty( $_POST['tk_invite_code'] ) && trim( $_POST['tk_invite_code'] ) == '' ) {
 		$errors->add( 'tk_invite_code_error', sprintf( '<strong>%s</strong>: %s', __( 'ERROR', 'all-in-one-invite-code' ), __( 'You must include a Invite Code.', 'all-in-one-invite-code' ) ) );

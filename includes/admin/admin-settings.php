@@ -124,19 +124,29 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
                                         <tr>
                                             <th colspan="2">
                                                 <h3>
-                                                    <span><?php _e( 'Tab 1', 'all_in_one_invite_codes' ); ?></span>
+                                                    <span><?php _e( 'General Settings', 'all_in_one_invite_codes' ); ?></span>
                                                 </h3>
                                             </th>
                                         </tr>
+
                                         <tr valign="top">
                                             <th scope="row" valign="top">
-												<?php _e( 'Tab 1', 'all_in_one_invite_codes' ); ?>
+	                                            <?php _e( 'Add Invite only Validation to the WordPress default registration form', 'all-in-one-invite-codes' ); ?>
                                             </th>
                                             <td>
-                                                <label for="tk_aio_ic_default_registration"><p>Registration Form</p>
-                                                </label>
-                                                <textarea cols="70" rows="5" id="tk_aio_ic_default_registration"
-                                                          name="all_in_one_invite_codes_general[default_registration]"><?php echo empty( $all_in_one_invite_codes_general['default_registration'] ) ? '' : $all_in_one_invite_codes_general['default_registration']; ?></textarea>
+		                                        <?php
+		                                        $pages['enabled'] = 'Enable';
+		                                        $pages['disable'] = 'Disable';
+
+		                                        if ( isset( $pages ) && is_array( $pages ) ) {
+			                                        echo '<select name="all_in_one_invite_codes_general[default_registration]" id="all_in_one_invite_codes_general">';
+
+			                                        foreach ( $pages as $page_id => $page_name ) {
+				                                        echo '<option ' . selected( $all_in_one_invite_codes_general['default_registration'], $page_id ) . 'value="' . $page_id . '">' . $page_name . '</option>';
+			                                        }
+			                                        echo '</select>';
+		                                        }
+		                                        ?>
                                             </td>
                                         </tr>
                                         </tbody>
