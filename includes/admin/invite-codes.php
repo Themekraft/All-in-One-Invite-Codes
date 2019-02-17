@@ -54,13 +54,6 @@ function all_in_one_invite_codes_add_action_buttons( $actions, $post ) {
 
 	if ( get_post_type() === 'tk_invite_codes' ) {
 
-		$url = add_query_arg(
-			array(
-				'post_id'   => $post->ID,
-				'my_action' => 'export_form',
-			)
-		);
-
 		unset( $actions['inline hide-if-no-js'] );
 
 		$base = home_url();
@@ -89,6 +82,7 @@ function tk_invite_codes_columns( $columns, $post_id = false ) {
 	$columns['code']  = __( 'Code', 'all-in-one-invite-codes' );
 	$columns['status']  = __( 'Status', 'all-in-one-invite-codes' );
 	$columns['email'] = __( 'eMail', 'all-in-one-invite-codes' );
+	$columns['generate_codes'] = __( 'Generate new codes after account activation', 'all-in-one-invite-codes' );
 
 	return $columns;
 }
@@ -108,6 +102,9 @@ function custom_tk_invite_codes_columns( $columns, $post_id = false ) {
 			break;
 		case 'email' :
 			echo isset( $all_in_one_invite_codes_options['email'] ) ? $all_in_one_invite_codes_options['email'] : '--';
+			break;
+		case 'generate_codes' :
+			echo isset( $all_in_one_invite_codes_options['generate_codes'] ) ? $all_in_one_invite_codes_options['generate_codes'] : '--';
 			break;
 	}
 
@@ -248,6 +245,11 @@ function all_in_one_invite_codes_render_metabox() {
 
 	$all_in_one_invite_codes_options = wp_parse_args( $all_in_one_invite_codes_options, $all_in_one_invite_codes_options_defaults );
 
+
+
+	$email          = isset($all_in_one_invite_codes_options['email']) ? $all_in_one_invite_codes_options['email'] : '';
+	$generate_codes = isset($all_in_one_invite_codes_options['generate_codes']) ? $all_in_one_invite_codes_options['generate_codes'] : '';
+
 	?>
 
     <fieldset>
@@ -260,14 +262,32 @@ function all_in_one_invite_codes_render_metabox() {
             >
 
             <label for="all_in_one_invite_codes_options_email">
-				<?php _e( 'email', 'all_in_one_invite_codes' ); ?>
+				<b><?php _e( 'Assign to specific email', 'all_in_one_invite_codes' ); ?></b>
+                <p><?php _e( 'Restrict usage of this invite code for a specific email address. Leave blank if you want to make this invite code public accessible for any registration.', 'all_in_one_invite_codes' ); ?></p>
             </label>
-            <input
-                    type="email"
-                    name="all_in_one_invite_codes_options[email]"
-                    id="all_in_one_invite_codes_options_email"
-                    value="<?php echo esc_attr( $all_in_one_invite_codes_options['email'] ); ?>"
-            >
+
+            <p> eMail: <input
+                        type="email"
+                        name="all_in_one_invite_codes_options[email]"
+                        id="all_in_one_invite_codes_options_email"
+                        value="<?php echo esc_attr( $email ); ?>"
+                >
+            </p>
+
+        </div>
+        <div>
+            <label for="all_in_one_invite_codes_options_email">
+		        <b><?php _e( 'Generate new Invite Codes after account activation', 'all_in_one_invite_codes' ); ?></b>
+                <p><?php _e( 'Enter a number to generate new invite codes if this invite code got used.', 'all_in_one_invite_codes' ); ?></p>
+            </label>
+            <p>
+                Numbe: <input
+                        type="number"
+                        name="all_in_one_invite_codes_options[generate_codes]"
+                        id="all_in_one_invite_codes_options_generate_codes"
+                        value="<?php echo esc_attr( $generate_codes ); ?>"
+                >
+            </p>
         </div>
     </fieldset>
 
