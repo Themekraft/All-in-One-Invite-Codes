@@ -149,6 +149,14 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 		                                        ?>
                                             </td>
                                         </tr>
+                                        <tr valign="top">
+                                            <th scope="row" valign="top">
+		                                        <?php _e( 'How manny now Invite Codes should get generated after the new user is activated?', 'all-in-one-invite-codes' ); ?>
+                                            </th>
+                                            <td>
+                                                <input type="number" name="all_in_one_invite_codes_general[generate_codes_amount]" id="all_in_one_invite_codes_general_generate_codes_amount" value="<?php echo isset($all_in_one_invite_codes_general['generate_codes_amount']) ? $all_in_one_invite_codes_general['generate_codes_amount'] : ''; ?>">
+                                            </td>
+                                        </tr>
                                         </tbody>
                                     </table>
 
