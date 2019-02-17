@@ -1,11 +1,17 @@
 <?php
 
-add_action( 'user_register', 'all_in_one_invite_codes_registration_filed', 5 );
+function all_in_one_invite_codes_md5( $post_id = false ) {
+	global $post;
 
-function all_in_one_invite_codes_registration_filed(){
-	?>
+	if ( ! $post_id ) {
+		$post_id = $post->ID;
+	}
 
-	<p>Something</p>
+	$md5 = get_post_meta( $post_id, 'tk_all_in_one_invite_code', true );
 
-<?php
+	if ( ! $md5 ) {
+		$md5 = substr( md5( time() * rand() ), 0, 24 );
+	}
+
+	return $md5;
 }

@@ -40,7 +40,6 @@ function all_in_one_invite_codes_register_post_type() {
 add_action( 'init', 'all_in_one_invite_codes_register_post_type' );
 
 
-
 /**
  *
  * Add the actions to list table
@@ -60,8 +59,8 @@ function all_in_one_invite_codes_add_action_buttons( $actions, $post ) {
 
 		$preview_page_id = get_option( 'buddyforms_preview_page', true );
 
-		$actions['resent']       = '<a href="#" data-post_id="' . $post->ID . '" id="all_in_one_disable_invite_code">Disable</a>';
-		$actions['disable']  = '<a href="#" data-post_id="' . $post->ID . '" id="all_in_one_resent_invite_code">Resent Invitation</a>';
+		$actions['resent']  = '<a href="#" data-post_id="' . $post->ID . '" id="all_in_one_disable_invite_code">Disable</a>';
+		$actions['disable'] = '<a href="#" data-post_id="' . $post->ID . '" id="all_in_one_resent_invite_code">Resent Invitation</a>';
 
 
 	}
@@ -72,16 +71,13 @@ function all_in_one_invite_codes_add_action_buttons( $actions, $post ) {
 add_filter( 'post_row_actions', 'all_in_one_invite_codes_add_action_buttons', 10, 2 );
 
 
-
-
-
 function tk_invite_codes_columns( $columns, $post_id = false ) {
 	unset( $columns['date'] );
 	unset( $columns['title'] );
 
-	$columns['code']  = __( 'Code', 'all-in-one-invite-codes' );
-	$columns['status']  = __( 'Status', 'all-in-one-invite-codes' );
-	$columns['email'] = __( 'eMail', 'all-in-one-invite-codes' );
+	$columns['code']           = __( 'Code', 'all-in-one-invite-codes' );
+	$columns['status']         = __( 'Status', 'all-in-one-invite-codes' );
+	$columns['email']          = __( 'eMail', 'all-in-one-invite-codes' );
 	$columns['generate_codes'] = __( 'Generate new codes after account activation', 'all-in-one-invite-codes' );
 
 	return $columns;
@@ -105,8 +101,8 @@ function custom_tk_invite_codes_columns( $columns, $post_id = false ) {
 					$status = __( 'Disabled', 'all-in-one-invite-codes' );
 					break;
 				case 'used' :
-				    $status = __( 'Used', 'all-in-one-invite-codes' );
-				break;
+					$status = __( 'Used', 'all-in-one-invite-codes' );
+					break;
 
 			}
 
@@ -159,7 +155,7 @@ function all_in_one_invite_codes_hide_publishing_actions() {
             }
 
             #minor-publishing-actions {
-                display:none;
+                display: none;
             }
 
         </style>
@@ -171,15 +167,15 @@ function all_in_one_invite_codes_hide_publishing_actions() {
                 jQuery('body').find('.wp-heading-inline').remove();
 
 
-                <?php
-	            $status = get_post_meta( $post->ID, 'tk_all_in_one_invite_code_status', true );
+				<?php
+				$status = get_post_meta( $post->ID, 'tk_all_in_one_invite_code_status', true );
 
 
-	            if ( $status == 'disabled' ) {?>
-                    jQuery('body').find('.postbox-container h2').text('Disabled');
-                    jQuery('body').find('#publish').remove();
-                    jQuery("#post :input").prop("disabled", true);
-                <?php } ?>
+				if ( $status == 'disabled' ) {?>
+                jQuery('body').find('.postbox-container h2').text('Disabled');
+                jQuery('body').find('#publish').remove();
+                jQuery("#post :input").prop("disabled", true);
+				<?php } ?>
 
             });
         </script>
@@ -203,20 +199,23 @@ function all_in_one_invite_codes_add_button_to_submit_box() {
 		return;
 	}
 
-	if( get_post_status() != 'publish'){
+	if ( get_post_status() != 'publish' ) {
 		return;
-    }
+	}
 	?>
 
     <div id="all-in-one-invite-codes-actions" class="misc-pub-section">
-        <p><a href="#" data-post_id="<?php echo $post->ID ?>" id="all_in_one_disable_invite_code" class="button button-large bf_button_action">Disable This Invite Code</a></p>
-        <p><a href="#" data-post_id="<?php echo $post->ID ?>" id="all_in_one_resent_invite_code" class="button button-large bf_button_action">Resent Invitation Mail</a></p>
+        <p><a href="#" data-post_id="<?php echo $post->ID ?>" id="all_in_one_disable_invite_code"
+              class="button button-large bf_button_action">Disable This Invite Code</a></p>
+        <p><a href="#" data-post_id="<?php echo $post->ID ?>" id="all_in_one_resent_invite_code"
+              class="button button-large bf_button_action">Resent Invitation Mail</a></p>
         <div class="clear"></div>
     </div>
 
 	<?php
 
 }
+
 add_action( 'post_submitbox_misc_actions', 'all_in_one_invite_codes_add_button_to_submit_box' );
 
 
@@ -273,9 +272,8 @@ function all_in_one_invite_codes_render_metabox() {
 	$all_in_one_invite_codes_options = wp_parse_args( $all_in_one_invite_codes_options, $all_in_one_invite_codes_options_defaults );
 
 
-
-	$email          = isset($all_in_one_invite_codes_options['email']) ? $all_in_one_invite_codes_options['email'] : '';
-	$generate_codes = isset($all_in_one_invite_codes_options['generate_codes']) ? $all_in_one_invite_codes_options['generate_codes'] : '';
+	$email          = isset( $all_in_one_invite_codes_options['email'] ) ? $all_in_one_invite_codes_options['email'] : '';
+	$generate_codes = isset( $all_in_one_invite_codes_options['generate_codes'] ) ? $all_in_one_invite_codes_options['generate_codes'] : '';
 
 	?>
 
@@ -289,7 +287,7 @@ function all_in_one_invite_codes_render_metabox() {
             >
 
             <label for="all_in_one_invite_codes_options_email">
-				<b><?php _e( 'Assign to specific email', 'all_in_one_invite_codes' ); ?></b>
+                <b><?php _e( 'Assign to specific email', 'all_in_one_invite_codes' ); ?></b>
                 <p><?php _e( 'Restrict usage of this invite code for a specific email address. Leave blank if you want to make this invite code public accessible for any registration.', 'all_in_one_invite_codes' ); ?></p>
             </label>
 
@@ -304,7 +302,7 @@ function all_in_one_invite_codes_render_metabox() {
         </div>
         <div>
             <label for="all_in_one_invite_codes_options_email">
-		        <b><?php _e( 'Generate new Invite Codes after account activation', 'all_in_one_invite_codes' ); ?></b>
+                <b><?php _e( 'Generate new Invite Codes after account activation', 'all_in_one_invite_codes' ); ?></b>
                 <p><?php _e( 'Enter a number to generate new invite codes if this invite code got used.', 'all_in_one_invite_codes' ); ?></p>
             </label>
             <p>
@@ -386,21 +384,4 @@ function all_in_one_invite_codes_save_code( $post_id, $post ) {
 }
 
 add_action( 'save_post', 'all_in_one_invite_codes_save_code', 1, 2 );
-
-function all_in_one_invite_codes_md5( $post_id = false ) {
-	global $post;
-
-	if ( ! $post_id ) {
-		$post_id = $post->ID;
-	}
-
-	$md5 = get_post_meta( $post_id, 'tk_all_in_one_invite_code', true );
-
-	if ( ! $md5 ) {
-		$md5 = substr( md5( time() * rand() ), 0, 24 );
-	}
-
-	return $md5;
-}
-
 

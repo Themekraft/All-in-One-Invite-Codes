@@ -41,7 +41,7 @@ function all_in_one_invite_codes_settings_page() { ?>
 function all_in_one_invite_codes_admin_tabs( $current = 'general' ) {
 	$tabs = array( 'general' => 'General Settings' );
 
-	$tabs          = apply_filters( 'all_in_one_invite_codes_admin_tabs', $tabs );
+	$tabs         = apply_filters( 'all_in_one_invite_codes_admin_tabs', $tabs );
 	$tabs['mail'] = 'Mail Templates';
 
 
@@ -61,7 +61,7 @@ function all_in_one_invite_codes_register_option() {
 	// General Settings
 	register_setting( 'all_in_one_invite_codes_general', 'all_in_one_invite_codes_general', 'all_in_one_invite_codes_default_sanitize' );
 
-    // Mail Templates
+	// Mail Templates
 	register_setting( 'all_in_one_invite_codes_mail_templates', 'all_in_one_invite_codes_mail_templates', 'all_in_one_invite_codes_default_sanitize' );
 
 }
@@ -105,8 +105,8 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 			switch ( $tab ) {
 				case 'general' :
 					$all_in_one_invite_codes_general = get_option( 'all_in_one_invite_codes_general' );
-					print_r($all_in_one_invite_codes_general);
-                    ?>
+					print_r( $all_in_one_invite_codes_general );
+					?>
                     <div class="metabox-holder">
                         <div class="postbox all_in_one_invite_codes-metabox">
 
@@ -152,9 +152,9 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 					break;
 				case 'mail' :
 
-                    $all_in_one_invite_codes_mail_templates = get_option( 'all_in_one_invite_codes_mail_templates' );
-                    print_r($all_in_one_invite_codes_mail_templates);
-                    ?>
+					$all_in_one_invite_codes_mail_templates = get_option( 'all_in_one_invite_codes_mail_templates' );
+					print_r( $all_in_one_invite_codes_mail_templates );
+					?>
                     <div class="metabox-holder">
                         <div class="postbox all_in_one_invite_codes-metabox">
 
@@ -181,7 +181,8 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 												<?php _e( 'Tab 1', 'all_in_one_invite_codes' ); ?>
                                             </th>
                                             <td>
-                                                <label for="all_in_one_invite_codes_mail_templates"><p>Registration Form</p>
+                                                <label for="all_in_one_invite_codes_mail_templates"><p>Registration
+                                                        Form</p>
                                                 </label>
                                                 <textarea cols="70" rows="5" id="all_in_one_invite_codes_mail_templates"
                                                           name="all_in_one_invite_codes_mail_templates[first_invite]"><?php echo empty( $all_in_one_invite_codes_mail_templates['first_invite'] ) ? '' : $all_in_one_invite_codes_mail_templates['first_invite']; ?></textarea>
@@ -211,66 +212,5 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 }
 
 function all_in_one_invite_codes_settings_page_sidebar() {
-	echo 'hatte';
-}
-
-/**
- * Process a settings import from a json file
- */
-function all_in_one_invite_codes_process_settings_import() {
-	if ( empty( $_POST['all_in_one_invite_codes_action'] ) || 'import_settings' != $_POST['all_in_one_invite_codes_action'] ) {
-		return false;
-	}
-	if ( ! wp_verify_nonce( $_POST['all_in_one_invite_codes_import_nonce'], 'all_in_one_invite_codes_import_nonce' ) ) {
-		return false;
-	}
-	if ( ! current_user_can( 'manage_options' ) ) {
-		return false;
-	}
-
-	$name      = explode( '.', $_FILES['import_file']['name'] );
-	$extension = end( $name );
-
-	if ( $extension != 'json' ) {
-		wp_die( __( 'Please upload a valid .json file' ) );
-	}
-
-	$import_file = $_FILES['import_file']['tmp_name'];
-	if ( empty( $import_file ) ) {
-		wp_die( __( 'Please upload a file to import' ) );
-	}
-	// Retrieve the settings from the file and convert the json object to an array.
-	$settings = json_decode( file_get_contents( $import_file ), true );
-
-	$form_id = all_in_one_invite_codes_create_form_from_json( $settings );
-
-	wp_safe_redirect( admin_url( 'post.php?post=' . $form_id . '&action=edit' ) );
-	exit;
-}
-
-add_action( 'admin_init', 'all_in_one_invite_codes_process_settings_import' );
-
-
-function all_in_one_invite_codes_create_form_from_json( $json_array ) {
-
-	$bf_forms_args = array(
-		'post_title'  => $json_array['name'],
-		'post_type'   => 'all_in_one_invite_codes',
-		'post_status' => 'publish',
-	);
-
-	// Insert the new form
-	$post_id  = wp_insert_post( $bf_forms_args, true );
-	$the_post = get_post( $post_id );
-
-	$json_array['slug'] = $the_post->post_name;
-
-	update_post_meta( $post_id, '_all_in_one_invite_codes_options', $json_array );
-
-	if ( $post_id ) {
-		all_in_one_invite_codes_attached_page_rewrite_rules( true );
-	}
-
-	return $post_id;
-
+	echo '<p>Placeholder Text</p>';
 }

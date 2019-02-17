@@ -42,7 +42,7 @@ function all_in_one_invite_codes_send_invite_mail() {
 	}
 	$all_in_one_invite_codes_options = get_post_meta( $post_id, 'all_in_one_invite_codes_options', true );
 
-	if ( ! isset( $all_in_one_invite_codes_options['email'] ) || empty($all_in_one_invite_codes_options['email']) ) {
+	if ( ! isset( $all_in_one_invite_codes_options['email'] ) || empty( $all_in_one_invite_codes_options['email'] ) ) {
 		$json['error'] = __( 'This invite code does not below to any email address', 'all-in-one-invite-code' );
 		echo json_encode( $json );
 		die();
