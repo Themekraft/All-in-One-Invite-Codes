@@ -1,149 +1,276 @@
 <?php
-/**
- * @internal never define functions inside callbacks.
- * these functions could be run multiple times; this would result in a fatal error.
- */
 
-/**
- * custom option and settings
- */
-function wporg_settings_init() {
-	// register a new setting for "wporg" page
-	register_setting( 'wporg', 'wporg_options' );
-
-	// register a new section in the "wporg" page
-	add_settings_section(
-		'wporg_section_developers',
-		__( 'The Matrix has you.', 'wporg' ),
-		'wporg_section_developers_cb',
-		'wporg'
-	);
-
-	// register a new field in the "wporg_section_developers" section, inside the "wporg" page
-	add_settings_field(
-		'wporg_field_pill', // as of WP 4.6 this value is used only internally
-		// use $args' label_for to populate the id inside the callback
-		__( 'Pill', 'wporg' ),
-		'wporg_field_pill_cb',
-		'wporg',
-		'wporg_section_developers',
-		[
-			'label_for'         => 'wporg_field_pill',
-			'class'             => 'wporg_row',
-			'wporg_custom_data' => 'custom',
-		]
-	);
+//
+// Add the Settings Page to the All in One Invite Codes Menu
+//
+function all_in_one_invite_codes_settings_menu() {
+	add_submenu_page( 'edit.php?post_type=tk_invite_codes', __( 'All in One Invite Codes Settings', 'all_in_one_invite_codes' ), __( 'Settings', 'all_in_one_invite_codes' ), 'manage_options', 'all_in_one_invite_codes_settings', 'all_in_one_invite_codes_settings_page' );
 }
 
-/**
- * register our wporg_settings_init to the admin_init action hook
- */
-add_action( 'admin_init', 'wporg_settings_init' );
+add_action( 'admin_menu', 'all_in_one_invite_codes_settings_menu' );
 
-/**
- * custom option and settings:
- * callback functions
- */
+//
+// Settings Page Content
+//
+function all_in_one_invite_codes_settings_page() { ?>
 
-// developers section cb
+    <div id="post" class="wrap">
 
-// section callbacks can accept an $args parameter, which is an array.
-// $args have the following keys defined: title, id, callback.
-// the values are defined at the add_settings_section() function.
-function wporg_section_developers_cb( $args ) {
-	?>
-    <p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Follow the white rabbit.', 'wporg' ); ?></p>
+        <div id="poststuff">
+            <div id="post-body" class="metabox-holder columns-2">
+
+                <div id="postbox-container-1" class="postbox-container">
+					<?php all_in_one_invite_codes_settings_page_sidebar(); ?>
+                </div>
+                <div id="postbox-container-2" class="postbox-container">
+					<?php all_in_one_invite_codes_settings_page_tabs_content(); ?>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- .wrap -->
 	<?php
 }
 
-// pill field cb
+//
+// Settings Tabs Navigation
+//
+/**
+ * @param string $current
+ */
+function all_in_one_invite_codes_admin_tabs( $current = 'general' ) {
+	$tabs = array( 'general' => 'General Settings' );
 
-// field callbacks can accept an $args parameter, which is an array.
-// $args is defined at the add_settings_field() function.
-// wordpress has magic interaction with the following keys: label_for, class.
-// the "label_for" key value is used for the "for" attribute of the <label>.
-// the "class" key value is used for the "class" attribute of the <tr> containing the field.
-// you can add custom key value pairs to be used inside your callbacks.
-function wporg_field_pill_cb( $args ) {
-	// get the value of the setting we've registered with register_setting()
-	$options = get_option( 'wporg_options' );
-	// output the field
-	?>
-    <select id="<?php echo esc_attr( $args['label_for'] ); ?>"
-            data-custom="<?php echo esc_attr( $args['wporg_custom_data'] ); ?>"
-            name="wporg_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
-    >
-        <option value="red" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], 'red', false ) ) : ( '' ); ?>>
-			<?php esc_html_e( 'red pill', 'wporg' ); ?>
-        </option>
-        <option value="blue" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], 'blue', false ) ) : ( '' ); ?>>
-			<?php esc_html_e( 'blue pill', 'wporg' ); ?>
-        </option>
-    </select>
-    <p class="description">
-		<?php esc_html_e( 'You take the blue pill and the story ends. You wake in your bed and you believe whatever you want to believe.', 'wporg' ); ?>
-    </p>
-    <p class="description">
-		<?php esc_html_e( 'You take the red pill and you stay in Wonderland and I show you how deep the rabbit-hole goes.', 'wporg' ); ?>
-    </p>
+	$tabs          = apply_filters( 'all_in_one_invite_codes_admin_tabs', $tabs );
+	$tabs['mail'] = 'Mail Templates';
+
+
+	echo '<h2 class="nav-tab-wrapper" style="padding-bottom: 0;">';
+	foreach ( $tabs as $tab => $name ) {
+		$class = ( $tab == $current ) ? ' nav-tab-active' : '';
+		echo "<a class='nav-tab$class' href='edit.php?post_type=tk_invite_codes&page=all_in_one_invite_codes_settings&tab=$tab'>$name</a>";
+	}
+	echo '</h2>';
+}
+
+//
+// Register Settings Options
+//
+function all_in_one_invite_codes_register_option() {
+
+	// General Settings
+	register_setting( 'all_in_one_invite_codes_general', 'all_in_one_invite_codes_general', 'all_in_one_invite_codes_default_sanitize' );
+
+    // Mail Templates
+	register_setting( 'all_in_one_invite_codes_mail_templates', 'all_in_one_invite_codes_mail_templates', 'all_in_one_invite_codes_default_sanitize' );
+
+}
+
+add_action( 'admin_init', 'all_in_one_invite_codes_register_option' );
+
+/**
+ * @param $new
+ *
+ * @return mixed
+ */
+function all_in_one_invite_codes_default_sanitize( $new ) {
+	return $new;
+}
+
+function all_in_one_invite_codes_settings_page_tabs_content() {
+	global $pagenow, $all_in_one_invite_codes; ?>
+    <div id="poststuff">
+
+		<?php
+
+		// Display the Update Message
+		if ( isset( $_GET['updated'] ) && 'true' == esc_attr( $_GET['updated'] ) ) {
+			echo '<div class="updated" ><p>All in One Invite Codes...</p></div>';
+		}
+
+		if ( isset ( $_GET['tab'] ) ) {
+			all_in_one_invite_codes_admin_tabs( $_GET['tab'] );
+		} else {
+			all_in_one_invite_codes_admin_tabs( 'general' );
+		}
+
+		if ( $pagenow == 'edit.php' && $_GET['page'] == 'all_in_one_invite_codes_settings' ) {
+
+			if ( isset ( $_GET['tab'] ) ) {
+				$tab = $_GET['tab'];
+			} else {
+				$tab = 'general';
+			}
+
+			switch ( $tab ) {
+				case 'general' :
+					$all_in_one_invite_codes_general = get_option( 'all_in_one_invite_codes_general' );
+					print_r($all_in_one_invite_codes_general);
+                    ?>
+                    <div class="metabox-holder">
+                        <div class="postbox all_in_one_invite_codes-metabox">
+
+                            <div class="inside">
+
+                                <form method="post" action="options.php">
+
+									<?php settings_fields( 'all_in_one_invite_codes_general' ); ?>
+
+
+                                    <table class="form-table">
+                                        <tbody>
+
+                                        <!-- Registration Settings -->
+                                        <tr>
+                                            <th colspan="2">
+                                                <h3>
+                                                    <span><?php _e( 'Tab 1', 'all_in_one_invite_codes' ); ?></span>
+                                                </h3>
+                                            </th>
+                                        </tr>
+                                        <tr valign="top">
+                                            <th scope="row" valign="top">
+												<?php _e( 'Tab 1', 'all_in_one_invite_codes' ); ?>
+                                            </th>
+                                            <td>
+                                                <label for="tk_aio_ic_default_registration"><p>Registration Form</p>
+                                                </label>
+                                                <textarea cols="70" rows="5" id="tk_aio_ic_default_registration"
+                                                          name="all_in_one_invite_codes_general[default_registration]"><?php echo empty( $all_in_one_invite_codes_general['default_registration'] ) ? '' : $all_in_one_invite_codes_general['default_registration']; ?></textarea>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+									<?php submit_button(); ?>
+
+                                </form>
+                            </div><!-- .inside -->
+                        </div><!-- .postbox -->
+                    </div><!-- .metabox-holder -->
+					<?php
+					break;
+				case 'mail' :
+
+                    $all_in_one_invite_codes_mail_templates = get_option( 'all_in_one_invite_codes_mail_templates' );
+                    print_r($all_in_one_invite_codes_mail_templates);
+                    ?>
+                    <div class="metabox-holder">
+                        <div class="postbox all_in_one_invite_codes-metabox">
+
+                            <div class="inside">
+
+                                <form method="post" action="options.php">
+
+									<?php settings_fields( 'all_in_one_invite_codes_mail_templates' ); ?>
+
+
+                                    <table class="form-table">
+                                        <tbody>
+
+                                        <!-- Registration Settings -->
+                                        <tr>
+                                            <th colspan="2">
+                                                <h3>
+                                                    <span><?php _e( 'Tab 2', 'all_in_one_invite_codes' ); ?></span>
+                                                </h3>
+                                            </th>
+                                        </tr>
+                                        <tr valign="top">
+                                            <th scope="row" valign="top">
+												<?php _e( 'Tab 1', 'all_in_one_invite_codes' ); ?>
+                                            </th>
+                                            <td>
+                                                <label for="all_in_one_invite_codes_mail_templates"><p>Registration Form</p>
+                                                </label>
+                                                <textarea cols="70" rows="5" id="all_in_one_invite_codes_mail_templates"
+                                                          name="all_in_one_invite_codes_mail_templates[first_invite]"><?php echo empty( $all_in_one_invite_codes_mail_templates['first_invite'] ) ? '' : $all_in_one_invite_codes_mail_templates['first_invite']; ?></textarea>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+									<?php submit_button(); ?>
+
+                                </form>
+                            </div><!-- .inside -->
+                        </div><!-- .postbox -->
+                    </div><!-- .metabox-holder -->
+					<?php
+					break;
+
+				default:
+					do_action( 'all_in_one_invite_codes_settings_page_tab', $tab );
+
+					break;
+			}
+		}
+		?>
+    </div> <!-- #poststuff -->
 	<?php
 }
 
-/**
- * top level menu
- */
-function wporg_options_page() {
-	// add top level menu page
-	add_submenu_page(
-	        'edit.php?post_type=tk_invite_codes',
-		'WPOrg',
-		'WPOrg Options',
-		'manage_options',
-		'wporg',
-		'wporg_options_page_html'
-	);
+function all_in_one_invite_codes_settings_page_sidebar() {
+	echo 'hatte';
 }
 
 /**
- * register our wporg_options_page to the admin_menu action hook
+ * Process a settings import from a json file
  */
-add_action( 'admin_menu', 'wporg_options_page' );
-
-/**
- * top level menu:
- * callback functions
- */
-function wporg_options_page_html() {
-	// check user capabilities
+function all_in_one_invite_codes_process_settings_import() {
+	if ( empty( $_POST['all_in_one_invite_codes_action'] ) || 'import_settings' != $_POST['all_in_one_invite_codes_action'] ) {
+		return false;
+	}
+	if ( ! wp_verify_nonce( $_POST['all_in_one_invite_codes_import_nonce'], 'all_in_one_invite_codes_import_nonce' ) ) {
+		return false;
+	}
 	if ( ! current_user_can( 'manage_options' ) ) {
-		return;
+		return false;
 	}
 
-	// add error/update messages
+	$name      = explode( '.', $_FILES['import_file']['name'] );
+	$extension = end( $name );
 
-	// check if the user have submitted the settings
-	// wordpress will add the "settings-updated" $_GET parameter to the url
-	if ( isset( $_GET['settings-updated'] ) ) {
-		// add settings saved message with the class of "updated"
-		add_settings_error( 'wporg_messages', 'wporg_message', __( 'Settings Saved', 'wporg' ), 'updated' );
+	if ( $extension != 'json' ) {
+		wp_die( __( 'Please upload a valid .json file' ) );
 	}
 
-	// show error/update messages
-	settings_errors( 'wporg_messages' );
-	?>
-    <div class="wrap">
-        <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-        <form action="options.php" method="post">
-			<?php
-			// output security fields for the registered setting "wporg"
-			settings_fields( 'wporg' );
-			// output setting sections and their fields
-			// (sections are registered for "wporg", each field is registered to a specific section)
-			do_settings_sections( 'wporg' );
-			// output save settings button
-			submit_button( 'Save Settings' );
-			?>
-        </form>
-    </div>
-	<?php
+	$import_file = $_FILES['import_file']['tmp_name'];
+	if ( empty( $import_file ) ) {
+		wp_die( __( 'Please upload a file to import' ) );
+	}
+	// Retrieve the settings from the file and convert the json object to an array.
+	$settings = json_decode( file_get_contents( $import_file ), true );
+
+	$form_id = all_in_one_invite_codes_create_form_from_json( $settings );
+
+	wp_safe_redirect( admin_url( 'post.php?post=' . $form_id . '&action=edit' ) );
+	exit;
+}
+
+add_action( 'admin_init', 'all_in_one_invite_codes_process_settings_import' );
+
+
+function all_in_one_invite_codes_create_form_from_json( $json_array ) {
+
+	$bf_forms_args = array(
+		'post_title'  => $json_array['name'],
+		'post_type'   => 'all_in_one_invite_codes',
+		'post_status' => 'publish',
+	);
+
+	// Insert the new form
+	$post_id  = wp_insert_post( $bf_forms_args, true );
+	$the_post = get_post( $post_id );
+
+	$json_array['slug'] = $the_post->post_name;
+
+	update_post_meta( $post_id, '_all_in_one_invite_codes_options', $json_array );
+
+	if ( $post_id ) {
+		all_in_one_invite_codes_attached_page_rewrite_rules( true );
+	}
+
+	return $post_id;
+
 }

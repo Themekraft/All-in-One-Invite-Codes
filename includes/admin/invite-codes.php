@@ -167,7 +167,7 @@ function all_in_one_invite_codes_hide_publishing_actions() {
 
 }
 
-add_action( 'admin_head-edit.php', 'all_in_one_invite_codes_hide_publishing_actions' );
+//add_action( 'admin_head-edit.php', 'all_in_one_invite_codes_hide_publishing_actions' );
 add_action( 'admin_head-post.php', 'all_in_one_invite_codes_hide_publishing_actions' );
 add_action( 'admin_head-post-new.php', 'all_in_one_invite_codes_hide_publishing_actions' );
 
