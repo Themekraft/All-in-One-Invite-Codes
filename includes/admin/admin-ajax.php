@@ -19,7 +19,7 @@ function all_in_one_invite_codes_change_code_status() {
 	$json['refresh'] = 'true';
 	update_post_meta( $post_id, 'tk_all_in_one_invite_code_status', 'disabled' );
 
-	echo $post_id;
+	echo json_encode( $json );
 	die();
 
 }
@@ -40,10 +40,15 @@ function all_in_one_invite_codes_send_invite_mail() {
 		echo json_encode( $json );
 		die();
 	}
+	$all_in_one_invite_codes_options = get_post_meta( $post_id, 'all_in_one_invite_codes_options', true );
+
+	if ( ! isset( $all_in_one_invite_codes_options['email'] ) || empty($all_in_one_invite_codes_options['email']) ) {
+		$json['error'] = __( 'This invite code does not below to any email address', 'all-in-one-invite-code' );
+		echo json_encode( $json );
+		die();
+	}
+
 	$json['refresh'] = 'true';
-	update_post_meta( $post_id, 'tk_all_in_one_invite_code_status', 'disabled' );
-
-	echo $post_id;
+	echo json_encode( $json );
 	die();
-
 }

@@ -104,6 +104,10 @@ function custom_tk_invite_codes_columns( $columns, $post_id = false ) {
 				case 'disabled' :
 					$status = __( 'Disabled', 'all-in-one-invite-codes' );
 					break;
+				case 'used' :
+				    $status = __( 'Used', 'all-in-one-invite-codes' );
+				break;
+
 			}
 
 			echo empty( $status ) ? __( 'Active', 'all-in-one-invite-codes' ) : $status;
@@ -167,10 +171,15 @@ function all_in_one_invite_codes_hide_publishing_actions() {
                 jQuery('body').find('.wp-heading-inline').remove();
 
 
-                jQuery('body').find('.postbox-container h2').text('Disabled');
-                jQuery('body').find('#publish').remove();
-                jQuery("#post :input").prop("disabled", true);
+                <?php
+	            $status = get_post_meta( $post->ID, 'tk_all_in_one_invite_code_status', true );
 
+
+	            if ( $status == 'disabled' ) {?>
+                    jQuery('body').find('.postbox-container h2').text('Disabled');
+                    jQuery('body').find('#publish').remove();
+                    jQuery("#post :input").prop("disabled", true);
+                <?php } ?>
 
             });
         </script>

@@ -51,7 +51,7 @@ jQuery(document).ready(function (jQuery) {
                 if (data['error']) {
                     alert(data['error']);
                 } else {
-                    // location.reload();
+                    location.reload();
                 }
 
             },
