@@ -198,7 +198,16 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		 * @param $hook_suffix
 		 */
 		function admin_js( $hook_suffix ) {
-
+			global $post;
+			if (
+				( isset( $post ) && $post->post_type == 'tk_invite_codes' && isset( $_GET['action'] ) && $_GET['action'] == 'edit'
+				 || isset( $post ) && $post->post_type == 'tk_invite_codes' && $hook_suffix == 'post-new.php' )
+				|| isset( $post ) && $post->post_type == 'tk_invite_codes' && $hook_suffix == 'edit.php'
+				|| $hook_suffix == 'tk_invite_codes_settings'
+			) {
+				wp_register_script( 'all-in-one-invite_codes-admin-js', plugins_url( 'assets/admin/js/admin.js', __FILE__ ), array(), $this->version );
+				wp_enqueue_script( 'all-in-one-invite_codes-admin-js' );
+			}
 		}
 
 		/**
@@ -269,18 +278,18 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 			require_once dirname( __FILE__ ) . '/includes/resources/freemius/start.php';
 
 			$all_in_one_invite_codes_core_fs = fs_dynamic_init( array(
-				'id'              => '3322',
-				'slug'            => 'all-in-one-invite-codes',
-				'type'            => 'plugin',
-				'public_key'      => 'pk_955be38b0c4d2a2914a9f4bc98355',
-				'is_premium'      => false,
-				'has_addons'      => true,
-				'has_paid_plans'  => false,
-				'menu'            => array(
-					'slug'       => 'edit.php?post_type=tk_invite_codes',
-					'support'    => false,
-					'contact'    => true,
-					'addons'     => true,
+				'id'             => '3322',
+				'slug'           => 'all-in-one-invite-codes',
+				'type'           => 'plugin',
+				'public_key'     => 'pk_955be38b0c4d2a2914a9f4bc98355',
+				'is_premium'     => false,
+				'has_addons'     => true,
+				'has_paid_plans' => false,
+				'menu'           => array(
+					'slug'    => 'edit.php?post_type=tk_invite_codes',
+					'support' => false,
+					'contact' => true,
+					'addons'  => true,
 				),
 			) );
 		}

@@ -41,8 +41,42 @@ add_action( 'init', 'all_in_one_invite_codes_register_post_type' );
 
 
 
+/**
+ *
+ * Add the actions to list table
+ *
+ * @param $actions
+ * @param $post
+ *
+ * @return mixed
+ */
+function all_in_one_invite_codes_add_action_buttons( $actions, $post ) {
+
+	if ( get_post_type() === 'tk_invite_codes' ) {
+
+		$url = add_query_arg(
+			array(
+				'post_id'   => $post->ID,
+				'my_action' => 'export_form',
+			)
+		);
+
+		unset( $actions['inline hide-if-no-js'] );
+
+		$base = home_url();
+
+		$preview_page_id = get_option( 'buddyforms_preview_page', true );
+
+		$actions['resent']       = '<a href="#" id="all_in_one_disable_invite_code">Disable</a>';
+		$actions['disable']  = '<a href="#" id="all_in_one_resent_invite_code">Resent Invitation</a>';
 
 
+	}
+
+	return $actions;
+}
+
+add_filter( 'post_row_actions', 'all_in_one_invite_codes_add_action_buttons', 10, 2 );
 
 
 
@@ -52,39 +86,34 @@ function tk_invite_codes_columns( $columns, $post_id = false ) {
 	unset( $columns['date'] );
 	unset( $columns['title'] );
 
-	$columns['code'] = __( 'Code', 'buddyforms' );
-	$columns['used']      = __( 'Usage', 'buddyforms' );
-	$columns['email']          = __( 'eMail', 'buddyforms' );
-
-	// $post      = get_post( $post_id );
-
-	switch ( $columns ) {
-		case 'code' :
-			echo get_post_meta( $post_id, 'tk_all_in_one_invite_code', true );
-			break;
-	}
+	$columns['code']  = __( 'Code', 'all-in-one-invite-codes' );
+	$columns['status']  = __( 'Status', 'all-in-one-invite-codes' );
+	$columns['email'] = __( 'eMail', 'all-in-one-invite-codes' );
 
 	return $columns;
 }
+
 add_action( 'manage_tk_invite_codes_posts_columns', 'tk_invite_codes_columns', 10, 2 );
 function custom_tk_invite_codes_columns( $columns, $post_id = false ) {
+
+	$all_in_one_invite_codes_options = get_post_meta( $post_id, 'all_in_one_invite_codes_options', true );
+
+
 	switch ( $columns ) {
 		case 'code' :
 			echo get_post_meta( $post_id, 'tk_all_in_one_invite_code', true );
 			break;
+		case 'status' :
+			echo empty( get_post_meta( $post_id, 'tk_all_in_one_invite_code_status', true ) ) ? __( 'Active', 'all-in-one-invite-codes' ) : __( 'Used', 'all-in-one-invite-codes' );;
+			break;
+		case 'email' :
+			echo isset( $all_in_one_invite_codes_options['email'] ) ? $all_in_one_invite_codes_options['email'] : '--';
+			break;
 	}
+
 }
 
 add_action( 'manage_tk_invite_codes_posts_custom_column', 'custom_tk_invite_codes_columns', 10, 2 );
-
-
-
-
-
-
-
-
-
 
 
 /**
@@ -117,8 +146,13 @@ function all_in_one_invite_codes_hide_publishing_actions() {
             }
 
             #postbox-container-1, #postbox-container-2 {
-                margin-top: 50px ;
+                margin-top: 50px;
             }
+
+            #minor-publishing-actions {
+                display:none;
+            }
+
         </style>
         <script>
             jQuery(document).ready(function (jQuery) {
@@ -128,15 +162,14 @@ function all_in_one_invite_codes_hide_publishing_actions() {
                 jQuery('body').find('.wp-heading-inline').remove();
             });
         </script>
-			<?php
-		}
+		<?php
+	}
 
 }
 
 add_action( 'admin_head-edit.php', 'all_in_one_invite_codes_hide_publishing_actions' );
 add_action( 'admin_head-post.php', 'all_in_one_invite_codes_hide_publishing_actions' );
 add_action( 'admin_head-post-new.php', 'all_in_one_invite_codes_hide_publishing_actions' );
-
 
 
 //
@@ -152,8 +185,8 @@ function all_in_one_invite_codes_add_button_to_submit_box() {
 	?>
 
     <div id="all-in-one-invite-codes-actions" class="misc-pub-section">
-        <p><a href="#" class="button button-large bf_button_action">Disable This Invite Code</a></p>
-        <p><a href="#" class="button button-large bf_button_action">Resent Invitation Mail</a></p>
+        <p><a href="#" id="all_in_one_disable_invite_code" class="button button-large bf_button_action">Disable This Invite Code</a></p>
+        <p><a href="#" id="all_in_one_resent_invite_code" class="button button-large bf_button_action">Resent Invitation Mail</a></p>
         <div class="clear"></div>
     </div>
 
@@ -168,22 +201,6 @@ function all_in_one_invite_codes_remove_slugdiv() {
 }
 
 add_action( 'admin_menu', 'all_in_one_invite_codes_remove_slugdiv' );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /**
@@ -226,7 +243,7 @@ function all_in_one_invite_codes_render_metabox() {
 
 	$all_in_one_invite_code = all_in_one_invite_codes_md5( $post->ID );
 
-	$all_in_one_invite_codes_options          = get_post_meta( $post->ID, 'all_in_one_invite_codes_options', true ); // Get the saved values
+	$all_in_one_invite_codes_options          = get_post_meta( $post->ID, 'all_in_one_invite_codes_options', true );
 	$all_in_one_invite_codes_options_defaults = all_in_one_invite_codes_options_defaults(); // Get the default values
 
 	$all_in_one_invite_codes_options = wp_parse_args( $all_in_one_invite_codes_options, $all_in_one_invite_codes_options_defaults );
