@@ -28,9 +28,6 @@ function all_in_one_invite_codes_send_invite(){
 	$body = all_in_one_invite_codes_inviten_email_replace_shortcode( $body, '[invite_link]', $invite_link );
 
 
-
-
-
 	$send = wp_mail( $to, $subject, $body, $headers );
 
 	if ( ! $send ) {
