@@ -76,9 +76,9 @@ function tk_invite_codes_columns( $columns, $post_id = false ) {
 	unset( $columns['title'] );
 
 	$columns['code']           = __( 'Code', 'all-in-one-invite-codes' );
-	$columns['status']         = __( 'Status', 'all-in-one-invite-codes' );
+	$columns['code_status']         = __( 'Status', 'all-in-one-invite-codes' );
 	$columns['email']          = __( 'eMail', 'all-in-one-invite-codes' );
-	$columns['parent']         = __( 'Parent', 'all-in-one-invite-codes' );
+	$columns['ode_parent']         = __( 'Parent', 'all-in-one-invite-codes' );
 	$columns['generate_codes'] = __( 'Generate new codes after account activation', 'all-in-one-invite-codes' );
 
 	return $columns;
@@ -94,7 +94,7 @@ function custom_tk_invite_codes_columns( $columns, $post_id = false ) {
 		case 'code' :
 			echo get_post_meta( $post_id, 'tk_all_in_one_invite_code', true );
 			break;
-		case 'status' :
+		case 'code_status' :
 			echo all_in_one_invite_codes_get_status( $post_id );
 			break;
 		case 'email' :
@@ -103,7 +103,7 @@ function custom_tk_invite_codes_columns( $columns, $post_id = false ) {
 		case 'generate_codes' :
 			echo isset( $all_in_one_invite_codes_options['generate_codes'] ) ? $all_in_one_invite_codes_options['generate_codes'] : '--';
 			break;
-		case 'parent' :
+		case 'ode_parent' :
 			echo wp_get_post_parent_id( $post_id );
 			break;
 	}
