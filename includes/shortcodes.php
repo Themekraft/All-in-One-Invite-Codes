@@ -1,6 +1,15 @@
 <?php
 
-function all_in_one_invite_codes_list_codes( $atts ) { ?>
+function all_in_one_invite_codes_list_codes( $atts ) {
+
+
+    if( !is_user_logged_in() ){
+        echo '<p>' . __( 'Please login to manage your invite codes.','all-in-one-invite-codes'). '</p>';
+        wp_login_form();
+        return;
+    }
+
+    ?>
 
     <script>
 
@@ -13,7 +22,7 @@ function all_in_one_invite_codes_list_codes( $atts ) { ?>
                 var subject = jQuery('#tk_all_in_one_invite_code_send_invite_subject').val();
                 var message_text = jQuery('#tk_all_in_one_invite_code_send_invite_message_text').val();
 
-
+alert(message_text );
                 if (!isEmail(to)) {
                     jQuery('#tk_all_in_one_invite_code_send_invite_to').css({
                         "border-color": "red",
@@ -139,11 +148,11 @@ function all_in_one_invite_codes_list_codes( $atts ) { ?>
         <div style="display: none" id="tk_all_in_one_invite_code_send_invite_form">
             <p>To: <input type="email" id="tk_all_in_one_invite_code_send_invite_to" value=""><span
                         id="tk_all_in_one_invite_code_send_invite_to_error"></span></p>
-            <p>Subject: <input type="text" name="tk_all_in_one_invite_code_send_invite_subject"
+            <p>Subject: <input type="text" id="tk_all_in_one_invite_code_send_invite_subject"
                                value="<?php echo empty( $all_in_one_invite_codes_mail_templates['subject'] ) ? '' : $all_in_one_invite_codes_mail_templates['subject']; ?>">
             </p>
             <p>Message Text:<textarea cols="70" rows="5"
-                                      name=tk_all_in_one_invite_code_send_invite_message_text"><?php echo empty( $all_in_one_invite_codes_mail_templates['message_text'] ) ? '' : $all_in_one_invite_codes_mail_templates['message_text']; ?></textarea>
+                                      id="tk_all_in_one_invite_code_send_invite_message_text"><?php echo empty( $all_in_one_invite_codes_mail_templates['message_text'] ) ? '' : $all_in_one_invite_codes_mail_templates['message_text']; ?></textarea>
             </p>
             <a href="#" data-send_code_id="0" id="tk_all_in_one_invite_code_send_invite_submit" class="button">Send</a>
         </div>
