@@ -31,12 +31,22 @@ function all_in_one_invite_codes_send_invite(){
 
 	$send = wp_mail( $to, $subject, $body, $headers );
 
+	$all_in_one_invite_codes_options = get_post_meta( $_POST['post_id'], 'all_in_one_invite_codes_options', true );
+
+	if( empty($all_in_one_invite_codes_options['email'])){
+		$all_in_one_invite_codes_options['email'] = $to;
+		update_post_meta( $_POST['post_id'], 'all_in_one_invite_codes_options', $all_in_one_invite_codes_options );
+	}
+
+
+
+
 	if ( ! $send ) {
-		$json['error'] = __( 'DDUsed or Disabled Invite Codes can not get changed.', 'all-in-one-invite-code' );
+		$json['error'] = __( 'Invite could not get send. please contact the Support.', 'all-in-one-invite-code' );
 		echo json_encode( $json );
 		die();
 	}
-	$json['message'] = __('DDDInvite send successfully', 'buddyforms');;
+	$json['message'] = __('Invite send successfully', 'buddyforms');;
 
 	echo json_encode( $json );
 	die();

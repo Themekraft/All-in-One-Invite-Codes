@@ -137,7 +137,6 @@ function all_in_one_invite_codes_list_codes( $atts ) {
 		endwhile;
 		echo '</ul>';
 
-
 		$all_in_one_invite_codes_mail_templates = get_option( 'all_in_one_invite_codes_mail_templates' )
 
 		?>
