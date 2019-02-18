@@ -172,6 +172,9 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 
 					$all_in_one_invite_codes_mail_templates = get_option( 'all_in_one_invite_codes_mail_templates' );
 					print_r( $all_in_one_invite_codes_mail_templates );
+
+
+					$message_text_default = __('You got an invite from the site [site_name].... [invite_link]' );
 					?>
                     <div class="metabox-holder">
                         <div class="postbox all_in_one_invite_codes-metabox">
@@ -185,25 +188,30 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 
                                     <table class="form-table">
                                         <tbody>
-
-                                        <!-- Registration Settings -->
                                         <tr>
                                             <th colspan="2">
                                                 <h3>
-                                                    <span><?php _e( 'Tab 2', 'all_in_one_invite_codes' ); ?></span>
+                                                    <span><?php _e( 'Invite eMail Settings', 'all_in_one_invite_codes' ); ?></span>
                                                 </h3>
                                             </th>
                                         </tr>
                                         <tr valign="top">
                                             <th scope="row" valign="top">
-												<?php _e( 'Tab 1', 'all_in_one_invite_codes' ); ?>
+		                                        <?php _e( 'Subject', 'all-in-one-invite-codes' ); ?>
                                             </th>
                                             <td>
-                                                <label for="all_in_one_invite_codes_mail_templates"><p>Registration
-                                                        Form</p>
+                                                <input type="text" name="all_in_one_invite_codes_mail_templates[subject]" id="all_in_one_invite_codes_mail_templates" value="<?php echo isset($all_in_one_invite_codes_mail_templates['subject']) ? $all_in_one_invite_codes_mail_templates['subject'] : ''; ?>">
+                                            </td>
+                                        </tr>
+                                        <tr valign="top">
+                                            <th scope="row" valign="top">
+												<?php _e( 'Message Text', 'all_in_one_invite_codes' ); ?>
+                                            </th>
+                                            <td>
+                                                <label for="all_in_one_invite_codes_mail_templates"><p>You can use Shortcodes to dynamically add data to the text.</p>
                                                 </label>
                                                 <textarea cols="70" rows="5" id="all_in_one_invite_codes_mail_templates"
-                                                          name="all_in_one_invite_codes_mail_templates[first_invite]"><?php echo empty( $all_in_one_invite_codes_mail_templates['first_invite'] ) ? '' : $all_in_one_invite_codes_mail_templates['first_invite']; ?></textarea>
+                                                          name="all_in_one_invite_codes_mail_templates[message_text]"><?php echo empty( $all_in_one_invite_codes_mail_templates['message_text'] ) ? $message_text_default : $all_in_one_invite_codes_mail_templates['message_text']; ?></textarea>
                                             </td>
                                         </tr>
                                         </tbody>

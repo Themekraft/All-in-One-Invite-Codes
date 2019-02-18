@@ -10,8 +10,6 @@ function all_in_one_invite_codes_list_codes( $atts ) {
 
         jQuery(document).ready(function (jQuery) {
             jQuery(document.body).on('click', '#tk_all_in_one_invie_code_send_invite', function () {
-;
-                alert('sad');
 
                 var mail_address = '';
 

@@ -42,3 +42,11 @@ function all_in_one_invite_codes_get_status( $post_id ){
 
 	return $status;
 }
+
+function all_in_one_invite_codes_inviten_email_replace_shortcode( $string, $shortcode, $value ) {
+	if ( strpos( $string, $shortcode ) >= 0 ) {
+		$string = str_replace( $shortcode, $value, $string );
+	}
+
+	return $string;
+}
