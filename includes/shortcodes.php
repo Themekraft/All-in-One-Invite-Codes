@@ -2,7 +2,6 @@
 
 function all_in_one_invite_codes_list_codes( $atts ) {
 
-
     if( !is_user_logged_in() ){
         echo '<p>' . __( 'Please login to manage your invite codes.','all-in-one-invite-codes'). '</p>';
         wp_login_form();
@@ -22,7 +21,6 @@ function all_in_one_invite_codes_list_codes( $atts ) {
                 var subject = jQuery('#tk_all_in_one_invite_code_send_invite_subject').val();
                 var message_text = jQuery('#tk_all_in_one_invite_code_send_invite_message_text').val();
 
-alert(message_text );
                 if (!isEmail(to)) {
                     jQuery('#tk_all_in_one_invite_code_send_invite_to').css({
                         "border-color": "red",
@@ -31,7 +29,6 @@ alert(message_text );
                     });
                     jQuery("#tk_all_in_one_invite_code_send_invite_to").focus();
                 }
-
 
                 jQuery.ajax({
                     type: 'POST',

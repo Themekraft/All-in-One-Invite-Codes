@@ -8,7 +8,7 @@ function all_in_one_invite_codesregister_form() {
 		return;
 	}
 
-	$tk_invite_code = ( ! empty( $_POST['tk_invite_code'] ) ) ? sanitize_text_field( $_POST['tk_invite_code'] ) : '';
+	$tk_invite_code = ( ! empty( $_GET['invite_code'] ) ) ? sanitize_text_field( $_GET['invite_code'] ) : '';
 
 	?>
     <p>
