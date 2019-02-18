@@ -78,7 +78,7 @@ function tk_invite_codes_columns( $columns, $post_id = false ) {
 	$columns['code']           = __( 'Code', 'all-in-one-invite-codes' );
 	$columns['status']         = __( 'Status', 'all-in-one-invite-codes' );
 	$columns['email']          = __( 'eMail', 'all-in-one-invite-codes' );
-	$columns['parent']          = __( 'Parent', 'all-in-one-invite-codes' );
+	$columns['parent']         = __( 'Parent', 'all-in-one-invite-codes' );
 	$columns['generate_codes'] = __( 'Generate new codes after account activation', 'all-in-one-invite-codes' );
 
 	return $columns;
@@ -95,19 +95,7 @@ function custom_tk_invite_codes_columns( $columns, $post_id = false ) {
 			echo get_post_meta( $post_id, 'tk_all_in_one_invite_code', true );
 			break;
 		case 'status' :
-			$status = get_post_meta( $post_id, 'tk_all_in_one_invite_code_status', true );
-
-			switch ( $status ) {
-				case 'disabled' :
-					$status = __( 'Disabled', 'all-in-one-invite-codes' );
-					break;
-				case 'used' :
-					$status = __( 'Used', 'all-in-one-invite-codes' );
-					break;
-
-			}
-
-			echo empty( $status ) ? __( 'Active', 'all-in-one-invite-codes' ) : $status;
+			echo all_in_one_invite_codes_get_status( $post_id );
 			break;
 		case 'email' :
 			echo isset( $all_in_one_invite_codes_options['email'] ) ? $all_in_one_invite_codes_options['email'] : '--';

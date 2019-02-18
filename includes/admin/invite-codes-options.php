@@ -36,8 +36,8 @@ function all_in_one_invite_codes_options_defaults() {
 	$all_in_one_invite_codes_general = get_option( 'all_in_one_invite_codes_general' );
 
 	return array(
-		'email' => '',
-        'generate_codes' => isset( $all_in_one_invite_codes_general['generate_codes_amount'] ) ? $all_in_one_invite_codes_general['generate_codes_amount'] : '',
+		'email'          => '',
+		'generate_codes' => isset( $all_in_one_invite_codes_general['generate_codes_amount'] ) ? $all_in_one_invite_codes_general['generate_codes_amount'] : '',
 	);
 }
 
@@ -62,46 +62,67 @@ function all_in_one_invite_codes_render_metabox() {
 
 	?>
 
-	<fieldset>
-		<div>
-			<input
-				type="hidden"
-				name="tk_all_in_one_invite_code"
-				id="tk_all_in_one_invite_code"
-				value="<?php echo esc_attr( $all_in_one_invite_code ); ?>"
-			>
+    <fieldset>
+        <div>
+            <input
+                    type="hidden"
+                    name="tk_all_in_one_invite_code"
+                    id="tk_all_in_one_invite_code"
+                    value="<?php echo esc_attr( $all_in_one_invite_code ); ?>"
+            >
 
-			<label for="all_in_one_invite_codes_options_email">
-				<b><?php _e( 'Assign to specific email', 'all_in_one_invite_codes' ); ?></b>
-				<p><?php _e( 'Restrict usage of this invite code for a specific email address. Leave blank if you want to make this invite code public accessible for any registration.', 'all_in_one_invite_codes' ); ?></p>
-			</label>
+            <label for="all_in_one_invite_codes_options_email">
+                <b><?php _e( 'Assign to specific email', 'all_in_one_invite_codes' ); ?></b>
+                <p><?php _e( 'Restrict usage of this invite code for a specific email address. Leave blank if you want to make this invite code public accessible for any registration.', 'all_in_one_invite_codes' ); ?></p>
+            </label>
 
-			<p> eMail: <input
-					type="email"
-					name="all_in_one_invite_codes_options[email]"
-					id="all_in_one_invite_codes_options_email"
-					value="<?php echo esc_attr( $email ); ?>"
-				>
-			</p>
+            <p> eMail: <input
+                        type="email"
+                        name="all_in_one_invite_codes_options[email]"
+                        id="all_in_one_invite_codes_options_email"
+                        value="<?php echo esc_attr( $email ); ?>"
+                >
+            </p>
 
-		</div>
-		<div>
-			<label for="all_in_one_invite_codes_options_email">
-				<b><?php _e( 'Generate new Invite Codes after account activation', 'all_in_one_invite_codes' ); ?></b>
-				<p><?php _e( 'Enter a number to generate new invite codes if this invite code got used.', 'all_in_one_invite_codes' ); ?></p>
-			</label>
-			<p>
-				Number: <input
-					type="number"
-					name="all_in_one_invite_codes_options[generate_codes]"
-					id="all_in_one_invite_codes_options_generate_codes"
-					value="<?php echo esc_attr( $generate_codes ); ?>"
-				>
-			</p>
-		</div>
-	</fieldset>
+        </div>
+        <div>
+            <label for="all_in_one_invite_codes_options_email">
+                <b><?php _e( 'Generate new Invite Codes after account activation', 'all_in_one_invite_codes' ); ?></b>
+                <p><?php _e( 'Enter a number to generate new invite codes if this invite code got used.', 'all_in_one_invite_codes' ); ?></p>
+            </label>
+            <p>
+                Number: <input
+                        type="number"
+                        name="all_in_one_invite_codes_options[generate_codes]"
+                        id="all_in_one_invite_codes_options_generate_codes"
+                        value="<?php echo esc_attr( $generate_codes ); ?>"
+                >
+            </p>
+        </div>
+    </fieldset>
+
 
 	<?php
+
+
+	$args = array(
+		'post_parent'    => $post->ID,
+		'posts_per_page' => - 1,
+		'post_type'      => 'tk_invite_codes', //you can use also 'any'
+	);
+
+	$the_query = new WP_Query( $args );
+
+	if ( $the_query->have_posts() ) :
+		while ( $the_query->have_posts() ) : $the_query->the_post();
+
+			echo '<a href="' . get_edit_post_link( get_the_ID() ) . '">' . get_post_meta( get_the_ID(), 'tk_all_in_one_invite_code', true ) . '</a>';
+			echo '<br>';
+		endwhile;
+	endif;
+
+	wp_reset_postdata();
+
 
 	wp_nonce_field( 'all_in_one_invite_codes_options_nonce', 'all_in_one_invite_codes_options_process' );
 

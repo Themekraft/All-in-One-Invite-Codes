@@ -23,3 +23,22 @@ function all_in_one_invite_codes_is_default_registration(){
 	}
 	return true;
 }
+
+function all_in_one_invite_codes_get_status( $post_id ){
+
+	$status = get_post_meta( $post_id, 'tk_all_in_one_invite_code_status', true );
+
+	switch ( $status ) {
+		case 'disabled' :
+			$status = __( 'Disabled', 'all-in-one-invite-codes' );
+			break;
+		case 'used' :
+			$status = __( 'Used', 'all-in-one-invite-codes' );
+			break;
+		default:
+			$status = __( 'Active', 'all-in-one-invite-codes' );
+			break;
+	}
+
+	return $status;
+}
