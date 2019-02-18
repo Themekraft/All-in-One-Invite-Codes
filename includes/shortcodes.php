@@ -1,6 +1,54 @@
 <?php
 
 function all_in_one_invite_codes_list_codes( $atts ) {
+
+
+
+	?>
+
+	<script>
+
+        jQuery(document).ready(function (jQuery) {
+            jQuery(document.body).on('click', '#tk_all_in_one_invie_code_send_invite', function () {
+;
+                alert('sad');
+
+                var mail_address = '';
+
+                <?php echo 'var ajaxurl = "' . admin_url('admin-ajax.php') . '";' ?>
+
+                jQuery.ajax({
+                    type: 'POST',
+                    dataType: "json",
+                    url: ajaxurl,
+                    data: {
+                        "action": "all_in_one_invite_codes_send_invite",
+                        "post_id": mail_address
+                    },
+                    success: function (data) {
+                        console.log(data);
+
+                        if (data['error']) {
+                            alert(data['error']);
+                        } else {
+                            location.reload();
+                        }
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+
+            });
+        });
+
+	</script>
+
+	<?php
+
+
 	$a = shortcode_atts( array(
 		'foo' => 'something',
 		'bar' => 'something else',
@@ -25,7 +73,7 @@ function all_in_one_invite_codes_list_codes( $atts ) {
 				echo '<br>Status: ';
 				echo all_in_one_invite_codes_get_status( get_the_ID() );
 				echo '<br>Sent Invite: ';
-				echo '<a href="#">Send Now</a><br><br>';
+				echo '<a id="tk_all_in_one_invie_code_send_invite" href="#">Send Now</a><br><br>';
 			echo '</li>';
 		endwhile;
 		echo '</ul>';

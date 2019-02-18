@@ -162,6 +162,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 			require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . 'process-invite-code.php' );
 			require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . 'generate-invite-codes.php' );
 			require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . 'shortcodes.php' );
+			require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . 'send-invite-email.php' );
 
 			if ( is_admin() ) {
 				require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/admin-settings.php' );
