@@ -2,11 +2,6 @@
 
 function all_in_one_invite_codes_validate_code( $code, $user_email = '' ) {
 
-
-	if( ! all_in_one_invite_codes_is_default_registration() ){
-		return;
-	}
-
 	$args  = array(
 		'post_type'  => 'tk_invite_codes',
 		'meta_query' => array(
@@ -40,14 +35,13 @@ function all_in_one_invite_codes_validate_code( $code, $user_email = '' ) {
 						return $result;
 					}
 
-					if ( empty( $all_in_one_invite_codes_options['email'] ) ) {
-						$all_in_one_invite_codes_options['email'] = $user_email;
-						update_post_meta( get_the_ID(), 'all_in_one_invite_codes_options', $all_in_one_invite_codes_options );
-					}
-
 				}
-
+				if ( empty( $all_in_one_invite_codes_options['email'] ) ) {
+					$all_in_one_invite_codes_options['email'] = $user_email;
+					update_post_meta( get_the_ID(), 'all_in_one_invite_codes_options', $all_in_one_invite_codes_options );
+				}
 				update_post_meta( get_the_ID(), 'tk_all_in_one_invite_code_status', 'used' );
+
 
 			}
 		endwhile;
