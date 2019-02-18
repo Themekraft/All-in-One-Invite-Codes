@@ -47,7 +47,7 @@ function all_in_one_invite_codes_list_codes( $atts ) {
                         if (data['error']) {
                             alert(data['error']);
                         } else {
-                            // location.reload();
+                             location.reload();
                         }
 
                     },
@@ -127,9 +127,9 @@ function all_in_one_invite_codes_list_codes( $atts ) {
 
 
 			if ( empty( $email ) && $status == 'Active' ) {
-				echo '<a data-code_id="' . get_the_ID() . '" id="tk_all_in_one_invite_code_open_invite_form" href="#">Invite a Friend Now</a><div id="tk_all_in_one_invite_code_open_invite_form_id_' . get_the_ID() . '"></div><br>';
+				echo '<p><a data-code_id="' . get_the_ID() . '" id="tk_all_in_one_invite_code_open_invite_form" href="#">Invite a Friend Now</a></p><div id="tk_all_in_one_invite_code_open_invite_form_id_' . get_the_ID() . '"></div>';
 			} else {
-				echo __( 'Invite was sent to: ', 'all_in_one_invite_codes' ) . $email;
+				echo '<p>' . __( 'Invite was sent to: ', 'all_in_one_invite_codes' ) . $email . '<p>';
 			}
 
 
