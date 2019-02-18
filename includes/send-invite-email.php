@@ -7,9 +7,9 @@ function all_in_one_invite_codes_send_invite(){
 	$all_in_one_invite_codes_mail_templates = get_option( 'all_in_one_invite_codes_mail_templates' );
 
 
-	$to = 'sendto@example.com';
-	$subject = empty($all_in_one_invite_codes_mail_templates['subject']) ? '' : $all_in_one_invite_codes_mail_templates['subject'];
-	$body = empty($all_in_one_invite_codes_mail_templates['message_text']) ? '' : $all_in_one_invite_codes_mail_templates['message_text'];
+	$to = $_POST['to'];
+	$subject = $_POST['subject'];
+	$body = $_POST['message_text'];
 	$headers = array('Content-Type: text/html; charset=UTF-8');
 	$invite_code = 'abcdefg';
 
@@ -31,11 +31,11 @@ function all_in_one_invite_codes_send_invite(){
 	$send = wp_mail( $to, $subject, $body, $headers );
 
 	if ( ! $send ) {
-		$json['error'] = __( 'Used or Disabled Invite Codes can not get changed.', 'all-in-one-invite-code' );
+		$json['error'] = __( 'DDUsed or Disabled Invite Codes can not get changed.', 'all-in-one-invite-code' );
 		echo json_encode( $json );
 		die();
 	}
-	$json['message'] = __('Invite send successfully', 'buddyforms');;
+	$json['message'] = __('DDDInvite send successfully', 'buddyforms');;
 
 	echo json_encode( $json );
 	die();

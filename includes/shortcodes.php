@@ -5,11 +5,20 @@ function all_in_one_invite_codes_list_codes( $atts ) { ?>
 	<script>
 
         jQuery(document).ready(function (jQuery) {
+	        <?php echo 'var ajaxurl = "' . admin_url('admin-ajax.php') . '";' ?>
             jQuery(document.body).on('click', '#tk_all_in_one_invite_code_send_invite_submit', function () {
 
                 var code_id = jQuery(this).attr('data-send_code_id');
+                var to =    jQuery('#tk_all_in_one_invite_code_send_invite_to').val();
+                var subject =    jQuery('#tk_all_in_one_invite_code_send_invite_subject').val();
+                var message_text =    jQuery('#tk_all_in_one_invite_code_send_invite_message_text').val();
 
-                <?php echo 'var ajaxurl = "' . admin_url('admin-ajax.php') . '";' ?>
+
+                if( ! isEmail(to) ){
+                    jQuery('#tk_all_in_one_invite_code_send_invite_to').css({"border-color": "red", "border-width":"1px", "border-style":"solid"});
+                    jQuery("#tk_all_in_one_invite_code_send_invite_to").focus();
+                }
+
 
                 jQuery.ajax({
                     type: 'POST',
@@ -17,7 +26,10 @@ function all_in_one_invite_codes_list_codes( $atts ) { ?>
                     url: ajaxurl,
                     data: {
                         "action": "all_in_one_invite_codes_send_invite",
-                        "post_id": code_id
+                        "post_id": code_id,
+                        "to": to,
+                        "subject": subject,
+                        "message_text": message_text,
                     },
                     success: function (data) {
                         console.log(data);
@@ -25,7 +37,7 @@ function all_in_one_invite_codes_list_codes( $atts ) { ?>
                         if (data['error']) {
                             alert(data['error']);
                         } else {
-                            location.reload();
+                            // location.reload();
                         }
 
                     },
@@ -34,19 +46,61 @@ function all_in_one_invite_codes_list_codes( $atts ) { ?>
                     }
                 });
 
+                return false;
 
             });
 
             jQuery(document.body).on('click', '#tk_all_in_one_invite_code_open_invite_form', function () {
                 var code_id = jQuery(this).attr('data-code_id');
 
-                alert(code_id);
-
-                jQuery("#tk_all_in_one_invite_code_send_invite_form").appendTo("#tk_all_in_one_invie_code_open_invite_form_id_" + code_id);
+                jQuery("#tk_all_in_one_invite_code_send_invite_form").appendTo("#tk_all_in_one_invite_code_open_invite_form_id_" + code_id);
                 jQuery("#tk_all_in_one_invite_code_send_invite_form").show();
 
                 jQuery("#tk_all_in_one_invite_code_send_invite_submit").attr('data-send_code_id',code_id);
             });
+
+            function isEmail(email) {
+                var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                return regex.test(email);
+            }
+
+
+
+
+
+
+
+
+
+
+
+            jQuery("#tk_all_in_one_invite_code_send_invite_to").keyup(function(){
+                var email = jQuery("#tk_all_in_one_invite_code_send_invite_to").val();
+                var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                if (!filter.test(email)) {
+                    //alert('Please provide a valid email address');
+                    jQuery("#tk_all_in_one_invite_code_send_invite_to_error").text(email+" is not a valid email");
+                    email.focus;
+                    //return false;
+                } else {
+                    jQuery("#tk_all_in_one_invite_code_send_invite_to_error").text("");
+                }
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         });
 
@@ -79,7 +133,14 @@ function all_in_one_invite_codes_list_codes( $atts ) { ?>
 				echo '<br>Status: ';
 				echo all_in_one_invite_codes_get_status( get_the_ID() );
 				echo '<br>';
-				echo '<a data-code_id="' . get_the_ID() . '" id="tk_all_in_one_invite_code_open_invite_form" href="#">Invite a Friend Now</a><div id="tk_all_in_one_invie_code_open_invite_form_id_' . get_the_ID() . '"></div><br>';
+
+			$all_in_one_invite_codes_options          = get_post_meta( get_the_ID(), 'all_in_one_invite_codes_options', true );
+			if( empty($all_in_one_invite_codes_options['mail'])){
+				echo '<a data-code_id="' . get_the_ID() . '" id="tk_all_in_one_invite_code_open_invite_form" href="#">Invite a Friend Now</a><div id="tk_all_in_one_invite_code_open_invite_form_id_' . get_the_ID() . '"></div><br>';
+            } else {
+				echo __('This invite is already sent to ', 'all_in_one_invite_codes') . $all_in_one_invite_codes_options['mail'];
+            }
+
 			echo '</li>';
 		endwhile;
 		echo '</ul>';
@@ -90,9 +151,9 @@ function all_in_one_invite_codes_list_codes( $atts ) { ?>
 		?>
 
         <div style="display: none" id="tk_all_in_one_invite_code_send_invite_form">
-            <p>To: <input type="text" name="tk_all_in_one_invie_code_send_invite[to]" value=""></p>
-            <p>Subject: <input type="text" name="tk_all_in_one_invie_code_send_invite[subject]" value="<?php echo empty($all_in_one_invite_codes_mail_templates['subject']) ? '' : $all_in_one_invite_codes_mail_templates['subject']; ?>"></p>
-            <p>Message Text:<textarea cols="70" rows="5" name=tk_all_in_one_invie_code_send_invite[message_text]"><?php echo empty($all_in_one_invite_codes_mail_templates['message_text']) ? '' : $all_in_one_invite_codes_mail_templates['message_text']; ?></textarea></p>
+            <p>To: <input type="email" id="tk_all_in_one_invite_code_send_invite_to" value=""><span id="tk_all_in_one_invite_code_send_invite_to_error"></span></p>
+            <p>Subject: <input type="text" name="tk_all_in_one_invite_code_send_invite_subject" value="<?php echo empty($all_in_one_invite_codes_mail_templates['subject']) ? '' : $all_in_one_invite_codes_mail_templates['subject']; ?>"></p>
+            <p>Message Text:<textarea cols="70" rows="5" name=tk_all_in_one_invite_code_send_invite_message_text"><?php echo empty($all_in_one_invite_codes_mail_templates['message_text']) ? '' : $all_in_one_invite_codes_mail_templates['message_text']; ?></textarea></p>
             <a href="#" data-send_code_id="0" id="tk_all_in_one_invite_code_send_invite_submit" class="button">Send</a>
         </div>
 
