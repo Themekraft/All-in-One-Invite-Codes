@@ -69,7 +69,7 @@ function all_in_one_invite_codes_add_action_buttons( $actions, $post ) {
 	return $actions;
 }
 
-add_filter( 'post_row_actions', 'all_in_one_invite_codes_add_action_buttons', 10, 2 );
+add_filter( 'page_row_actions', 'all_in_one_invite_codes_add_action_buttons', 10, 2 );
 
 /**
  *
@@ -125,6 +125,8 @@ function custom_tk_invite_codes_columns( $columns, $post_id = false ) {
 			echo wp_get_post_parent_id( $post_id );
 			break;
 	}
+
+	return $columns;
 
 }
 

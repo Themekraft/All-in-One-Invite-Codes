@@ -204,16 +204,10 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		 * @param $hook_suffix
 		 */
 		function admin_js( $hook_suffix ) {
-			global $post;
-			if (
-				( isset( $post ) && $post->post_type == 'tk_invite_codes' && isset( $_GET['action'] ) && $_GET['action'] == 'edit'
-				  || isset( $post ) && $post->post_type == 'tk_invite_codes' && $hook_suffix == 'post-new.php' )
-				|| isset( $post ) && $post->post_type == 'tk_invite_codes' && $hook_suffix == 'edit.php'
-				|| $hook_suffix == 'tk_invite_codes_settings'
-			) {
-				wp_register_script( 'all-in-one-invite_codes-admin-js', plugins_url( 'assets/admin/js/admin.js', __FILE__ ), array(), $this->version );
-				wp_enqueue_script( 'all-in-one-invite_codes-admin-js' );
-			}
+
+            wp_register_script( 'all-in-one-invite_codes-admin-js', plugins_url( 'assets/admin/js/admin.js', __FILE__ ), array(), $this->version );
+            wp_enqueue_script( 'all-in-one-invite_codes-admin-js' );
+
 		}
 
 		/**
