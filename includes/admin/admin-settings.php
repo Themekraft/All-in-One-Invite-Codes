@@ -81,7 +81,6 @@ function all_in_one_invite_codes_default_sanitize( $new ) {
  *
  * Tabs content with the options
  *
-
  */
 function all_in_one_invite_codes_settings_page_tabs_content() {
 	global $pagenow, $all_in_one_invite_codes; ?>

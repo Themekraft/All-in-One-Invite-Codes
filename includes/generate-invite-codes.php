@@ -6,7 +6,7 @@
  * @since  0.1
  *
  */
-function all_in_one_invite_codesuser_register( $user_id ) {
+function all_in_one_invite_code_user_register( $user_id ) {
 
 	// Only jump in if a invite code exist
 	if ( ! empty( $_POST['tk_invite_code'] ) ) {
@@ -66,4 +66,4 @@ function all_in_one_invite_codesuser_register( $user_id ) {
 	}
 }
 
-add_action( 'user_register', 'all_in_one_invite_codesuser_register' );
+add_action( 'user_register', 'all_in_one_invite_code_user_register' );
