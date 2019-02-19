@@ -1,10 +1,14 @@
 <?php
 
+/**
+ * Create the post type to hold the codes. We use a normal WordPress Post Type and post meta to create and manage codes and code meta data.
+ *
+ * Post Type: tk_invite_codes
+ *
+ * @since  0.1
+ *
+ */
 function all_in_one_invite_codes_register_post_type() {
-
-	/**
-	 * Post Type: Invite Codes.
-	 */
 
 	$labels = array(
 		"name"          => __( "Invite Codes", "all_in_one_invite_codes" ),
@@ -53,15 +57,12 @@ function all_in_one_invite_codes_add_action_buttons( $actions, $post ) {
 
 	if ( get_post_type() === 'tk_invite_codes' ) {
 
+		// No quick edit please
 		unset( $actions['inline hide-if-no-js'] );
 
-		$base = home_url();
-
-		$preview_page_id = get_option( 'buddyforms_preview_page', true );
-
-		$actions['resent']  = '<a href="#" data-post_id="' . $post->ID . '" id="all_in_one_disable_invite_code">Disable</a>';
-		$actions['disable'] = '<a href="#" data-post_id="' . $post->ID . '" id="all_in_one_resent_invite_code">Resent Invitation</a>';
-
+		// Add resent and disable links as list actions
+		$actions['disable'] = '<a href="#" data-post_id="' . $post->ID . '" id="all_in_one_disable_invite_code">Disable</a>';
+		//$actions['resent'] = '<a href="#" data-post_id="' . $post->ID . '" id="all_in_one_resent_invite_code">Resent Invitation</a>';
 
 	}
 
@@ -70,25 +71,42 @@ function all_in_one_invite_codes_add_action_buttons( $actions, $post ) {
 
 add_filter( 'post_row_actions', 'all_in_one_invite_codes_add_action_buttons', 10, 2 );
 
-
+/**
+ *
+ * Generate the table header for the invite code columns
+ *
+ * @param $columns
+ * @param $post_id
+ *
+ * @return array
+ */
 function tk_invite_codes_columns( $columns, $post_id = false ) {
 	unset( $columns['date'] );
 	unset( $columns['title'] );
 
 	$columns['code']           = __( 'Code', 'all-in-one-invite-codes' );
-	$columns['code_status']         = __( 'Status', 'all-in-one-invite-codes' );
+	$columns['code_status']    = __( 'Status', 'all-in-one-invite-codes' );
 	$columns['email']          = __( 'eMail', 'all-in-one-invite-codes' );
-	$columns['ode_parent']         = __( 'Parent', 'all-in-one-invite-codes' );
+	$columns['code_parent']    = __( 'Parent', 'all-in-one-invite-codes' );
 	$columns['generate_codes'] = __( 'Generate new codes after account activation', 'all-in-one-invite-codes' );
 
 	return $columns;
 }
 
-add_action( 'manage_tk_invite_codes_posts_columns', 'tk_invite_codes_columns', 10, 2 );
+add_action( 'manage_tk_invite_codes_posts_columns', 'tk_invite_codes_columns', 102, 2 );
+
+/**
+ *
+ * Display the invite code meta data as columns
+ *
+ * @param $columns
+ * @param $post_id
+ *
+ * @return array
+ */
 function custom_tk_invite_codes_columns( $columns, $post_id = false ) {
 
 	$all_in_one_invite_codes_options = get_post_meta( $post_id, 'all_in_one_invite_codes_options', true );
-
 
 	switch ( $columns ) {
 		case 'code' :
@@ -103,7 +121,7 @@ function custom_tk_invite_codes_columns( $columns, $post_id = false ) {
 		case 'generate_codes' :
 			echo isset( $all_in_one_invite_codes_options['generate_codes'] ) ? $all_in_one_invite_codes_options['generate_codes'] : '--';
 			break;
-		case 'ode_parent' :
+		case 'code_parent' :
 			echo wp_get_post_parent_id( $post_id );
 			break;
 	}
@@ -112,13 +130,16 @@ function custom_tk_invite_codes_columns( $columns, $post_id = false ) {
 
 add_action( 'manage_tk_invite_codes_posts_custom_column', 'custom_tk_invite_codes_columns', 10, 2 );
 
-
 /**
- * Adds a box to the main column on the Post and Page edit screens.
+ *
+ * Adds a metabox to the main column on the Code edit screen
+ *
  */
 function all_in_one_invite_codes_hide_publishing_actions() {
 	global $post;
 
+	// The edit screen of custom post types coes with for our solution unneeded information or actions.
+	// So lets hide and remove not relevant functionality and keep the UI simple!
 	if ( get_post_type( $post ) == 'tk_invite_codes' ) { ?>
         <style type="text/css">
             .misc-pub-visibility,
@@ -158,11 +179,8 @@ function all_in_one_invite_codes_hide_publishing_actions() {
                 jQuery('body').find('#post-body-content').remove();
                 jQuery('body').find('.wp-heading-inline').remove();
 
-
 				<?php
 				$status = get_post_meta( $post->ID, 'tk_all_in_one_invite_code_status', true );
-
-
 				if ( $status == 'disabled' ) {?>
                 jQuery('body').find('.postbox-container h2').text('Disabled');
                 jQuery('body').find('#publish').remove();
@@ -180,10 +198,11 @@ function all_in_one_invite_codes_hide_publishing_actions() {
 add_action( 'admin_head-post.php', 'all_in_one_invite_codes_hide_publishing_actions' );
 add_action( 'admin_head-post-new.php', 'all_in_one_invite_codes_hide_publishing_actions' );
 
-
-//
-// Add new Actions Buttons to the publish metabox
-//
+/**
+ *
+ * Now that we have removed the wp action buttons we need to add new Actions Buttons to the publish metabox
+ *
+ */
 function all_in_one_invite_codes_add_button_to_submit_box() {
 	global $post;
 
@@ -197,10 +216,13 @@ function all_in_one_invite_codes_add_button_to_submit_box() {
 	?>
 
     <div id="all-in-one-invite-codes-actions" class="misc-pub-section">
+        <p>Invite Code:
+            <small><?php echo all_in_one_invite_codes_md5() ?></small>
+        </p>
         <p><a href="#" data-post_id="<?php echo $post->ID ?>" id="all_in_one_disable_invite_code"
               class="button button-large bf_button_action">Disable This Invite Code</a></p>
-        <p><a href="#" data-post_id="<?php echo $post->ID ?>" id="all_in_one_resent_invite_code"
-              class="button button-large bf_button_action">Resent Invitation Mail</a></p>
+        <!--        <p><a href="#" data-post_id="--><?php //echo $post->ID ?><!--" id="all_in_one_resent_invite_code"-->
+        <!--              class="button button-large bf_button_action">Resent Invitation Mail</a></p>-->
         <div class="clear"></div>
     </div>
 

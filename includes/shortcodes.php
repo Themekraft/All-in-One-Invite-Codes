@@ -1,17 +1,24 @@
 <?php
 
+/**
+ * Create the list of codes for the user with a option to sent invites to new users.
+ *
+ * @since  0.1
+ * @return html
+ */
 function all_in_one_invite_codes_list_codes( $atts ) {
 
-    if( !is_user_logged_in() ){
-        echo '<p>' . __( 'Please login to manage your invite codes.','all-in-one-invite-codes'). '</p>';
-        wp_login_form();
-        return;
-    }
+	// If the user is not logged in display a login form
+	if ( ! is_user_logged_in() ) {
+		echo '<p>' . __( 'Please login to manage your invite codes.', 'all-in-one-invite-codes' ) . '</p>';
+		wp_login_form();
 
-    ?>
+		return;
+	}
 
+
+	// Add the js in the shortcode so we can use this more easy as Block in a later process. ?>
     <script>
-
         jQuery(document).ready(function (jQuery) {
 			<?php echo 'var ajaxurl = "' . admin_url( 'admin-ajax.php' ) . '";' ?>
             jQuery(document.body).on('click', '#tk_all_in_one_invite_code_send_invite_submit', function () {
@@ -47,7 +54,7 @@ function all_in_one_invite_codes_list_codes( $atts ) {
                         if (data['error']) {
                             alert(data['error']);
                         } else {
-                             location.reload();
+                            location.reload();
                         }
 
                     },
@@ -95,28 +102,20 @@ function all_in_one_invite_codes_list_codes( $atts ) {
 
 	<?php
 
-
-	$a = shortcode_atts( array(
-		'foo' => 'something',
-		'bar' => 'something else',
-	), $atts );
-
-
+	// Get the user invite codes
 	$args = array(
-		'author' => get_current_user_id(),
+		'author'         => get_current_user_id(),
 		'posts_per_page' => - 1,
-		'post_type' => 'tk_invite_codes', //you can use also 'any'
+		'post_type'      => 'tk_invite_codes', //you can use also 'any'
 	);
 
 	$the_query = new WP_Query( $args );
-
 
 	if ( $the_query->have_posts() ) :
 		echo '<ul>';
 		while ( $the_query->have_posts() ) : $the_query->the_post();
 			$all_in_one_invite_codes_options = get_post_meta( get_the_ID(), 'all_in_one_invite_codes_options', true );
-			$email = empty( $all_in_one_invite_codes_options['email'] ) ? '' : $all_in_one_invite_codes_options['email'];
-
+			$email                           = empty( $all_in_one_invite_codes_options['email'] ) ? '' : $all_in_one_invite_codes_options['email'];
 
 			echo '<li>';
 			echo 'Code: ';
@@ -125,13 +124,11 @@ function all_in_one_invite_codes_list_codes( $atts ) {
 			echo $status = all_in_one_invite_codes_get_status( get_the_ID() );
 			echo '<br>';
 
-
 			if ( empty( $email ) && $status == 'Active' ) {
 				echo '<p><a data-code_id="' . get_the_ID() . '" id="tk_all_in_one_invite_code_open_invite_form" href="#">Invite a Friend Now</a></p><div id="tk_all_in_one_invite_code_open_invite_form_id_' . get_the_ID() . '"></div>';
 			} else {
 				echo '<p>' . __( 'Invite was sent to: ', 'all_in_one_invite_codes' ) . $email . '<p>';
 			}
-
 
 			echo '</li>';
 		endwhile;

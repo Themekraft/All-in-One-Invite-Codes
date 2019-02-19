@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Get existing or create new Invite Code
+ *
+ * @since  0.1
+ *
+ * return md5 code
+ */
 function all_in_one_invite_codes_md5( $post_id = false ) {
 	global $post;
 
@@ -16,15 +23,30 @@ function all_in_one_invite_codes_md5( $post_id = false ) {
 	return $md5;
 }
 
-function all_in_one_invite_codes_is_default_registration(){
+/**
+ * Check if the WordPress default registration should get protected with an invite only form element
+ *
+ * @since  0.1
+ *
+ * return boolean
+ */
+function all_in_one_invite_codes_is_default_registration() {
 	$all_in_one_invite_codes_general = get_option( 'all_in_one_invite_codes_general' );
-	if(isset($all_in_one_invite_codes_general['default_registration']) && $all_in_one_invite_codes_general['default_registration'] == 'disable'){
+	if ( isset( $all_in_one_invite_codes_general['default_registration'] ) && $all_in_one_invite_codes_general['default_registration'] == 'disable' ) {
 		return false;
 	}
+
 	return true;
 }
 
-function all_in_one_invite_codes_get_status( $post_id ){
+/**
+ * Get the invite code status in a readable form
+ *
+ * @since  0.1
+ *
+ * return text
+ */
+function all_in_one_invite_codes_get_status( $post_id ) {
 
 	$status = get_post_meta( $post_id, 'tk_all_in_one_invite_code_status', true );
 
@@ -43,6 +65,13 @@ function all_in_one_invite_codes_get_status( $post_id ){
 	return $status;
 }
 
+/**
+ * Process the email notification shortcodes
+ *
+ * @since  0.1
+ *
+ * return text
+ */
 function all_in_one_invite_codes_inviten_email_replace_shortcode( $string, $shortcode, $value ) {
 	if ( strpos( $string, $shortcode ) >= 0 ) {
 		$string = str_replace( $shortcode, $value, $string );

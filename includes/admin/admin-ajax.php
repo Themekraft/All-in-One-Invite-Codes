@@ -1,7 +1,9 @@
 <?php
 
-add_action( 'wp_ajax_all_in_one_invite_codes_change_code_status', 'all_in_one_invite_codes_change_code_status' );
-function all_in_one_invite_codes_change_code_status() {
+/**
+ * Disable invite Code
+ */
+function all_in_one_invite_codes_disable_code() {
 
 	if ( ! $_POST['post_id'] ) {
 		die();
@@ -24,7 +26,11 @@ function all_in_one_invite_codes_change_code_status() {
 
 }
 
-add_action( 'wp_ajax_all_in_one_invite_codes_send_invite_mail', 'all_in_one_invite_codes_send_invite_mail' );
+add_action( 'wp_ajax_all_in_one_invite_codes_disable_code', 'all_in_one_invite_codes_disable_code' );
+
+/**
+ * Resent the invite email
+ */
 function all_in_one_invite_codes_send_invite_mail() {
 
 	if ( ! $_POST['post_id'] ) {
@@ -52,3 +58,5 @@ function all_in_one_invite_codes_send_invite_mail() {
 	echo json_encode( $json );
 	die();
 }
+
+add_action( 'wp_ajax_all_in_one_invite_codes_send_invite_mail', 'all_in_one_invite_codes_send_invite_mail' );

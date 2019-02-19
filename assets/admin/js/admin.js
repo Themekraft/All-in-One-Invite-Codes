@@ -1,19 +1,15 @@
-//
-// Lets do some stuff after the document is loaded
-//
 jQuery(document).ready(function (jQuery) {
-
 
     jQuery(document.body).on('click', '#all_in_one_disable_invite_code', function () {
 
-        var post_id = jQuery(this).attr('data-post_id' );
+        var post_id = jQuery(this).attr('data-post_id');
 
         jQuery.ajax({
             type: 'POST',
             dataType: "json",
             url: ajaxurl,
             data: {
-                "action": "all_in_one_invite_codes_change_code_status",
+                "action": "all_in_one_invite_codes_disable_code",
                 "post_id": post_id
             },
             success: function (data) {
@@ -60,6 +56,5 @@ jQuery(document).ready(function (jQuery) {
             }
         });
     });
-
 
 });

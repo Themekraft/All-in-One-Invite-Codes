@@ -207,7 +207,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 			global $post;
 			if (
 				( isset( $post ) && $post->post_type == 'tk_invite_codes' && isset( $_GET['action'] ) && $_GET['action'] == 'edit'
-				 || isset( $post ) && $post->post_type == 'tk_invite_codes' && $hook_suffix == 'post-new.php' )
+				  || isset( $post ) && $post->post_type == 'tk_invite_codes' && $hook_suffix == 'post-new.php' )
 				|| isset( $post ) && $post->post_type == 'tk_invite_codes' && $hook_suffix == 'edit.php'
 				|| $hook_suffix == 'tk_invite_codes_settings'
 			) {

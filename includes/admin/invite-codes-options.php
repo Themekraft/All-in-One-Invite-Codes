@@ -1,16 +1,7 @@
 <?php
 
-
-function all_in_one_invite_codes_remove_slugdiv() {
-	remove_meta_box( 'slugdiv', 'tk_invite_codes', 'normal' );
-}
-
-add_action( 'admin_menu', 'all_in_one_invite_codes_remove_slugdiv' );
-
-
 /**
- * Create the metabox
- * @link https://developer.wordpress.org/reference/functions/add_meta_box/
+ * Create the metabox for the code options
  */
 function all_in_one_invite_codes_create_metabox() {
 	add_meta_box(
@@ -25,12 +16,8 @@ function all_in_one_invite_codes_create_metabox() {
 
 add_action( 'add_meta_boxes', 'all_in_one_invite_codes_create_metabox' );
 
-
 /**
- * Create the metabox default values
- * This allows us to save multiple values in an array, reducing the size of our database.
- * Setting defaults helps avoid "array key doesn't exit" issues.
- * @todo
+ * Create the code default values
  */
 function all_in_one_invite_codes_options_defaults() {
 	$all_in_one_invite_codes_general = get_option( 'all_in_one_invite_codes_general' );
@@ -41,21 +28,23 @@ function all_in_one_invite_codes_options_defaults() {
 	);
 }
 
-
 /**
- * Render the metabox markup
- * This is the function called in `all_in_one_invite_codes_create_metabox()`
+ * Render the metabox and display the options
  */
 function all_in_one_invite_codes_render_metabox() {
 	global $post;
 
+	// Get or generate the invite code
 	$all_in_one_invite_code = all_in_one_invite_codes_md5( $post->ID );
 
-	$all_in_one_invite_codes_options          = get_post_meta( $post->ID, 'all_in_one_invite_codes_options', true );
-	$all_in_one_invite_codes_options_defaults = all_in_one_invite_codes_options_defaults(); // Get the default values
+	// Get the invite code options
+	$all_in_one_invite_codes_options = get_post_meta( $post->ID, 'all_in_one_invite_codes_options', true );
 
+	// Get the default values
+	$all_in_one_invite_codes_options_defaults = all_in_one_invite_codes_options_defaults();
+
+	// Merge the options so we have the default take care of the missing values.
 	$all_in_one_invite_codes_options = wp_parse_args( $all_in_one_invite_codes_options, $all_in_one_invite_codes_options_defaults );
-
 
 	$email          = isset( $all_in_one_invite_codes_options['email'] ) ? $all_in_one_invite_codes_options['email'] : '';
 	$generate_codes = isset( $all_in_one_invite_codes_options['generate_codes'] ) ? $all_in_one_invite_codes_options['generate_codes'] : '';
@@ -101,10 +90,8 @@ function all_in_one_invite_codes_render_metabox() {
         </div>
     </fieldset>
 
-
 	<?php
-
-
+	// List related codes as child codes
 	$args = array(
 		'post_parent'    => $post->ID,
 		'posts_per_page' => - 1,
@@ -123,71 +110,86 @@ function all_in_one_invite_codes_render_metabox() {
 
 	wp_reset_postdata();
 
-
+	// add the nonce check
 	wp_nonce_field( 'all_in_one_invite_codes_options_nonce', 'all_in_one_invite_codes_options_process' );
 
 }
 
+/**
+ * Save the options
+ */
 function all_in_one_invite_codes_save_options( $post_id, $post ) {
 
 	if ( ! isset( $_POST['all_in_one_invite_codes_options_process'] ) ) {
-		return;
+		return $post_id;
 	}
 
 	if ( ! wp_verify_nonce( $_POST['all_in_one_invite_codes_options_process'], 'all_in_one_invite_codes_options_nonce' ) ) {
-		return $post->ID;
+		return $post_id;
 	}
 
-	if ( ! current_user_can( 'edit_post', $post->ID ) ) {
-		return $post->ID;
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		return $post_id;
 	}
 
 	if ( ! isset( $_POST['all_in_one_invite_codes_options'] ) ) {
-		return $post->ID;
+		return $post_id;
 	}
 
 	// Set up an empty array
 	$sanitized = array();
 
+	// Sanitize with wp_filter_post_kses
 	foreach ( $_POST['all_in_one_invite_codes_options'] as $key => $detail ) {
 		$sanitized[ $key ] = wp_filter_post_kses( $detail );
 	}
 
-	update_post_meta( $post->ID, 'all_in_one_invite_codes_options', $sanitized );
-
+	// Do the update
+	update_post_meta( $post_id, 'all_in_one_invite_codes_options', $sanitized );
 
 }
 
 add_action( 'save_post', 'all_in_one_invite_codes_save_options', 1, 2 );
 
+/**
+ * Save the invite code
+ */
 function all_in_one_invite_codes_save_code( $post_id, $post ) {
 
 
 	if ( ! isset( $_POST['all_in_one_invite_codes_options_process'] ) ) {
-		return $post->ID;
+		return $post_id;
 	}
 
 	if ( ! wp_verify_nonce( $_POST['all_in_one_invite_codes_options_process'], 'all_in_one_invite_codes_options_nonce' ) ) {
-		return $post->ID;
+		return $post_id;
 	}
 
-	if ( ! current_user_can( 'edit_post', $post->ID ) ) {
-		return $post->ID;
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		return $post_id;
 	}
 
 	if ( ! isset( $_POST['tk_all_in_one_invite_code'] ) ) {
-		return $post->ID;
+		return $post_id;
 	}
 
 	$tk_all_in_one_invite_code = get_post_meta( $post_id, 'tk_all_in_one_invite_code', true );
 
 	if ( $tk_all_in_one_invite_code ) {
-		return $post->ID;
+		return $post_id;
 	}
 
-	update_post_meta( $post->ID, 'tk_all_in_one_invite_code', wp_filter_post_kses( $_POST['tk_all_in_one_invite_code'] ) );
+	update_post_meta( $post_id, 'tk_all_in_one_invite_code', wp_filter_post_kses( $_POST['tk_all_in_one_invite_code'] ) );
 
 }
 
 add_action( 'save_post', 'all_in_one_invite_codes_save_code', 1, 2 );
 
+/**
+ * Remove slugdiv
+ */
+function all_in_one_invite_codes_remove_slugdiv() {
+	remove_meta_box( 'slugdiv', 'tk_invite_codes', 'normal' );
+}
+
+add_action( 'admin_menu', 'all_in_one_invite_codes_remove_slugdiv' );

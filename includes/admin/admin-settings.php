@@ -1,17 +1,17 @@
 <?php
 
-//
-// Add the Settings Page to the All in One Invite Codes Menu
-//
+/**
+ * Add the Settings Page to the All in One Invite Codes Menu
+ */
 function all_in_one_invite_codes_settings_menu() {
 	add_submenu_page( 'edit.php?post_type=tk_invite_codes', __( 'All in One Invite Codes Settings', 'all_in_one_invite_codes' ), __( 'Settings', 'all_in_one_invite_codes' ), 'manage_options', 'all_in_one_invite_codes_settings', 'all_in_one_invite_codes_settings_page' );
 }
 
 add_action( 'admin_menu', 'all_in_one_invite_codes_settings_menu' );
 
-//
-// Settings Page Content
-//
+/**
+ * Settings Page Content
+ */
 function all_in_one_invite_codes_settings_page() { ?>
 
     <div id="post" class="wrap">
@@ -32,10 +32,9 @@ function all_in_one_invite_codes_settings_page() { ?>
 	<?php
 }
 
-//
-// Settings Tabs Navigation
-//
 /**
+ * Settings Tabs Navigation
+ *
  * @param string $current
  */
 function all_in_one_invite_codes_admin_tabs( $current = 'general' ) {
@@ -53,9 +52,10 @@ function all_in_one_invite_codes_admin_tabs( $current = 'general' ) {
 	echo '</h2>';
 }
 
-//
-// Register Settings Options
-//
+/**
+ * Register Settings Options
+ *
+ */
 function all_in_one_invite_codes_register_option() {
 
 	// General Settings
@@ -77,6 +77,12 @@ function all_in_one_invite_codes_default_sanitize( $new ) {
 	return $new;
 }
 
+/**
+ *
+ * Tabs content with the options
+ *
+
+ */
 function all_in_one_invite_codes_settings_page_tabs_content() {
 	global $pagenow, $all_in_one_invite_codes; ?>
     <div id="poststuff">
@@ -131,30 +137,33 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 
                                         <tr valign="top">
                                             <th scope="row" valign="top">
-	                                            <?php _e( 'Add Invite only Validation to the WordPress default registration form', 'all-in-one-invite-codes' ); ?>
+												<?php _e( 'Add Invite only Validation to the WordPress default registration form', 'all-in-one-invite-codes' ); ?>
                                             </th>
                                             <td>
-		                                        <?php
-		                                        $pages['enabled'] = 'Enable';
-		                                        $pages['disable'] = 'Disable';
+												<?php
+												$pages['enabled'] = 'Enable';
+												$pages['disable'] = 'Disable';
 
-		                                        if ( isset( $pages ) && is_array( $pages ) ) {
-			                                        echo '<select name="all_in_one_invite_codes_general[default_registration]" id="all_in_one_invite_codes_general">';
+												if ( isset( $pages ) && is_array( $pages ) ) {
+													echo '<select name="all_in_one_invite_codes_general[default_registration]" id="all_in_one_invite_codes_general">';
 
-			                                        foreach ( $pages as $page_id => $page_name ) {
-				                                        echo '<option ' . selected( $all_in_one_invite_codes_general['default_registration'], $page_id ) . 'value="' . $page_id . '">' . $page_name . '</option>';
-			                                        }
-			                                        echo '</select>';
-		                                        }
-		                                        ?>
+													foreach ( $pages as $page_id => $page_name ) {
+														echo '<option ' . selected( $all_in_one_invite_codes_general['default_registration'], $page_id ) . 'value="' . $page_id . '">' . $page_name . '</option>';
+													}
+													echo '</select>';
+												}
+												?>
                                             </td>
                                         </tr>
                                         <tr valign="top">
                                             <th scope="row" valign="top">
-		                                        <?php _e( 'How manny now Invite Codes should get generated after the new user is activated?', 'all-in-one-invite-codes' ); ?>
+												<?php _e( 'How manny now Invite Codes should get generated after the new user is activated?', 'all-in-one-invite-codes' ); ?>
                                             </th>
                                             <td>
-                                                <input type="number" name="all_in_one_invite_codes_general[generate_codes_amount]" id="all_in_one_invite_codes_general_generate_codes_amount" value="<?php echo isset($all_in_one_invite_codes_general['generate_codes_amount']) ? $all_in_one_invite_codes_general['generate_codes_amount'] : ''; ?>">
+                                                <input type="number"
+                                                       name="all_in_one_invite_codes_general[generate_codes_amount]"
+                                                       id="all_in_one_invite_codes_general_generate_codes_amount"
+                                                       value="<?php echo isset( $all_in_one_invite_codes_general['generate_codes_amount'] ) ? $all_in_one_invite_codes_general['generate_codes_amount'] : ''; ?>">
                                             </td>
                                         </tr>
                                         </tbody>
@@ -174,7 +183,7 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 					print_r( $all_in_one_invite_codes_mail_templates );
 
 
-					$message_text_default = __('You got an invite from the site [site_name].... [invite_link]' );
+					$message_text_default = __( 'You got an invite from the site [site_name].... [invite_link]' );
 					?>
                     <div class="metabox-holder">
                         <div class="postbox all_in_one_invite_codes-metabox">
@@ -197,10 +206,13 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
                                         </tr>
                                         <tr valign="top">
                                             <th scope="row" valign="top">
-		                                        <?php _e( 'Subject', 'all-in-one-invite-codes' ); ?>
+												<?php _e( 'Subject', 'all-in-one-invite-codes' ); ?>
                                             </th>
                                             <td>
-                                                <input type="text" name="all_in_one_invite_codes_mail_templates[subject]" id="all_in_one_invite_codes_mail_templates" value="<?php echo isset($all_in_one_invite_codes_mail_templates['subject']) ? $all_in_one_invite_codes_mail_templates['subject'] : ''; ?>">
+                                                <input type="text"
+                                                       name="all_in_one_invite_codes_mail_templates[subject]"
+                                                       id="all_in_one_invite_codes_mail_templates"
+                                                       value="<?php echo isset( $all_in_one_invite_codes_mail_templates['subject'] ) ? $all_in_one_invite_codes_mail_templates['subject'] : ''; ?>">
                                             </td>
                                         </tr>
                                         <tr valign="top">
@@ -208,7 +220,8 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 												<?php _e( 'Message Text', 'all_in_one_invite_codes' ); ?>
                                             </th>
                                             <td>
-                                                <label for="all_in_one_invite_codes_mail_templates"><p>You can use Shortcodes to dynamically add data to the text.</p>
+                                                <label for="all_in_one_invite_codes_mail_templates"><p>You can use
+                                                        Shortcodes to dynamically add data to the text.</p>
                                                 </label>
                                                 <textarea cols="70" rows="5" id="all_in_one_invite_codes_mail_templates"
                                                           name="all_in_one_invite_codes_mail_templates[message_text]"><?php echo empty( $all_in_one_invite_codes_mail_templates['message_text'] ) ? $message_text_default : $all_in_one_invite_codes_mail_templates['message_text']; ?></textarea>
