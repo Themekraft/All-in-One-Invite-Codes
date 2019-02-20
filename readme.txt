@@ -34,7 +34,7 @@ Than the new user get a list of invite codes and can by him self invite finds.
 
 If the friend register with the invite code he will again get new invite codes generated and so on.
 
-Wit this technique you can quickly build a user base of one particular user type. 
+Wit this technique you can quickly build a user base of one particular user type.
 
 
 == Installation ==

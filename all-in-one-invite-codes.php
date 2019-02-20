@@ -288,8 +288,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 				'menu'           => array(
 					'slug'    => 'edit.php?post_type=tk_invite_codes',
 					'support' => false,
-					'contact' => true,
-					'addons'  => true,
+
 				),
 			) );
 		}
