@@ -67,5 +67,5 @@ function all_in_one_invite_codes_validate_code( $code, $user_email = '' ) {
 		return $result;
 
 	}
-
+	return true;
 }
