@@ -48,6 +48,7 @@ function all_in_one_invite_codes_render_metabox() {
 
 	$email          = isset( $all_in_one_invite_codes_options['email'] ) ? $all_in_one_invite_codes_options['email'] : '';
 	$generate_codes = isset( $all_in_one_invite_codes_options['generate_codes'] ) ? $all_in_one_invite_codes_options['generate_codes'] : '';
+	$type = isset( $all_in_one_invite_codes_options['type'] ) ? $all_in_one_invite_codes_options['type'] : 'registration';
 
 	?>
 
@@ -86,6 +87,25 @@ function all_in_one_invite_codes_render_metabox() {
                         id="all_in_one_invite_codes_options_generate_codes"
                         value="<?php echo esc_attr( $generate_codes ); ?>"
                 >
+            </p>
+        </div>
+        <div>
+            <label for="all_in_one_invite_codes_options_type">
+                <b><?php _e( 'Purpose?', 'all_in_one_invite_codes' ); ?></b>
+                <p><?php _e( 'Select an Action to limit the usage of the invite code to one particular action on your site and set the coupon code to used after thais action is done.', 'all_in_one_invite_codes' ); ?></p>
+            </label>
+            <p>
+                Purpose: <select
+                        name="all_in_one_invite_codes_options[type]"
+                        id="all_in_one_invite_codes_options_type"
+                        value="<?php echo esc_attr( $type ); ?>">
+                    <option value="register">Any</option>
+                    <option value="register">Register</option>
+                    <option value="register">Create a Post</option>
+                    <option value="register">Submit BuddyForms Form</option>
+                    <option value="register">Purchase a WooCommerce Product</option>
+
+                </select>
             </p>
         </div>
     </fieldset>

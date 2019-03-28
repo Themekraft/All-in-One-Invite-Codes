@@ -57,13 +57,31 @@ function all_in_one_invite_codes_get_status( $post_id ) {
 		case 'used' :
 			$status = __( 'Used', 'all-in-one-invite-codes' );
 			break;
-		default:
-			$status = __( 'Active', 'all-in-one-invite-codes' );
+		case 'validated' :
+			$status = __( 'Validated', 'all-in-one-invite-codes' );
 			break;
 	}
 
 	return $status;
 }
+
+function all_in_one_invite_codes_set_status( $code_id, $status ) {
+	return update_post_meta( $code_id, 'tk_all_in_one_invite_code_status', $status );
+}
+
+function all_in_one_invite_codes_is_valide( $code_id ) {
+
+	$status = get_post_meta( $code_id, 'tk_all_in_one_invite_code_status', true );
+
+	if ( ! $status || $status == 'validated' ) {
+		return true;
+	}
+
+	return false;
+}
+
+
+
 
 /**
  * Process the email notification shortcodes

@@ -12,7 +12,10 @@ function all_in_one_invite_code_user_register( $user_id ) {
 	if ( ! empty( $_POST['tk_invite_code'] ) ) {
 
 		// Save the invite code as user meta data to know the relation for later query's/ stats
-		update_user_meta( $user_id, 'tk_all_in_one_invite_code', sanitize_text_field( $_POST['tk_invite_code'] ) );
+
+		$tk_invite_code[] = sanitize_text_field( $_POST['tk_invite_code'] );
+
+		update_user_meta( $user_id, 'tk_all_in_one_invite_code', $tk_invite_code);
 
 		// Get the invite code
 		$args  = array(
