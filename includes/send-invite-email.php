@@ -21,13 +21,13 @@ function all_in_one_invite_codes_send_invite() {
 
 	// Site Name
 	$site_name = get_bloginfo( 'name' );
-	$subject   = all_in_one_invite_codes_inviten_email_replace_shortcode( $subject, '[site_name]', $site_name );
-	$body      = all_in_one_invite_codes_inviten_email_replace_shortcode( $body, '[site_name]', $site_name );
+	$subject   = all_in_one_invite_codes_replace_shortcode( $subject, '[site_name]', $site_name );
+	$body      = all_in_one_invite_codes_replace_shortcode( $body, '[site_name]', $site_name );
 
 	// Invite Link
 	$invite_link = '<a href="' . wp_registration_url() . '&invite_code=' . $invite_code . '">Link</a>';
-	$subject     = all_in_one_invite_codes_inviten_email_replace_shortcode( $subject, '[invite_link]', $invite_link );
-	$body        = all_in_one_invite_codes_inviten_email_replace_shortcode( $body, '[invite_link]', $invite_link );
+	$subject     = all_in_one_invite_codes_replace_shortcode( $subject, '[invite_link]', $invite_link );
+	$body        = all_in_one_invite_codes_replace_shortcode( $body, '[invite_link]', $invite_link );
 
 	// sent the mail
 	$send = wp_mail( $to, $subject, $body, $headers );

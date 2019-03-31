@@ -51,7 +51,7 @@ function all_in_one_invite_codes_validate_code( $code, $user_email = '' ) {
 					$all_in_one_invite_codes_options['email'] = $user_email;
 					update_post_meta( get_the_ID(), 'all_in_one_invite_codes_options', $all_in_one_invite_codes_options );
 				}
-				process_invite_code( get_the_ID(), 'validated' );
+//				process_invite_code( get_the_ID(), 'valide' );
 
 			}
 		endwhile;

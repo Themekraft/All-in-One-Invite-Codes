@@ -91,19 +91,30 @@ function all_in_one_invite_codes_render_metabox() {
         </div>
         <div>
             <label for="all_in_one_invite_codes_options_type">
-                <b><?php _e( 'Purpose?', 'all_in_one_invite_codes' ); ?></b>
+                <b><?php _e( 'Purpose?', 'all-in-one-invite-codes' ); ?></b>
                 <p><?php _e( 'Select an Action to limit the usage of the invite code to one particular action on your site and set the coupon code to used after thais action is done.', 'all_in_one_invite_codes' ); ?></p>
             </label>
+
+            <?php
+
+            $type_options =  array();
+            $type_options['any'] = __( 'Any', 'all-in-one-invite-codes' );
+            $type_options['register'] = __( 'Register', 'all-in-one-invite-codes' );
+
+
+            $type_options = apply_filters( 'all_in_one_invite_codes_options_type_options', $type_options )
+
+            ?>
             <p>
                 Purpose: <select
                         name="all_in_one_invite_codes_options[type]"
                         id="all_in_one_invite_codes_options_type"
                         value="<?php echo esc_attr( $type ); ?>">
-                    <option value="register">Any</option>
-                    <option value="register">Register</option>
-                    <option value="register">Create a Post</option>
-                    <option value="register">Submit BuddyForms Form</option>
-                    <option value="register">Purchase a WooCommerce Product</option>
+
+                    <?php foreach ($type_options as $slug => $option ) {
+	                    echo '<option value="' . $slug . '" >' . $option . '</option >';
+                    }
+                   ?>
 
                 </select>
             </p>

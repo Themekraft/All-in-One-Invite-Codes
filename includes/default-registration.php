@@ -7,6 +7,7 @@
  *
  * return html
  */
+add_action( 'register_form', 'all_in_one_invite_code_register_form' );
 function all_in_one_invite_code_register_form() {
 
 	// Check if default registration integration is enabled
@@ -26,8 +27,6 @@ function all_in_one_invite_code_register_form() {
 	<?php
 }
 
-add_action( 'register_form', 'all_in_one_invite_code_register_form' );
-
 /**
  * Validate the registration form element
  *
@@ -35,6 +34,7 @@ add_action( 'register_form', 'all_in_one_invite_code_register_form' );
  *
  * return object
  */
+add_filter( 'registration_errors', 'all_in_one_invite_code_registration_errors', 10, 3 );
 function all_in_one_invite_code_registration_errors( $errors, $sanitized_user_login, $user_email ) {
 
 	// Check if default registration integration is enabled
@@ -46,11 +46,12 @@ function all_in_one_invite_code_registration_errors( $errors, $sanitized_user_lo
 	if ( empty( $_POST['tk_invite_code'] ) || ! empty( $_POST['tk_invite_code'] ) && trim( $_POST['tk_invite_code'] ) == '' ) {
 		$errors->add( 'tk_invite_code_error', sprintf( '<strong>%s</strong>: %s', __( 'ERROR', 'all-in-one-invite-code' ), __( 'You must include a Invite Code.', 'all-in-one-invite-code' ) ) );
 	} else {
-
-		// Validate teh code
+		// Validate the code
 		$result = all_in_one_invite_codes_validate_code( trim( $_POST['tk_invite_code'] ), $user_email );
 		if ( isset( $result['error'] ) ) {
 			$errors->add( 'tk_invite_code_error', sprintf( '<strong>%s</strong>: %s', __( 'ERROR', 'all-in-one-invite-code' ), $result['error'] ) );
+		} else {
+			all_in_one_invite_codes_set_status( $_POST['tk_invite_code'], 'valide' );
 		}
 
 	}
@@ -58,5 +59,17 @@ function all_in_one_invite_code_registration_errors( $errors, $sanitized_user_lo
 	return $errors;
 }
 
-add_filter( 'registration_errors', 'all_in_one_invite_code_registration_errors', 10, 3 );
+//add_action( 'user_register', 'all_in_one_invite_code_registration_save', 10, 1 );
+function all_in_one_invite_code_registration_save( $user_id ) {
+
+	if ( isset( $_POST['tk_invite_code'] ) ) {
+
+		$tk_all_in_one_invite_code_user_codes = get_user_meta( $user_id, 'tk_all_in_one_invite_code_user_codes', true );
+
+		$tk_all_in_one_invite_code_user_codes[ $user_id ] = $_POST['tk_invite_code'];
+
+		update_user_meta( $user_id, 'tk_all_in_one_invite_code_user_codes', $tk_all_in_one_invite_code_user_codes );
+	}
+
+}
 

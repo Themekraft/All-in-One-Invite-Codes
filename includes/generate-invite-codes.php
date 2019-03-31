@@ -11,12 +11,6 @@ function all_in_one_invite_code_user_register( $user_id ) {
 	// Only jump in if a invite code exist
 	if ( ! empty( $_POST['tk_invite_code'] ) ) {
 
-		// Save the invite code as user meta data to know the relation for later query's/ stats
-
-		$tk_invite_code[] = sanitize_text_field( $_POST['tk_invite_code'] );
-
-		update_user_meta( $user_id, 'tk_all_in_one_invite_code', $tk_invite_code);
-
 		// Get the invite code
 		$args  = array(
 			'post_type'  => 'tk_invite_codes',
@@ -37,6 +31,10 @@ function all_in_one_invite_code_user_register( $user_id ) {
 				$podt_id = get_the_ID();
 			endwhile;
 		}
+
+		// Save the invite code as user meta data to know the relation for later query's/ stats
+		$tk_invite_code[$podt_id] = sanitize_text_field( $_POST['tk_invite_code'] );
+		update_user_meta( $user_id, 'tk_all_in_one_invite_code_user_codes', $tk_invite_code);
 
 		// get the invite code options
 		$all_in_one_invite_codes_options = get_post_meta( $podt_id, 'all_in_one_invite_codes_options', true );
