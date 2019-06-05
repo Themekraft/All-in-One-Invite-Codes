@@ -179,7 +179,9 @@ function all_in_one_invite_codes_save_code( $post_id, $post ) {
 		return $post_id;
 	}
 
-	update_post_meta( $post_id, 'tk_all_in_one_invite_code', wp_filter_post_kses( $_POST['tk_all_in_one_invite_code'] ) );
+	$tk_invite_code = sanitize_key( trim( $_POST['tk_all_in_one_invite_code'] ) );
+
+	update_post_meta( $post_id, 'tk_all_in_one_invite_code', $tk_invite_code );
 
 }
 

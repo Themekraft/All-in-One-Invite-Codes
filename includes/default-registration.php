@@ -15,7 +15,7 @@ function all_in_one_invite_code_register_form() {
 	}
 
 	// Check if the invite code is coming from a link
-	$tk_invite_code = ( ! empty( $_GET['invite_code'] ) ) ? sanitize_text_field( $_GET['invite_code'] ) : '';
+	$tk_invite_code = ( ! empty( $_GET['invite_code'] ) ) ? sanitize_key( trim( $_GET['invite_code'] ) ) : '';
 
 	?>
     <p>
@@ -47,8 +47,10 @@ function all_in_one_invite_code_registration_errors( $errors, $sanitized_user_lo
 		$errors->add( 'tk_invite_code_error', sprintf( '<strong>%s</strong>: %s', __( 'ERROR', 'all-in-one-invite-code' ), __( 'You must include a Invite Code.', 'all-in-one-invite-code' ) ) );
 	} else {
 
+		$tk_invite_code = sanitize_key( trim( $_POST['tk_invite_code'] ) );
+
 		// Validate teh code
-		$result = all_in_one_invite_codes_validate_code( trim( $_POST['tk_invite_code'] ), $user_email );
+		$result = all_in_one_invite_codes_validate_code( $tk_invite_code, $user_email );
 		if ( isset( $result['error'] ) ) {
 			$errors->add( 'tk_invite_code_error', sprintf( '<strong>%s</strong>: %s', __( 'ERROR', 'all-in-one-invite-code' ), $result['error'] ) );
 		}

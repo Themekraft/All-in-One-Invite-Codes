@@ -19,7 +19,7 @@ function all_in_one_invite_codes_md5( $post_id = false ) {
 	if ( ! $md5 ) {
 		$md5 = substr( md5( time() * rand() ), 0, 24 );
 	}
-
+	$md5 = sanitize_key( $md5 );
 	return $md5;
 }
 

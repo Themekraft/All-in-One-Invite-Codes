@@ -9,7 +9,7 @@ function all_in_one_invite_codes_disable_code() {
 		die();
 	}
 
-	$post_id = $_POST['post_id'];
+	$post_id = sanitize_text_field( $_POST['post_id'] );
 
 	$status = get_post_meta( $post_id, 'tk_all_in_one_invite_code_status', true );
 
