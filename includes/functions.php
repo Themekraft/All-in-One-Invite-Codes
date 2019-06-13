@@ -72,7 +72,7 @@ function all_in_one_invite_codes_get_code_id_by_code( $code ) {
 		'meta_query' => array(
 			array(
 				'key'     => 'tk_all_in_one_invite_code',
-				'value'   => trim( $_POST['tk_invite_code'] ),
+				'value'   => sanitize_key( trim( $_POST['tk_invite_code'] ) ),
 				'compare' => '=',
 			)
 		)
@@ -88,16 +88,6 @@ function all_in_one_invite_codes_get_code_id_by_code( $code ) {
 		endwhile;
 	}
 	return $podt_id;
-}
-
-function all_in_one_invite_codes_set_status_by_code( $code, $status ) {
-
-	$code_id = all_in_one_invite_codes_get_code_id_by_code($code);
-
-	return update_post_meta( $code_id, 'tk_all_in_one_invite_code_status', $status );
-}
-function all_in_one_invite_codes_set_status( $code_id, $status ) {
-	return update_post_meta( $code_id, 'tk_all_in_one_invite_code_status', $status );
 }
 
 function all_in_one_invite_codes_is_valide( $code_id ) {

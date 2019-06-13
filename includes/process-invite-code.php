@@ -51,7 +51,6 @@ function all_in_one_invite_codes_validate_code( $code, $user_email = '' ) {
 					$all_in_one_invite_codes_options['email'] = $user_email;
 					update_post_meta( get_the_ID(), 'all_in_one_invite_codes_options', $all_in_one_invite_codes_options );
 				}
-//				process_invite_code( get_the_ID(), 'valide' );
 
 			}
 		endwhile;
@@ -66,9 +65,4 @@ function all_in_one_invite_codes_validate_code( $code, $user_email = '' ) {
 	}
 
 	return true;
-}
-
-
-function process_invite_code( $code_id, $status ) {
-	all_in_one_invite_codes_set_status( $code_id, $status );
 }
