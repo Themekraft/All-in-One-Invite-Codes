@@ -5,11 +5,20 @@
  */
 function all_in_one_invite_codes_disable_code() {
 
-	if ( ! $_POST['post_id'] ) {
-		die();
+
+	if (! (is_array($_POST) && defined('DOING_AJAX') && DOING_AJAX)) {
+		wp_die();
 	}
 
-	$post_id = sanitize_text_field( $_POST['post_id'] );
+	if ( ! isset($_POST['action']) || wp_verify_nonce($_POST['nonce'], 'all_in_one_invite_code_nonce') === false ) {
+		wp_die();
+	}
+
+	if ( ! $_POST['post_id'] ) {
+		wp_die();
+	}
+
+	$post_id = intval( $_POST['post_id'] );
 
 	$status = get_post_meta( $post_id, 'tk_all_in_one_invite_code_status', true );
 
@@ -33,11 +42,19 @@ add_action( 'wp_ajax_all_in_one_invite_codes_disable_code', 'all_in_one_invite_c
  */
 function all_in_one_invite_codes_send_invite_mail() {
 
+	if (! (is_array($_POST) && defined('DOING_AJAX') && DOING_AJAX)) {
+		wp_die();
+	}
+
+	if ( ! isset($_POST['action']) || wp_verify_nonce($_POST['nonce'], 'all_in_one_invite_code_nonce') === false ) {
+		wp_die();
+	}
+
 	if ( ! $_POST['post_id'] ) {
 		die();
 	}
 
-	$post_id = sanitize_text_field( $_POST['post_id'] );
+	$post_id = intval( $_POST['post_id'] );
 
 	$status = get_post_meta( $post_id, 'tk_all_in_one_invite_code_status', true );
 

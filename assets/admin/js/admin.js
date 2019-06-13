@@ -10,6 +10,7 @@ jQuery(document).ready(function (jQuery) {
             url: ajaxurl,
             data: {
                 "action": "all_in_one_invite_codes_disable_code",
+                "nonce": allInOneInviteCodesAdminJs.nonce,
                 "post_id": post_id
             },
             success: function (data) {

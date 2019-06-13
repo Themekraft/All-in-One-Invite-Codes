@@ -9,7 +9,7 @@
 function all_in_one_invite_codes_send_invite() {
 
 	// Get the invite code
-	$invite_code = get_post_meta( sanitize_text_field( $_POST['post_id'] ), 'tk_all_in_one_invite_code', true );
+	$invite_code = get_post_meta( intval( $_POST['post_id'] ), 'tk_all_in_one_invite_code', true );
 
 	$to          = sanitize_email( $_POST['to'] );
 	$subject     = sanitize_text_field( $_POST['subject'] );
@@ -33,7 +33,7 @@ function all_in_one_invite_codes_send_invite() {
 	$send = wp_mail( $to, $subject, $body, $headers );
 
 
-	$post_id = sanitize_text_field( $_POST['post_id'] );
+	$post_id = intval( $_POST['post_id'] );
 
 	$all_in_one_invite_codes_options = get_post_meta( $post_id, 'all_in_one_invite_codes_options', true );
 

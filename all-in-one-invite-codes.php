@@ -208,6 +208,8 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
             wp_register_script( 'all-in-one-invite_codes-admin-js', plugins_url( 'assets/admin/js/admin.js', __FILE__ ), array(), $this->version );
             wp_enqueue_script( 'all-in-one-invite_codes-admin-js' );
 
+            wp_localize_script('all-in-one-invite_codes-admin-js', 'allInOneInviteCodesAdminJs', array( 'nonce' => wp_create_nonce('all_in_one_invite_code_nonce') ) );
+
 		}
 
 		/**
