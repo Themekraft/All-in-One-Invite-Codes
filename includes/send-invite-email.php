@@ -8,8 +8,22 @@
  */
 function all_in_one_invite_codes_send_invite() {
 
+	if (! (is_array($_POST) && defined('DOING_AJAX') && DOING_AJAX)) {
+		wp_die();
+	}
+
+	if ( ! isset($_POST['action']) || wp_verify_nonce($_POST['nonce'], 'all_in_one_invite_code_nonce') === false ) {
+		wp_die();
+	}
+
+	if ( ! $_POST['post_id'] ) {
+		wp_die();
+	}
+
+	$post_id = intval( $_POST['post_id'] );
+
 	// Get the invite code
-	$invite_code = get_post_meta( intval( $_POST['post_id'] ), 'tk_all_in_one_invite_code', true );
+	$invite_code = get_post_meta( $post_id, 'tk_all_in_one_invite_code', true );
 
 	$to          = sanitize_email( $_POST['to'] );
 	$subject     = sanitize_text_field( $_POST['subject'] );
@@ -31,9 +45,6 @@ function all_in_one_invite_codes_send_invite() {
 
 	// sent the mail
 	$send = wp_mail( $to, $subject, $body, $headers );
-
-
-	$post_id = intval( $_POST['post_id'] );
 
 	$all_in_one_invite_codes_options = get_post_meta( $post_id, 'all_in_one_invite_codes_options', true );
 
