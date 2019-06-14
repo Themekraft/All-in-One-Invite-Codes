@@ -15,52 +15,45 @@ Create Invite only Registration Funnels, Products and more.
 Get full control over the registration process by enabling invitation based Registration on your site.
 
 ### Why is this a great Idea?
+* Use it for Marketing
+Perfect for any launch of a community site. Get a great benefit from the snowball effect.
 
-# Use it for Marketing
-Perfect for any launch of a community and get benefits from a snowball effect.
-
-# You will now know more about your user
+* You will now know more about your user
 Get a clear picture of the members of your site by knowing who invite them to your website.
 
-# Truly secure and transparent
+* Truly secure and transparent
 Block unwanted registrations and spam once and for all with an invite-only form element.
 
 ###Use our Pro Add-ons
-#WooComemrce
+* WooComemrce
 Sell Products to invitation only. Ideal for a product release if you want to limit the user access in the beginning or get a social snowball effect by limiting the access to invite only.
 
-# BuddyForms
+* BuddyForms
 Use Invite Codes in any BuddyForms form and limit Contact, Registration and Post Forms for users with an Invite Code. A perfect tool to allow "User Generated Content" on your site for people with an Invite Code only.
 
-# BuddyPress
+* BuddyPress
 Let your users manage there Invite Codes and invite others from there profile.
 
 ### Add-ons coming soon
-# MyCred Integration
+* MyCred Integration
 Give your users credit for there used coupon codes or if they invite their friends. We build some nice roles so you can increase the engagement of your users to invite others by giving them points
 
-# Invite Tree Stats
+* Invite Tree Stats
 See the flow of invites in a tree and manage your userbase in a way it would not be possible without an invite system. If you have a closed community, you can see in the tree where the people come from, and if you have some unwanted people coming into your community, you can see from which user the people got invited and delete the complete tree or make this user as spam, unwanted or fake.
 
-###How it works.
-You create the first bunch of invite codes and define how many new Invite Codes get created for a new user. Also, no new invite codes are possible if you want to only invite people without letting them invite their friends.
+### How it works.
+You create the first bunch of invite codes and define how many new Invite Codes get created for a new user. Also, no new invite codes are possible if you want to only invite people without letting them invite their friends. In case you allow your users to invite their friends. The new user gets a list of invite codes and can buy himself invite others. If the friend registers with the invite code, he will again get new invite codes generated and so on. With this technique, you can quickly build a user base of one particular user type.
 
-In case you allow your users to invite their friends. The new user gets a list of invite codes and can buy himself invite others.
+* Display the  invite codes to invite others in any Page or BuddyPress Profile
 
-If the friend registers with the invite code, he will again get new invite codes generated and so on.
+* Let your users write a custom invite message or use a predefined message
 
-With this technique, you can quickly build a user base of one particular user type.
-
-# Display the  invite codes to invite others in any Page or BuddyPress Profile
-
-# Let your users write a custom invite message or use a predefined message
-
-#Use Cases
-Make your site launch more attractive
-Keep your member flow transparent
-Create a homogeneous user base
-Use for Marketing to generate a Snowball effect.
-Invite people to write on your site
+### Use Cases
+* Make your site launch more attractive
+* Keep your member flow transparent
+* Create a homogeneous user base
+* Use for Marketing to generate a Snowball effect.
+* Invite people to write on your site
 
 == Installation ==
 Install like any other WordPress plugin.
