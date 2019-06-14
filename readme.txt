@@ -1,5 +1,5 @@
 === All in One Invite Codes ===
-Contributors: svenl77, gfirem,
+Contributors: svenl77, gfirem
 Tags: registration, invite only, invite codes,
 Requires at least: 4.9
 Tested up to: 5.2
@@ -62,7 +62,6 @@ Create a homogeneous user base
 Use for Marketing to generate a Snowball effect.
 Invite people to write on your site
 
-
 == Installation ==
 Install like any other WordPress plugin.
 Upload the entire folder to the /wp-content/plugins/ directory or install the plugin through the WordPress plugins screen directly.
@@ -79,8 +78,6 @@ Have fun!
 #Can I use this out of the box with the WordPress Registration
 * Yes
 
-
-
 == Screenshots ==
 1. Manage Invite Codes
 2. Create new Invite Codes
@@ -92,4 +89,3 @@ Have fun!
 == Changelog ==
 = 1.0 beta 1 – 14 Jun. 2019
 * First BETA version
-
