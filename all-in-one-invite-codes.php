@@ -4,7 +4,7 @@
  * Plugin Name: All in One Invite Codes
  * Plugin URI:  https://themekraft.com/all-in-one-invite-codes/
  * Description: Create Invite only Registration Funnels and Products. Boost your site launch and get the attention you desire by creating an intelligent invite only Platform.
- * Version: 0.1
+ * Version: 1.0 Beta 1
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/
  * Licence: GPLv3
@@ -42,7 +42,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		/**
 		 * @var string
 		 */
-		public $version = '0.1';
+		public $version = '1.0';
 
 		/**
 		 * @var string Assets URL
