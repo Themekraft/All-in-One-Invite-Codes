@@ -109,14 +109,10 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 
 			switch ( $tab ) {
 				case 'general' :
-					$all_in_one_invite_codes_general = get_option( 'all_in_one_invite_codes_general' );
-					print_r( $all_in_one_invite_codes_general );
-					?>
+					$all_in_one_invite_codes_general = get_option( 'all_in_one_invite_codes_general' ); ?>
                     <div class="metabox-holder">
                         <div class="postbox all_in_one_invite_codes-metabox">
-
                             <div class="inside">
-
                                 <form method="post" action="options.php">
 
 									<?php settings_fields( 'all_in_one_invite_codes_general' ); ?>
@@ -179,7 +175,6 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 				case 'mail' :
 
 					$all_in_one_invite_codes_mail_templates = get_option( 'all_in_one_invite_codes_mail_templates' );
-					print_r( $all_in_one_invite_codes_mail_templates );
 
 
 					$message_text_default = __( 'You got an invite from the site [site_name].... [invite_link]' );
