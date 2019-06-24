@@ -178,9 +178,14 @@ function all_in_one_invite_codes_save_options( $post_id, $post ) {
 	// Do the update
 	update_post_meta( $post_id, 'all_in_one_invite_codes_options', $sanitized );
 
+
+	if( !get_post_meta($post_id,'tk_all_in_one_invite_code_status',  true)){
+		update_post_meta($post_id, 'tk_all_in_one_invite_code_status', 'Active');
+    }
+
 }
 
-add_action( 'save_post', 'all_in_one_invite_codes_save_options', 1, 2 );
+add_action( 'save_post_tk_invite_codes', 'all_in_one_invite_codes_save_options', 1, 2 );
 
 /**
  * Save the invite code

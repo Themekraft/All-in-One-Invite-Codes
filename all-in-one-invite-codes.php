@@ -68,6 +68,10 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_styles' ), 102, 1 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_js' ), 102, 1 );
 
+
+			add_action( 'wp_enqueue_scripts', array( $this, 'front_js_loader' ), 102, 1 );
+
+
 			register_deactivation_hook( __FILE__, array( $this, 'plugin_deactivation' ) );
 		}
 
@@ -219,6 +223,10 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		 * @since  0.1
 		 */
 		function front_js_loader() {
+			wp_register_script( 'all-in-one-invite_codes-front-js', plugins_url( 'assets/js/front.js', __FILE__ ), array(), $this->version );
+			wp_enqueue_script( 'all-in-one-invite_codes-front-js' );
+
+			wp_localize_script('all-in-one-invite_codes-front-js', 'allInOneInviteCodesFrontJs', array( 'nonce' => wp_create_nonce('all_in_one_invite_code_nonce') ) );
 
 		}
 

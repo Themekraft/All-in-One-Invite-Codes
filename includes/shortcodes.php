@@ -8,6 +8,9 @@
  */
 function all_in_one_invite_codes_list_codes( $atts ) {
 
+
+    ob_start();
+
 	// If the user is not logged in display a login form
 	if ( ! is_user_logged_in() ) {
 		echo '<p>' . __( 'Please login to manage your invite codes.', 'all-in-one-invite-codes' ) . '</p>';
@@ -15,7 +18,6 @@ function all_in_one_invite_codes_list_codes( $atts ) {
 
 		return;
 	}
-
 
 	// Add the js in the shortcode so we can use this more easy as Block in a later process. ?>
     <script>
@@ -47,6 +49,7 @@ function all_in_one_invite_codes_list_codes( $atts ) {
                         "to": to,
                         "subject": subject,
                         "message_text": message_text,
+                        "nonce": allInOneInviteCodesFrontJs.nonce,
                     },
                     success: function (data) {
                         console.log(data);
@@ -155,6 +158,10 @@ function all_in_one_invite_codes_list_codes( $atts ) {
 	endif;
 
 	wp_reset_postdata();
+
+	$tmp = ob_get_clean();
+
+	return $tmp;
 
 }
 

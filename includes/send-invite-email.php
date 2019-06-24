@@ -39,7 +39,7 @@ function all_in_one_invite_codes_send_invite() {
 	$body      = all_in_one_invite_codes_replace_shortcode( $body, '[site_name]', $site_name );
 
 	// Invite Link
-	$invite_link = '<a href="' . wp_registration_url() . '&invite_code=' . $invite_code . '">Link</a>';
+	$invite_link = '<a href="' . wp_registration_url() . '?invite_code=' . $invite_code . '">Link</a>';
 	$subject     = all_in_one_invite_codes_replace_shortcode( $subject, '[invite_link]', $invite_link );
 	$body        = all_in_one_invite_codes_replace_shortcode( $body, '[invite_link]', $invite_link );
 
@@ -56,13 +56,13 @@ function all_in_one_invite_codes_send_invite() {
 
 	// IF something went wrong during the sent message process
 	if ( ! $send ) {
-		$json['error'] = __( 'Invite could not get send. please contact the Support.', 'all-in-one-invite-code' );
+		$json['error'] = __( 'Invite could not get send. Please contact the Support.', 'all-in-one-invite-code' );
 		echo json_encode( $json );
 		die();
 	}
 
 	// Great, all done message got sent
-	$json['message'] = __( 'Invite send successfully', 'buddyforms' );;
+	$json['message'] = __( 'Invite send out successfully', 'buddyforms' );;
 
 	echo json_encode( $json );
 	die();

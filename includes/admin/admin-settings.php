@@ -177,7 +177,7 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 					$all_in_one_invite_codes_mail_templates = get_option( 'all_in_one_invite_codes_mail_templates' );
 
 
-					$message_text_default = __( 'You got an invite from the site [site_name].... [invite_link]' );
+					$message_text_default = __( 'You got an invite from the site [site_name]. Please use this link to register with your invite code [invite_link]' );
 					?>
                     <div class="metabox-holder">
                         <div class="postbox all_in_one_invite_codes-metabox">
