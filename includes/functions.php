@@ -94,7 +94,7 @@ function all_in_one_invite_codes_is_valide( $code_id ) {
 
 	$status = get_post_meta( $code_id, 'tk_all_in_one_invite_code_status', true );
 
-	if ( ! $status || $status == 'valide' ) {
+	if ( ! $status || $status == 'valide' || $status == 'Active' ) {
 		return true;
 	}
 

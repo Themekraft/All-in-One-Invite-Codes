@@ -8,7 +8,7 @@ Stable tag: 1.0.1 Beta
 License: GPL 3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Create Invite only Registration Funnels, Products and more.
+Intelligent automatic invite codes system. Create Invite only Registration Funnels, Products and more.
 
 == Description ==
 
