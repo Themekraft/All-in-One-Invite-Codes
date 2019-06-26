@@ -4,7 +4,7 @@ Tags: registration, invite only, invite codes,
 Requires at least: 4.9
 Tested up to: 5.2
 Requires PHP: 5.3
-Stable tag: 1.0.1 Beta
+Stable tag: 1.0.2 Beta
 License: GPL 3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -80,6 +80,11 @@ Have fun!
 6. eMail Form
 
 == Changelog ==
+
+
+= 1.0.2 beta – 26 Jun. 2019
+* Fixed a validation issue in the invite codes validation on the server site
+
 = 1.0.1 beta – 24 Jun. 2019
 * Added front js
 * Fixed the invite code link in the email
