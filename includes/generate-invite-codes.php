@@ -61,6 +61,8 @@ function all_in_one_invite_code_user_register( $user_id ) {
 				$all_in_one_invite_codes_new_options['generate_codes'] = $all_in_one_invite_codes_options['generate_codes'];
 				update_post_meta( $new_code_id, 'all_in_one_invite_codes_options', $all_in_one_invite_codes_new_options );
 
+				update_post_meta( $new_code_id, 'tk_all_in_one_invite_code_status', 'Active' );
+
 			}
 
 		}
