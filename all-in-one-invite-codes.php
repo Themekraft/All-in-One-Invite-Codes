@@ -223,7 +223,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		 * @since  0.1
 		 */
 		function front_js_loader() {
-			wp_register_script( 'all-in-one-invite_codes-front-js', plugins_url( 'assets/js/front.js', __FILE__ ), array(), $this->version );
+			wp_register_script( 'all-in-one-invite_codes-front-js', plugins_url( 'assets/js/front.js', __FILE__ ), array('jquery'), $this->version );
 			wp_enqueue_script( 'all-in-one-invite_codes-front-js' );
 
 			wp_localize_script('all-in-one-invite_codes-front-js', 'allInOneInviteCodesFrontJs', array( 'nonce' => wp_create_nonce('all_in_one_invite_code_nonce') ) );
