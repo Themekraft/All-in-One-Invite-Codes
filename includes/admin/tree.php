@@ -182,17 +182,17 @@ function all_in_one_invite_codes_user_tree_wp_list_pages_filter( $html, $key, $v
 		$invite_key     = get_post_meta( $value->ID, 'tk_all_in_one_invite_code', true );
 		$invite_status  = get_post_meta( $value->ID, 'tk_all_in_one_invite_code_status', true );
 		$invite_options = get_post_meta( $value->ID, 'all_in_one_invite_codes_options', true );
-		$avatar         = get_avatar_url( $value->ID );
 
 
+		$new_title = '';
 		if ( $invite_options['email'] ) {
 			$user      = get_user_by( 'email', $invite_options['email'] );
+			$avatar    = get_avatar_url( $user->ID );
 			$new_title = $invite_key . ' </a><br> <img src="' . $avatar . '" /> <br>Status: ' . $invite_status . ' <br> User: <a href="' . get_edit_user_link( $user->ID ) . '">  ' . $user->display_name;
 
 		} else {
 			$new_title = '';
 		}
-
 
 		$html = str_replace( $old_title, $new_title, $html );
 	}
@@ -213,7 +213,7 @@ function all_in_one_invite_codes_wp_list_pages_filter( $html, $key, $values ) {
 
 		if ( $invite_options['email'] ) {
 			$user      = get_user_by( 'email', $invite_options['email'] );
-			$new_title = $invite_key . ' </a><br> <img src="' . $avatar . '" /> <br>Status: ' . $invite_status . ' <br> User: <a href="' . get_edit_user_link( $user->ID ) . '">  ' . $user->display_name;
+			$new_title = $invite_key . ' </a><br> Status: ' . $invite_status . ' <br> User: <a href="' . get_edit_user_link( $user->ID ) . '">  ' . $user->display_name;
 		} else {
 			$new_title = $invite_key . ' </a><br> Status: ' . $invite_status . ' <br>';
 		}
