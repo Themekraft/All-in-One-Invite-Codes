@@ -46,12 +46,6 @@ function all_in_one_invite_codes_validate_code( $code, $user_email = '' ) {
 						return $result;
 					}
 				}
-				// If the email is empty we can use this code with any email address and assign the new mail to the code.
-				if ( empty( $all_in_one_invite_codes_options['email'] ) ) {
-					$all_in_one_invite_codes_options['email'] = $user_email;
-					update_post_meta( get_the_ID(), 'all_in_one_invite_codes_options', $all_in_one_invite_codes_options );
-				}
-
 			}
 		endwhile;
 

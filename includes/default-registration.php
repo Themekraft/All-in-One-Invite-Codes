@@ -62,3 +62,20 @@ function all_in_one_invite_code_registration_errors( $errors, $sanitized_user_lo
 
 add_filter( 'registration_errors', 'all_in_one_invite_code_registration_errors', 10, 3 );
 
+add_action( 'user_register', 'all_in_one_invite_code_registration_save', 10, 1 );
+function all_in_one_invite_code_registration_save( $user_id ) {
+
+	$tk_invite_code = sanitize_key( trim( $_POST['tk_invite_code'] ) );
+
+	$post_id = all_in_one_invite_codes_get_code_id_by_code( $tk_invite_code );
+
+	$all_in_one_invite_codes_options = get_post_meta( $post_id, 'all_in_one_invite_codes_options' );
+
+	$user_data = get_userdata( $user_id );
+
+	$all_in_one_invite_codes_options['email'] = $user_data->user_email;
+
+	update_post_meta( $post_id, 'all_in_one_invite_codes_options', $all_in_one_invite_codes_options );
+	update_post_meta( $post_id, 'tk_all_in_one_invite_code_status', 'Used' );
+
+}
