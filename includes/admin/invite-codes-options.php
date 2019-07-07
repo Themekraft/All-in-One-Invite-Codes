@@ -231,3 +231,28 @@ function all_in_one_invite_codes_remove_slugdiv() {
 }
 
 add_action( 'admin_menu', 'all_in_one_invite_codes_remove_slugdiv' );
+
+
+add_filter('wp_insert_post_data', 'wpse67262_change_title');
+function wpse67262_change_title($data)
+{
+    $post_id = $data['ID'];
+	if ( ! isset( $_POST['all_in_one_invite_codes_options_process'] ) ) {
+		return $data;
+	}
+
+	if ( ! wp_verify_nonce( $_POST['all_in_one_invite_codes_options_process'], 'all_in_one_invite_codes_options_nonce' ) ) {
+		return $data;
+	}
+
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		return $data;
+	}
+
+	if ( ! isset( $_POST['tk_all_in_one_invite_code'] ) ) {
+		return $data;
+	}
+
+	$data['post_title'] = sanitize_key( trim( $_POST['tk_all_in_one_invite_code'] ) );
+	return $data;
+}
