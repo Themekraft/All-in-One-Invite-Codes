@@ -21,7 +21,6 @@ function all_in_one_invite_codes_tree_page() { ?>
         }
 
 
-
     </style>
     <div id="post" class="wrap">
 
@@ -120,8 +119,8 @@ function all_in_one_invite_codes_tree_tabs_content() {
 								add_filter( 'post_type_link', 'all_in_one_invite_codes_list_pages_permalink_filter', 10, 2 );
 
 								wp_list_pages( array(
-									'post_type' => 'tk_invite_codes',
-									'title_li'  => 'Invite Codes Flow',
+									'post_type'   => 'tk_invite_codes',
+									'title_li'    => 'Invite Codes Flow',
 									'post_status' => 'publish'
 								) );
 
@@ -139,13 +138,13 @@ function all_in_one_invite_codes_tree_tabs_content() {
                         <div class="postbox all_in_one_invite_codes-metabox">
                             <div class="inside">
 								<?php
-                                add_filter( 'wp_list_pages', 'all_in_one_invite_codes_user_tree_wp_list_pages_filter', 10, 3 );
+								add_filter( 'wp_list_pages', 'all_in_one_invite_codes_user_tree_wp_list_pages_filter', 10, 3 );
 								add_filter( 'post_type_link', 'all_in_one_invite_codes_list_pages_permalink_filter', 10, 2 );
 
 								wp_list_pages( array(
-									'post_type' => 'tk_invite_codes',
-									'title_li'  => 'User Tree',
-                                    'post_status' => 'publish'
+									'post_type'   => 'tk_invite_codes',
+									'title_li'    => 'User Tree',
+									'post_status' => 'publish'
 
 								) );
 
@@ -188,7 +187,8 @@ function all_in_one_invite_codes_user_tree_wp_list_pages_filter( $html, $key, $v
 
 
 		$new_title = '';
-		if ( $invite_options['email'] ) {
+		if ( isset( $invite_options['email'] ) && $invite_options['email'] != '--' ) {
+		
 			$user      = get_user_by( 'email', $invite_options['email'] );
 			$avatar    = get_avatar_url( $user->ID );
 			$new_title = $invite_key . ' </a><br> <img src="' . $avatar . '" /> <br>Status: ' . $invite_status . ' <br> User: <a href="' . get_edit_user_link( $user->ID ) . '">  ' . $user->display_name;
@@ -205,7 +205,7 @@ function all_in_one_invite_codes_user_tree_wp_list_pages_filter( $html, $key, $v
 
 function all_in_one_invite_codes_wp_list_pages_filter( $html, $key, $values ) {
 
-    return $html;
+	return $html;
 
 	foreach ( $values as $key => $value ) {
 		$old_title = $value->post_title;
@@ -232,15 +232,15 @@ function all_in_one_invite_codes_wp_list_pages_filter( $html, $key, $values ) {
 }
 
 
-function wpse_exclude_drafts_branches()
-{
+function wpse_exclude_drafts_branches() {
 	global $wpdb;
 	$exclude = array();
 	$results = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} where post_status = 'draft' AND post_type = 'tk_invite_codes' " );
-	$exclude = array_merge( $exclude, $results) ;
+	$exclude = array_merge( $exclude, $results );
 	while ( $results ):
-		$results = $wpdb->get_col( "SELECT DISTINCT ID FROM {$wpdb->posts} WHERE post_type = 'tk_invite_codes' AND post_status = 'publish' AND post_parent > 0 AND post_parent IN (" .  join( ',', $results ) . ") " );
-		$exclude = array_merge( $exclude, $results) ;
+		$results = $wpdb->get_col( "SELECT DISTINCT ID FROM {$wpdb->posts} WHERE post_type = 'tk_invite_codes' AND post_status = 'publish' AND post_parent > 0 AND post_parent IN (" . join( ',', $results ) . ") " );
+		$exclude = array_merge( $exclude, $results );
 	endwhile;
+
 	return join( ',', $exclude );
 }

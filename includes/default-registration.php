@@ -104,9 +104,7 @@ function all_in_one_invite_code_registration_save( $user_id ) {
 		// Alright, loop and create all needed codes for this user.
 		for ( $i = 1; $i <= $all_in_one_invite_codes_options['generate_codes']; $i ++ ) {
 
-			// Create and save the new invite code as post meta
-			$code = all_in_one_invite_codes_md5( $new_code_id );
-			$code = wp_filter_post_kses( $code );
+
 
 		    $args        = array(
 				'post_type'   => 'tk_invite_codes',
@@ -117,6 +115,15 @@ function all_in_one_invite_code_registration_save( $user_id ) {
 			);
 			$new_code_id = wp_insert_post( $args );
 
+			// Create and save the new invite code as post meta
+			$code = all_in_one_invite_codes_md5( $new_code_id );
+			$code = wp_filter_post_kses( $code );
+
+			$args        = array(
+                'ID'          => $new_code_id,
+				'post_title'  => $code,
+			);
+			wp_update_post($args);
 
 			update_post_meta( $new_code_id, 'tk_all_in_one_invite_code', $code );
 
