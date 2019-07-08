@@ -62,7 +62,7 @@ function all_in_one_invite_code_registration_errors( $errors, $sanitized_user_lo
 
 add_filter( 'registration_errors', 'all_in_one_invite_code_registration_errors', 10, 3 );
 
-add_action( 'user_register', 'all_in_one_invite_code_registration_save', 10, 1 );
+
 function all_in_one_invite_code_registration_save( $user_id ) {
 
 	if ( empty( $_POST['tk_invite_code'] ) ) {
@@ -132,3 +132,4 @@ function all_in_one_invite_code_registration_save( $user_id ) {
 	update_post_meta( $post_parent_post_id, 'tk_all_in_one_invite_code_status', 'Used' );
 
 }
+add_action( 'user_register', 'all_in_one_invite_code_registration_save', 10, 1 );
