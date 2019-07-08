@@ -103,17 +103,22 @@ function all_in_one_invite_code_registration_save( $user_id ) {
 
 		// Alright, loop and create all needed codes for this user.
 		for ( $i = 1; $i <= $all_in_one_invite_codes_options['generate_codes']; $i ++ ) {
-			$args        = array(
-				'post_type'   => 'tk_invite_codes',
-				'post_author' => $user_id,
-				'post_parent' => $post_parent_post_id,
-				'post_status' => 'publish'
-			);
-			$new_code_id = wp_insert_post( $args );
 
 			// Create and save the new invite code as post meta
 			$code = all_in_one_invite_codes_md5( $new_code_id );
-			update_post_meta( $new_code_id, 'tk_all_in_one_invite_code', wp_filter_post_kses( $code ) );
+			$code = wp_filter_post_kses( $code );
+
+		    $args        = array(
+				'post_type'   => 'tk_invite_codes',
+				'post_author' => $user_id,
+				'post_parent' => $post_parent_post_id,
+				'post_status' => 'publish',
+                'post_title'  => $code,
+			);
+			$new_code_id = wp_insert_post( $args );
+
+
+			update_post_meta( $new_code_id, 'tk_all_in_one_invite_code', $code );
 
 			// Assign the amount of new codes to the code witch should get created if one of this codes get used.
 			$all_in_one_invite_codes_new_options['generate_codes'] = $all_in_one_invite_codes_options['generate_codes'];

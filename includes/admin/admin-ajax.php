@@ -22,7 +22,7 @@ function all_in_one_invite_codes_disable_code() {
 
 	$status = get_post_meta( $post_id, 'tk_all_in_one_invite_code_status', true );
 
-	if ( $status ) {
+	if ( $status == 'Used' || $status == 'Disabled' ) {
 		$json['error'] = __( 'Used or Disabled Invite Codes can not get changed.', 'all-in-one-invite-code' );
 		echo json_encode( $json );
 		die();
