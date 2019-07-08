@@ -4,7 +4,7 @@ Tags: registration, invite only, invite codes,
 Requires at least: 4.9
 Tested up to: 5.2
 Requires PHP: 5.3
-Stable tag: 1.0.2 Beta
+Stable tag: 1.0.3 Beta
 License: GPL 3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -81,6 +81,16 @@ Have fun!
 
 == Changelog ==
 
+= 1.0.3 beta – 08 Jul. 2019
+* Set the invite code to active if created
+* Fixed some js issues.
+* Moved the js from the shortcode into the front js file
+* Added a new admin option pages for the tree view and statistics
+* Added new function to update the invite code after registration
+* fixed an issue with the avatar in the user statistics
+* Added the invite code as title
+* Merged functions and clean up the code
+* Fixed a issue with the invite code disable ajax
 
 = 1.0.2 beta – 26 Jun. 2019
 * Fixed a validation issue in the invite codes validation on the server site

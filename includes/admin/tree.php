@@ -188,7 +188,7 @@ function all_in_one_invite_codes_user_tree_wp_list_pages_filter( $html, $key, $v
 
 		$new_title = '';
 		if ( isset( $invite_options['email'] ) && $invite_options['email'] != '--' ) {
-		
+
 			$user      = get_user_by( 'email', $invite_options['email'] );
 			$avatar    = get_avatar_url( $user->ID );
 			$new_title = $invite_key . ' </a><br> <img src="' . $avatar . '" /> <br>Status: ' . $invite_status . ' <br> User: <a href="' . get_edit_user_link( $user->ID ) . '">  ' . $user->display_name;
@@ -232,7 +232,7 @@ function all_in_one_invite_codes_wp_list_pages_filter( $html, $key, $values ) {
 }
 
 
-function wpse_exclude_drafts_branches() {
+function all_in_one_invite_codes_exclude_drafts_branches() {
 	global $wpdb;
 	$exclude = array();
 	$results = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} where post_status = 'draft' AND post_type = 'tk_invite_codes' " );
