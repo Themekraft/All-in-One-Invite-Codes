@@ -236,6 +236,10 @@ add_action( 'admin_menu', 'all_in_one_invite_codes_remove_slugdiv' );
 add_filter('wp_insert_post_data', 'all_in_one_invite_codes_change_title');
 function all_in_one_invite_codes_change_title($data)
 {
+    if(! isset($data['ID'])){
+	    return $data;
+    }
+
     $post_id = $data['ID'];
 	if ( ! isset( $_POST['all_in_one_invite_codes_options_process'] ) ) {
 		return $data;
