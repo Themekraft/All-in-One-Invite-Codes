@@ -2,9 +2,9 @@
 Contributors: svenl77, gfirem
 Tags: registration, invite only, invite codes,
 Requires at least: 4.9
-Tested up to: 5.2
+Tested up to: 5.3
 Requires PHP: 5.3
-Stable tag: 1.0.3 Beta
+Stable tag: 1.0.4
 License: GPL 3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -80,6 +80,10 @@ Have fun!
 6. eMail Form
 
 == Changelog ==
+= 1.0.4 – 29 Jan. 2020
+* Fixed several smaller issues reported by users.
+* Update to the latest Freemius SDK
+*
 
 = 1.0.3 beta – 08 Jul. 2019
 * Set the invite code to active if created

@@ -48,7 +48,7 @@ function all_in_one_invite_codes_render_metabox() {
 
 	$email          = isset( $all_in_one_invite_codes_options['email'] ) ? $all_in_one_invite_codes_options['email'] : '';
 	$generate_codes = isset( $all_in_one_invite_codes_options['generate_codes'] ) ? $all_in_one_invite_codes_options['generate_codes'] : '';
-	$type = isset( $all_in_one_invite_codes_options['type'] ) ? $all_in_one_invite_codes_options['type'] : 'registration';
+	$type           = isset( $all_in_one_invite_codes_options['type'] ) ? $all_in_one_invite_codes_options['type'] : 'registration';
 
 	?>
 
@@ -95,26 +95,26 @@ function all_in_one_invite_codes_render_metabox() {
                 <p><?php _e( 'Select an Action to limit the usage of the invite code to one particular action on your site and set the coupon code to used after thais action is done.', 'all_in_one_invite_codes' ); ?></p>
             </label>
 
-            <?php
+			<?php
 
-            $type_options =  array();
-            $type_options['any'] = __( 'Any', 'all-in-one-invite-codes' );
-            $type_options['register'] = __( 'Register', 'all-in-one-invite-codes' );
+			$type_options             = array();
+			$type_options['any']      = __( 'Any', 'all-in-one-invite-codes' );
+			$type_options['register'] = __( 'Register', 'all-in-one-invite-codes' );
 
 
-            $type_options = apply_filters( 'all_in_one_invite_codes_options_type_options', $type_options )
+			$type_options = apply_filters( 'all_in_one_invite_codes_options_type_options', $type_options )
 
-            ?>
+			?>
             <p>
                 Purpose: <select
                         name="all_in_one_invite_codes_options[type]"
                         id="all_in_one_invite_codes_options_type"
                         value="<?php echo esc_attr( $type ); ?>">
 
-                    <?php foreach ($type_options as $slug => $option ) {
-	                    echo '<option value="' . $slug . '" >' . $option . '</option >';
-                    }
-                   ?>
+					<?php foreach ( $type_options as $slug => $option ) {
+						echo '<option value="' . $slug . '" >' . $option . '</option >';
+					}
+					?>
 
                 </select>
             </p>
@@ -179,9 +179,9 @@ function all_in_one_invite_codes_save_options( $post_id, $post ) {
 	update_post_meta( $post_id, 'all_in_one_invite_codes_options', $sanitized );
 
 
-	if( !get_post_meta($post_id,'tk_all_in_one_invite_code_status',  true)){
-		update_post_meta($post_id, 'tk_all_in_one_invite_code_status', 'Active');
-    }
+	if ( ! get_post_meta( $post_id, 'tk_all_in_one_invite_code_status', true ) ) {
+		update_post_meta( $post_id, 'tk_all_in_one_invite_code_status', 'Active' );
+	}
 
 }
 
@@ -233,14 +233,13 @@ function all_in_one_invite_codes_remove_slugdiv() {
 add_action( 'admin_menu', 'all_in_one_invite_codes_remove_slugdiv' );
 
 
-add_filter('wp_insert_post_data', 'all_in_one_invite_codes_change_title');
-function all_in_one_invite_codes_change_title($data)
-{
-    if(! isset($data['ID'])){
-	    return $data;
-    }
+add_filter( 'wp_insert_post_data', 'all_in_one_invite_codes_change_title' );
+function all_in_one_invite_codes_change_title( $data ) {
+	if ( ! isset( $data['ID'] ) ) {
+		return $data;
+	}
 
-    $post_id = $data['ID'];
+	$post_id = $data['ID'];
 	if ( ! isset( $_POST['all_in_one_invite_codes_options_process'] ) ) {
 		return $data;
 	}
@@ -258,5 +257,6 @@ function all_in_one_invite_codes_change_title($data)
 	}
 
 	$data['post_title'] = sanitize_key( trim( $_POST['tk_all_in_one_invite_code'] ) );
+
 	return $data;
 }
