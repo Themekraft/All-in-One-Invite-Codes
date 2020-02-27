@@ -112,7 +112,13 @@ function all_in_one_invite_codes_render_metabox() {
                         value="<?php echo esc_attr( $type ); ?>">
 
 					<?php foreach ( $type_options as $slug => $option ) {
-						echo '<option value="' . $slug . '" >' . $option . '</option >';
+					    if($slug == $type){
+                            echo '<option value="' . $slug . '"  selected>' . $option . '</option >';
+                        }
+					    else{
+                            echo '<option value="' . $slug . '" >' . $option . '</option >';
+                        }
+
 					}
 					?>
 

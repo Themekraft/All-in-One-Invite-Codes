@@ -6,7 +6,7 @@
  * @since  0.1
  * @return text
  */
-function all_in_one_invite_codes_validate_code( $code, $user_email = '' ) {
+function all_in_one_invite_codes_validate_code( $code, $user_email = '', $type ='any' ) {
 
 	// Get all invite codes with this code. Should only be one post.
 	$args  = array(
@@ -46,6 +46,19 @@ function all_in_one_invite_codes_validate_code( $code, $user_email = '' ) {
 						return $result;
 					}
 				}
+                // Check if the invite  code propose type match the one registered.
+                if ( isset( $all_in_one_invite_codes_options['type'] ) ) {
+
+                    if ( ! empty( $all_in_one_invite_codes_options['type'] ) && $all_in_one_invite_codes_options['type'] != 'any' ) {
+                        //Check if the code propose is for an especific type
+                        if($all_in_one_invite_codes_options['type'] != $type){
+                            $result['error'] = __( 'This invite code can´t be applied on this page, is for : '.$all_in_one_invite_codes_options['type'].' page only.', 'all-in-one-invite-code' );
+
+                            return $result;
+                        }
+
+                    }
+                }
 			}
 		endwhile;
 
