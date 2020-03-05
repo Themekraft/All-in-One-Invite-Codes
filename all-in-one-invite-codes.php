@@ -43,7 +43,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		/**
 		 * @var string
 		 */
-		public $version = '1.0.5';
+		protected static $version = '1.0.5';
 
 		/**
 		 * Instance of this class
