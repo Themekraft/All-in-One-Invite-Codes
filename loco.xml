@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle name="All in One Invite Codes">
+  <domain name="all-in-one-invite-codes">
+    <project name="All in One Invite Codes" slug="all-in-one-invite-codes">
+      <source>
+        <directory>.</directory>
+      </source>
+      <target>
+        <directory>languages</directory>
+      </target>
+      <template>
+        <file>languages/all-in-one-invite-codes.pot</file>
+      </template>
+    </project>
+  </domain>
+  <exclude>
+    <directory>includes/resources/freemius</directory>
+  </exclude>
+</bundle>
