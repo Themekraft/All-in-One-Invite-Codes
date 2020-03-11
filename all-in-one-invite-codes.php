@@ -10,6 +10,7 @@
  * Licence: GPLv3
  * Network: false
  * Text Domain: all-in-one-invite-codes
+ * Domain Path: /languages
  *
  * ****************************************************************************
  *

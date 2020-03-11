@@ -1,0 +1,237 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: All in One Invite Codes\n"
+"POT-Creation-Date: 2020-03-10 21:20-0300\n"
+"PO-Revision-Date: 2020-03-10 21:20-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: all-in-one-invite-codes.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: all-in-one-invite-codes.php:314
+msgid "PHP Version Update Required!"
+msgstr "Se requiere actualizar la versión de PHP!"
+
+#: all-in-one-invite-codes.php:315
+msgid "You are using PHP Version "
+msgstr "Usted está usando la versión PHP "
+
+#: all-in-one-invite-codes.php:316
+msgid "Please make sure you have at least php version 5.3 installed."
+msgstr ""
+"Por favor, asegúrese de tener al menos la versión 5.3 de php instalada."
+
+#: includes/admin/admin-ajax.php:26
+msgid "Used or Disabled Invite Codes can not get changed."
+msgstr ""
+
+#: includes/admin/admin-ajax.php:62
+msgid "Used or Disabled Invite Codes can not get resent."
+msgstr ""
+
+#: includes/admin/admin-ajax.php:69
+msgid "This invite code does not below to any email address"
+msgstr ""
+
+#: includes/admin/admin-settings.php:7 includes/admin/tree.php:7
+msgid "All in One Invite Codes Settings"
+msgstr ""
+
+#: includes/admin/admin-settings.php:7
+msgid "Settings"
+msgstr "Ajustes"
+
+#: includes/admin/admin-settings.php:128
+msgid "General Settings"
+msgstr "Configuración general"
+
+#: includes/admin/admin-settings.php:135
+msgid "Add Invite only Validation to the WordPress default registration form"
+msgstr ""
+
+#: includes/admin/admin-settings.php:155
+msgid ""
+"How manny now Invite Codes should get generated after the new user is "
+"activated?"
+msgstr ""
+
+#: includes/admin/admin-settings.php:180
+msgid ""
+"You got an invite from the site [site_name]. Please use this link to "
+"register with your invite code [invite_link]"
+msgstr ""
+
+#: includes/admin/admin-settings.php:197
+msgid "Invite eMail Settings"
+msgstr ""
+
+#: includes/admin/admin-settings.php:203
+msgid "Subject"
+msgstr "Asunto"
+
+#: includes/admin/admin-settings.php:214
+msgid "Message Text"
+msgstr "Texto del mensaje"
+
+#: includes/admin/invite-codes-options.php:65
+msgid "Assign to specific email"
+msgstr ""
+
+#: includes/admin/invite-codes-options.php:66
+msgid ""
+"Restrict usage of this invite code for a specific email address. Leave blank "
+"if you want to make this invite code public accessible for any registration."
+msgstr ""
+
+#: includes/admin/invite-codes-options.php:80
+msgid "Generate new Invite Codes after account activation"
+msgstr ""
+
+#: includes/admin/invite-codes-options.php:81
+msgid ""
+"Enter a number to generate new invite codes if this invite code got used."
+msgstr ""
+
+#: includes/admin/invite-codes-options.php:94
+msgid "Purpose?"
+msgstr ""
+
+#: includes/admin/invite-codes-options.php:95
+msgid ""
+"Select an Action to limit the usage of the invite code to one particular "
+"action on your site and set the coupon code to used after thais action is "
+"done."
+msgstr ""
+
+#: includes/admin/invite-codes-options.php:101
+msgid "Any"
+msgstr "Cualquiera"
+
+#: includes/admin/invite-codes-options.php:102
+msgid "Register"
+msgstr "Registrarse"
+
+#: includes/admin/invite-codes-post-type.php:14
+#: includes/admin/invite-codes-post-type.php:19
+msgid "Invite Codes"
+msgstr "Códigos de Invitación"
+
+#: includes/admin/invite-codes-post-type.php:15
+msgid "Invite Code"
+msgstr "Código de Invitación"
+
+#: includes/admin/invite-codes-post-type.php:87
+msgid "Code"
+msgstr "Código"
+
+#: includes/admin/invite-codes-post-type.php:88
+msgid "Status"
+msgstr "Estado"
+
+#: includes/admin/invite-codes-post-type.php:89
+msgid "eMail"
+msgstr ""
+
+#: includes/admin/invite-codes-post-type.php:90
+msgid "Parent"
+msgstr "Superior"
+
+#: includes/admin/invite-codes-post-type.php:91
+msgid "Generate new codes after account activation"
+msgstr ""
+
+#: includes/admin/tree.php:7
+msgid "Tree View"
+msgstr "Título"
+
+#: includes/default-registration.php:22
+msgid "Invitation Code"
+msgstr "Código de invitación"
+
+#: includes/default-registration.php:47 includes/default-registration.php:55
+msgid "ERROR"
+msgstr "ERROR"
+
+#: includes/default-registration.php:47
+msgid "You must include a Invite Code."
+msgstr ""
+
+#: includes/functions.php:55
+msgid "Disabled"
+msgstr "Desactivado"
+
+#: includes/functions.php:58
+msgid "Used"
+msgstr "Usado"
+
+#: includes/functions.php:61
+msgid "Valide"
+msgstr ""
+
+#: includes/process-invite-code.php:32
+msgid "Invite code invalid"
+msgstr ""
+
+#: includes/process-invite-code.php:44
+msgid "eMail address does not below to this invite code."
+msgstr ""
+
+#: includes/process-invite-code.php:55
+msgid "This invite code can´t be applied on this page, is for : "
+msgstr ""
+
+#: includes/process-invite-code.php:68
+msgid "Invite code not exist"
+msgstr ""
+
+#: includes/send-invite-email.php:59
+msgid "Invite could not get send. Please contact the Support."
+msgstr ""
+
+#: includes/send-invite-email.php:65
+msgid "Invite send out successfully"
+msgstr ""
+
+#: includes/shortcodes.php:16
+msgid "Please login to manage your invite codes."
+msgstr ""
+
+#: includes/shortcodes.php:55
+msgid "Invite was sent to: "
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "All in One Invite Codes"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://themekraft.com/all-in-one-invite-codes/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Create Invite only Registration Funnels and Products. Boost your site launch "
+"and get the attention you desire by creating an intelligent invite only "
+"Platform."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "ThemeKraft"
+msgstr "ThemeKraft"
+
+#. Author URI of the plugin/theme
+msgid "https://themekraft.com/"
+msgstr ""
