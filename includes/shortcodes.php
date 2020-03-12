@@ -114,7 +114,7 @@ function all_in_one_invite_codes_create( $attr ) {
             <input
                     type="hidden"
                     name="tk_all_in_one_invite_code"
-                    id="tk_all_in_one_invite_code"
+                    id="tk_all_in_one_invite_code_modal"
                     value="<?php echo esc_attr( $all_in_one_invite_code ); ?>"
             >
 
@@ -182,24 +182,7 @@ function all_in_one_invite_codes_create( $attr ) {
             </p>
         </div>
 	<?php
-	// List related codes as child codes
-	$args = array(
-		'post_parent'    => $post_id,
-		'posts_per_page' => - 1,
-		'post_type'      => 'tk_invite_codes', //you can use also 'any'
-	);
 
-	$the_query = new WP_Query( $args );
-
-	if ( $the_query->have_posts() ) :
-		while ( $the_query->have_posts() ) : $the_query->the_post();
-
-			echo '<a href="' . get_edit_post_link( get_the_ID() ) . '">' . get_post_meta( get_the_ID(), 'tk_all_in_one_invite_code', true ) . '</a>';
-			echo '<br>';
-		endwhile;
-	endif;
-
-	wp_reset_postdata();
 
 	// add the nonce check
 	wp_nonce_field( 'all_in_one_invite_codes_options_nonce', 'all_in_one_invite_codes_options_process' );
