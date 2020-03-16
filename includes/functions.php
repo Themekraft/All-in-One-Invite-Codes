@@ -116,3 +116,15 @@ function all_in_one_invite_codes_replace_shortcode( $string, $shortcode, $value 
 
 	return $string;
 }
+
+/**
+ * Create the code default values
+ */
+function all_in_one_invite_codes_options_defaults() {
+	$all_in_one_invite_codes_general = get_option( 'all_in_one_invite_codes_general' );
+
+	return array(
+		'email'          => '',
+		'generate_codes' => isset( $all_in_one_invite_codes_general['generate_codes_amount'] ) ? $all_in_one_invite_codes_general['generate_codes_amount'] : '',
+	);
+}

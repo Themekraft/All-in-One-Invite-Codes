@@ -43,12 +43,20 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		/**
 		 * @var string
 		 */
-		public $version = '1.0.4';
+		public static $version = '1.0.4';
 
+		/**
+		 * Instance of this class
+		 *
+		 * @var $instance AllinOneInviteCodes
+		 */
+		protected static $instance = null;
 		/**
 		 * @var string Assets URL
 		 */
 		public static $assets;
+		public static $include_assets = array();
+		public static $slug = 'all-in-one-invite-codes';
 
 		/**
 		 * Initiate the class
@@ -62,15 +70,15 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 
 			$this->load_constants();
 
-			add_action( 'init', array( $this, 'init_hook' ), 1, 1 );
-			add_action( 'init', array( $this, 'includes' ), 4, 1 );
+			add_action( 'init', array( $this, 'init_hook' ), 1 );
+			add_action( 'init', array( $this, 'includes' ), 4);
 			add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
-			add_action( 'admin_enqueue_scripts', array( $this, 'admin_styles' ), 102, 1 );
-			add_action( 'admin_enqueue_scripts', array( $this, 'admin_js' ), 102, 1 );
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_styles' ), 102 );
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_js' ), 102 );
 
 
-			add_action( 'wp_enqueue_scripts', array( $this, 'front_js_loader' ), 102, 1 );
+			add_action( 'wp_footer', array( $this, 'front_js_loader' ) );
 
 
 			register_deactivation_hook( __FILE__, array( $this, 'plugin_deactivation' ) );
@@ -87,7 +95,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 			/**
 			 * Define the plugin version
 			 */
-			define( 'TK_ALL_IN_ONE_INVITE_CODES_VERSION', $this->version );
+			define( 'TK_ALL_IN_ONE_INVITE_CODES_VERSION', self::getVersion() );
 
 			if ( ! defined( 'TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL' ) ) {
 				/**
@@ -192,10 +200,11 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		/**
 		 * Enqueue the needed CSS for the admin screen
 		 *
-		 * @package all_in_one_invite_codes
+		 * @param $hook_suffix
+		 *
 		 * @since  0.1
 		 *
-		 * @param $hook_suffix
+		 * @package all_in_one_invite_codes
 		 */
 		function admin_styles( $hook_suffix ) {
 
@@ -204,18 +213,15 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		/**
 		 * Enqueue the needed JS for the admin screen
 		 *
-		 * @package all_in_one_invite_codes
+		 * @param $hook_suffix
+		 *
 		 * @since  0.1
 		 *
-		 * @param $hook_suffix
+		 * @package all_in_one_invite_codes
 		 */
 		function admin_js( $hook_suffix ) {
-
-            wp_register_script( 'all-in-one-invite_codes-admin-js', plugins_url( 'assets/admin/js/admin.js', __FILE__ ), array(), $this->version );
-            wp_enqueue_script( 'all-in-one-invite_codes-admin-js' );
-
-            wp_localize_script('all-in-one-invite_codes-admin-js', 'allInOneInviteCodesAdminJs', array( 'nonce' => wp_create_nonce('all_in_one_invite_code_nonce') ) );
-
+			wp_enqueue_script( 'all-in-one-invite_codes-admin-js', TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL . 'assets/admin/js/admin.js', array(), self::getVersion() );
+			wp_localize_script( 'all-in-one-invite_codes-admin-js', 'allInOneInviteCodesAdminJs', array( 'nonce' => wp_create_nonce( 'all_in_one_invite_code_nonce' ) ) );
 		}
 
 		/**
@@ -225,11 +231,57 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		 * @since  0.1
 		 */
 		function front_js_loader() {
-			wp_register_script( 'all-in-one-invite_codes-front-js', plugins_url( 'assets/js/front.js', __FILE__ ), array('jquery'), $this->version );
-			wp_enqueue_script( 'all-in-one-invite_codes-front-js' );
+			if ( defined( 'DOING_AJAX' ) && DOING_AJAX && defined( 'DOING_CRON' ) && DOING_CRON ) {
+				return;
+			}
+			if ( AllinOneInviteCodes::getNeedAssets() ) {
+				wp_enqueue_script( 'all-in-one-invite_codes-front-js', TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL . 'assets/js/front.js', array( 'jquery' ), self::getVersion() );
+				wp_localize_script( 'all-in-one-invite_codes-front-js', 'allInOneInviteCodesFrontJs', array( 'nonce' => wp_create_nonce( 'all_in_one_invite_code_nonce' ) ) );
+				add_thickbox();
+			}
+		}
 
-			wp_localize_script('all-in-one-invite_codes-front-js', 'allInOneInviteCodesFrontJs', array( 'nonce' => wp_create_nonce('all_in_one_invite_code_nonce') ) );
+		public static function error_log( $message ) {
+			if ( ! empty( $message ) ) {
+				error_log( self::getSlug() . ' -- ' . $message );
+			}
+		}
 
+		/**
+		 * @return string
+		 */
+		public static function getNeedAssets() {
+			if ( empty( self::$include_assets ) ) {
+				return false;
+			}
+
+			return in_array( true, self::$include_assets, true );
+		}
+
+		/**
+		 * @param string $include_assets
+		 * @param string $form_slug
+		 */
+		public static function setNeedAssets( $include_assets, $form_slug ) {
+			self::$include_assets[ $form_slug ] = $include_assets;
+		}
+
+		/**
+		 * Get plugin version
+		 *
+		 * @return string
+		 */
+		static function getVersion() {
+			return self::$version;
+		}
+
+		/**
+		 * Get plugins slug
+		 *
+		 * @return string
+		 */
+		static function getSlug() {
+			return self::$slug;
 		}
 
 		/**
@@ -249,11 +301,9 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		 * @since  0.1
 		 */
 		function update_db_check() {
-
 			if ( ! is_admin() ) {
 				return;
 			}
-
 		}
 
 
@@ -272,12 +322,26 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		function plugin_deactivation() {
 
 		}
+
+		/**
+		 * Return an instance of this class.
+		 *
+		 * @return object A single instance of this class.
+		 */
+		public static function get_instance() {
+			// If the single instance hasn't been set, set it now.
+			if ( null == self::$instance ) {
+				self::$instance = new self;
+			}
+
+			return self::$instance;
+		}
 	}
 
 	/**
 	 * Create a helper function for easy SDK access.
 	 *
-	 * @return Freemius
+	 * @return bool|Freemius
 	 */
 	function all_in_one_invite_codes_core_fs() {
 		global $all_in_one_invite_codes_core_fs;
@@ -289,20 +353,24 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 			// Include Freemius SDK.
 			require_once dirname( __FILE__ ) . '/includes/resources/freemius/start.php';
 
-			$all_in_one_invite_codes_core_fs = fs_dynamic_init( array(
-				'id'             => '3322',
-				'slug'           => 'all-in-one-invite-codes',
-				'type'           => 'plugin',
-				'public_key'     => 'pk_955be38b0c4d2a2914a9f4bc98355',
-				'is_premium'     => false,
-				'has_addons'     => true,
-				'has_paid_plans' => false,
-				'menu'           => array(
-					'slug'    => 'edit.php?post_type=tk_invite_codes',
-					'support' => false,
+			try {
+				$all_in_one_invite_codes_core_fs = fs_dynamic_init( array(
+					'id'             => '3322',
+					'slug'           => 'all-in-one-invite-codes',
+					'type'           => 'plugin',
+					'public_key'     => 'pk_955be38b0c4d2a2914a9f4bc98355',
+					'is_premium'     => false,
+					'has_addons'     => true,
+					'has_paid_plans' => false,
+					'menu'           => array(
+						'slug'    => 'edit.php?post_type=tk_invite_codes',
+						'support' => false,
 
-				),
-			) );
+					),
+				) );
+			} catch ( Freemius_Exception $e ) {
+				return false;
+			}
 		}
 
 		return $all_in_one_invite_codes_core_fs;
@@ -324,15 +392,18 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 			add_action( 'admin_notices', 'all_in_one_invite_codes_php_version_admin_notice' );
 		} else {
 			// Init AllinOneInviteCodes.
-			$GLOBALS['all_in_one_invite_codes_new'] = new AllinOneInviteCodes();
+			$GLOBALS['all_in_one_invite_codes_new'] = AllinOneInviteCodes::get_instance();
 			// Init Freemius.
-			all_in_one_invite_codes_core_fs();
+			$freemius = all_in_one_invite_codes_core_fs();
+			if ( empty( $freemius ) ) {
+				return;
+			}
 			// Signal that parent SDK was initiated.
 			do_action( 'all_in_one_invite_codes_core_fs_loaded' );
 			// GDPR Admin Notice
-			all_in_one_invite_codes_core_fs()->add_filter( 'handle_gdpr_admin_notice', '__return_true' );
+			$freemius->add_filter( 'handle_gdpr_admin_notice', '__return_true' );
 
-			if ( all_in_one_invite_codes_core_fs()->is__premium_only() ) {
+			if ( $freemius->is__premium_only() ) {
 				define( 'TK_ALL_IN_ONE_INVITE_CODES_PRO_VERSION', 'pro' );
 			}
 		}

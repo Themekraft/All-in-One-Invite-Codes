@@ -74,5 +74,47 @@ jQuery(document).ready(function (jQuery) {
         }
     });
 
+    jQuery(document.body).on('click','#tk_all_in_one_invite_code_buddypress_create',function () {
+        var code_id = jQuery('#tk_all_in_one_invite_code_modal').val();
+        var email = jQuery('#all_in_one_invite_codes_options_email').val();
+        var generate_codes = jQuery('#all_in_one_invite_codes_options_generate_codes').val();
+        var type = jQuery('#all_in_one_invite_codes_options_type').val();
+        jQuery.ajax({
+            type: 'POST',
+            dataType: "json",
+            url: ajaxurl,
+            data: {
+                "action": "all_in_one_invite_codes_create_code",
+                "tk_invite_code": code_id,
+                "email" : email,
+                "generate_codes" : generate_codes,
+                "type" : type,
+                "nonce": allInOneInviteCodesFrontJs.nonce,
+            },
+            beforeSend: function() {
+                jQuery('#loader').show();
+            },
+            success: function (data) {
+                console.log(data);
+
+                if (data['error']) {
+                    alert(data['error']);
+                } else {
+                    location.reload();
+                }
+
+            },
+            error: function (error) {
+                console.log(error);
+            },
+            complete: function(){
+                jQuery('#loader').hide();
+            },
+        });
+
+        return false;
+
+    })
+
 
 });

@@ -16,29 +16,21 @@ function all_in_one_invite_codes_create_metabox() {
 
 add_action( 'add_meta_boxes', 'all_in_one_invite_codes_create_metabox' );
 
-/**
- * Create the code default values
- */
-function all_in_one_invite_codes_options_defaults() {
-	$all_in_one_invite_codes_general = get_option( 'all_in_one_invite_codes_general' );
 
-	return array(
-		'email'          => '',
-		'generate_codes' => isset( $all_in_one_invite_codes_general['generate_codes_amount'] ) ? $all_in_one_invite_codes_general['generate_codes_amount'] : '',
-	);
-}
 
 /**
  * Render the metabox and display the options
+ *
+ * @param $post
  */
-function all_in_one_invite_codes_render_metabox() {
-	global $post;
+function all_in_one_invite_codes_render_metabox( $post ) {
+	$post_id = ( ! empty( $post ) && isset( $post->ID ) ) ? $post->ID : false;
 
 	// Get or generate the invite code
-	$all_in_one_invite_code = all_in_one_invite_codes_md5( $post->ID );
+	$all_in_one_invite_code = all_in_one_invite_codes_md5( $post_id );
 
 	// Get the invite code options
-	$all_in_one_invite_codes_options = get_post_meta( $post->ID, 'all_in_one_invite_codes_options', true );
+	$all_in_one_invite_codes_options = get_post_meta( $post_id, 'all_in_one_invite_codes_options', true );
 
 	// Get the default values
 	$all_in_one_invite_codes_options_defaults = all_in_one_invite_codes_options_defaults();
@@ -112,12 +104,11 @@ function all_in_one_invite_codes_render_metabox() {
                         value="<?php echo esc_attr( $type ); ?>">
 
 					<?php foreach ( $type_options as $slug => $option ) {
-					    if($slug == $type){
-                            echo '<option value="' . $slug . '"  selected>' . $option . '</option >';
-                        }
-					    else{
-                            echo '<option value="' . $slug . '" >' . $option . '</option >';
-                        }
+						if ( $slug == $type ) {
+							echo '<option value="' . $slug . '"  selected>' . $option . '</option >';
+						} else {
+							echo '<option value="' . $slug . '" >' . $option . '</option >';
+						}
 
 					}
 					?>
@@ -130,7 +121,7 @@ function all_in_one_invite_codes_render_metabox() {
 	<?php
 	// List related codes as child codes
 	$args = array(
-		'post_parent'    => $post->ID,
+		'post_parent'    => $post_id,
 		'posts_per_page' => - 1,
 		'post_type'      => 'tk_invite_codes', //you can use also 'any'
 	);
@@ -154,6 +145,11 @@ function all_in_one_invite_codes_render_metabox() {
 
 /**
  * Save the options
+ *
+ * @param $post_id
+ * @param $post
+ *
+ * @return int
  */
 function all_in_one_invite_codes_save_options( $post_id, $post ) {
 
@@ -189,12 +185,18 @@ function all_in_one_invite_codes_save_options( $post_id, $post ) {
 		update_post_meta( $post_id, 'tk_all_in_one_invite_code_status', 'Active' );
 	}
 
+	return $post_id;
 }
 
 add_action( 'save_post_tk_invite_codes', 'all_in_one_invite_codes_save_options', 1, 2 );
 
 /**
  * Save the invite code
+ *
+ * @param $post_id
+ * @param $post
+ *
+ * @return mixed
  */
 function all_in_one_invite_codes_save_code( $post_id, $post ) {
 
@@ -225,6 +227,7 @@ function all_in_one_invite_codes_save_code( $post_id, $post ) {
 
 	update_post_meta( $post_id, 'tk_all_in_one_invite_code', $tk_invite_code );
 
+	return $post_id;
 }
 
 add_action( 'save_post', 'all_in_one_invite_codes_save_code', 1, 2 );
