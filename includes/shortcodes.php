@@ -9,7 +9,7 @@
  */
 function all_in_one_invite_codes_list_codes( $attr ) {
 
-
+    AllinOneInviteCodes::setNeedAssets(true, 'all-in-one-invite-codes');
 	ob_start();
 
 	// If the user is not logged in display a login form
