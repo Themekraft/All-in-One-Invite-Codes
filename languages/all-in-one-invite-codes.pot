@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: All in One Invite Codes\n"
-"POT-Creation-Date: 2020-03-10 20:46-0300\n"
+"POT-Creation-Date: 2020-04-07 20:55-0300\n"
 "PO-Revision-Date: 2020-03-10 20:36-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -21,15 +21,15 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: all-in-one-invite-codes.php:314
+#: all-in-one-invite-codes.php:382
 msgid "PHP Version Update Required!"
 msgstr ""
 
-#: all-in-one-invite-codes.php:315
+#: all-in-one-invite-codes.php:383
 msgid "You are using PHP Version "
 msgstr ""
 
-#: all-in-one-invite-codes.php:316
+#: all-in-one-invite-codes.php:384
 msgid "Please make sure you have at least php version 5.3 installed."
 msgstr ""
 
@@ -85,42 +85,47 @@ msgstr ""
 msgid "Message Text"
 msgstr ""
 
-#: includes/admin/invite-codes-options.php:65
+#: includes/admin/invite-codes-options.php:57 includes/shortcodes.php:122
 msgid "Assign to specific email"
 msgstr ""
 
-#: includes/admin/invite-codes-options.php:66
+#: includes/admin/invite-codes-options.php:58 includes/shortcodes.php:123
 msgid ""
 "Restrict usage of this invite code for a specific email address. Leave blank "
 "if you want to make this invite code public accessible for any registration."
 msgstr ""
 
-#: includes/admin/invite-codes-options.php:80
+#: includes/admin/invite-codes-options.php:72 includes/shortcodes.php:137
 msgid "Generate new Invite Codes after account activation"
 msgstr ""
 
-#: includes/admin/invite-codes-options.php:81
+#: includes/admin/invite-codes-options.php:73 includes/shortcodes.php:138
 msgid ""
 "Enter a number to generate new invite codes if this invite code got used."
 msgstr ""
 
-#: includes/admin/invite-codes-options.php:94
+#: includes/admin/invite-codes-options.php:86 includes/shortcodes.php:151
 msgid "Purpose?"
 msgstr ""
 
-#: includes/admin/invite-codes-options.php:95
+#: includes/admin/invite-codes-options.php:87 includes/shortcodes.php:152
 msgid ""
 "Select an Action to limit the usage of the invite code to one particular "
 "action on your site and set the coupon code to used after thais action is "
 "done."
 msgstr ""
 
-#: includes/admin/invite-codes-options.php:101
+#: includes/admin/invite-codes-options.php:93 includes/shortcodes.php:158
 msgid "Any"
 msgstr ""
 
-#: includes/admin/invite-codes-options.php:102
+#: includes/admin/invite-codes-options.php:94 includes/shortcodes.php:159
 msgid "Register"
+msgstr ""
+
+#: includes/admin/invite-codes-options.php:187
+#: includes/generate-invite-codes.php:37
+msgid "You've Been Invited!"
 msgstr ""
 
 #: includes/admin/invite-codes-post-type.php:14
@@ -180,6 +185,14 @@ msgstr ""
 msgid "Valide"
 msgstr ""
 
+#: includes/generate-invite-codes.php:47 includes/send-invite-email.php:59
+msgid "Invite could not get send. Please contact the Support."
+msgstr ""
+
+#: includes/generate-invite-codes.php:52 includes/send-invite-email.php:65
+msgid "Invite send out successfully"
+msgstr ""
+
 #: includes/process-invite-code.php:32
 msgid "Invite code invalid"
 msgstr ""
@@ -196,19 +209,11 @@ msgstr ""
 msgid "Invite code not exist"
 msgstr ""
 
-#: includes/send-invite-email.php:59
-msgid "Invite could not get send. Please contact the Support."
-msgstr ""
-
-#: includes/send-invite-email.php:65
-msgid "Invite send out successfully"
-msgstr ""
-
-#: includes/shortcodes.php:16
+#: includes/shortcodes.php:17
 msgid "Please login to manage your invite codes."
 msgstr ""
 
-#: includes/shortcodes.php:55
+#: includes/shortcodes.php:56
 msgid "Invite was sent to: "
 msgstr ""
 
