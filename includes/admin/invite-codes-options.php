@@ -180,6 +180,22 @@ function all_in_one_invite_codes_save_options( $post_id, $post ) {
 	// Do the update
 	update_post_meta( $post_id, 'all_in_one_invite_codes_options', $sanitized );
 
+	if(isset($_POST['all_in_one_invite_codes_options']['email']) && isset($_POST['tk_all_in_one_invite_code'])){
+
+        $email = sanitize_email($_POST['all_in_one_invite_codes_options']['email']);
+        $tk_invite_code = sanitize_key($_POST['all_in_one_invite_codes_options']['tk_all_in_one_invite_code']);
+        $subject   = __("You've Been Invited!","all-in-one-invite-code");
+        $site_name = get_bloginfo( 'name' );
+        $invite_link = '<a href="' . wp_registration_url() . '?invite_code=' . $tk_invite_code . '">Link</a>';
+        $body      = __( sprintf("You got an invite from the %s. Please use this link to register with your invite code: %s",$site_name,$invite_link),"all-in-one-invite-code");
+
+        // sent the mail
+        $headers     = array( 'Content-Type: text/html; charset=UTF-8' );
+        if(isset($_POST['post_type']) && $_POST['post_type']=='tk_invite_codes'){
+            $send = wp_mail( $email, $subject, $body, $headers );
+        }
+    }
+
 
 	if ( ! get_post_meta( $post_id, 'tk_all_in_one_invite_code_status', true ) ) {
 		update_post_meta( $post_id, 'tk_all_in_one_invite_code_status', 'Active' );
