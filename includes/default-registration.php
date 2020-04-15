@@ -111,7 +111,7 @@ function all_in_one_invite_code_registration_save( $user_id ) {
 				'post_author' => $user_id,
 				'post_parent' => $post_parent_post_id,
 				'post_status' => 'publish',
-                'post_title'  => $code,
+                'post_title'  => $tk_invite_code,
 			);
 			$new_code_id = wp_insert_post( $args );
 

@@ -36,10 +36,21 @@ function all_in_one_invite_codes_send_invite() {
 	// Site Name
 	$site_name = get_bloginfo( 'name' );
 	$subject   = all_in_one_invite_codes_replace_shortcode( $subject, '[site_name]', $site_name );
+    $subject   = all_in_one_invite_codes_replace_shortcode( $subject, '[invite_code]', $invite_code );
 	$body      = all_in_one_invite_codes_replace_shortcode( $body, '[site_name]', $site_name );
+    $body      = all_in_one_invite_codes_replace_shortcode( $body, '[invite_code]', $invite_code );
 
 	// Invite Link
-	$invite_link = '<a href="' . wp_registration_url() . '?invite_code=' . $invite_code . '">Link</a>';
+    $buddypress_active = false;
+    if(function_exists('bp_is_active')){
+        $buddypress_active = true;
+    }
+    if ($buddypress_active){
+        $invite_link = '<a href="' . wp_registration_url() . '?invite_code=' . $invite_code . '">Link</a>';
+    }
+    else{
+        $invite_link = '<a href="' . wp_registration_url() . '&invite_code=' . $invite_code . '">Link</a>';
+    }
 	$subject     = all_in_one_invite_codes_replace_shortcode( $subject, '[invite_link]', $invite_link );
 	$body        = all_in_one_invite_codes_replace_shortcode( $body, '[invite_link]', $invite_link );
 
