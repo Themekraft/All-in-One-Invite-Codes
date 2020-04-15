@@ -183,11 +183,32 @@ function all_in_one_invite_codes_save_options( $post_id, $post ) {
 	if(isset($_POST['all_in_one_invite_codes_options']['email']) && isset($_POST['tk_all_in_one_invite_code'])){
 
         $email = sanitize_email($_POST['all_in_one_invite_codes_options']['email']);
-        $tk_invite_code = sanitize_key($_POST['all_in_one_invite_codes_options']['tk_all_in_one_invite_code']);
-        $subject   = __("You've Been Invited!","all-in-one-invite-code");
+        $tk_invite_code = sanitize_key($_POST['tk_all_in_one_invite_code']);
+        $all_in_one_invite_codes_mail_templates = get_option( 'all_in_one_invite_codes_mail_templates' );
+
+        $subject     =  isset($all_in_one_invite_codes_mail_templates['subject']) ? sanitize_text_field($all_in_one_invite_codes_mail_templates['subject']) :   __("You've Been Invited!","all-in-one-invite-code");
+        $body        = isset($all_in_one_invite_codes_mail_templates['message_text']) ? sanitize_text_field($all_in_one_invite_codes_mail_templates['message_text']) :   __("You got an invite from the site [site_name]. Please use this link to register with your invite code [invite_link]","all-in-one-invite-code");
         $site_name = get_bloginfo( 'name' );
-        $invite_link = '<a href="' . wp_registration_url() . '?invite_code=' . $tk_invite_code . '">Link</a>';
-        $body      = __( sprintf("You got an invite from the %s. Please use this link to register with your invite code: %s",$site_name,$invite_link),"all-in-one-invite-code");
+        $subject   = all_in_one_invite_codes_replace_shortcode( $subject, '[site_name]', $site_name );
+        $subject   = all_in_one_invite_codes_replace_shortcode( $subject, '[invite_code]', $tk_invite_code );
+
+        $body      = all_in_one_invite_codes_replace_shortcode( $body, '[site_name]', $site_name );
+        $body      = all_in_one_invite_codes_replace_shortcode( $body, '[invite_code]', $tk_invite_code );
+
+        // Invite Link
+        $buddypress_active = false;
+        if(function_exists('bp_is_active')){
+            $buddypress_active = true;
+        }
+        if ($buddypress_active){
+            $invite_link = '<a href="' . wp_registration_url() . '?invite_code=' . $tk_invite_code . '">Link</a>';
+        }
+        else{
+            $invite_link = '<a href="' . wp_registration_url() . '&invite_code=' . $tk_invite_code . '">Link</a>';
+        }
+
+        $subject     = all_in_one_invite_codes_replace_shortcode( $subject, '[invite_link]', $invite_link );
+        $body        = all_in_one_invite_codes_replace_shortcode( $body, '[invite_link]', $invite_link );
 
         // sent the mail
         $headers     = array( 'Content-Type: text/html; charset=UTF-8' );
