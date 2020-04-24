@@ -40,7 +40,8 @@ function all_in_one_invite_codes_validate_code( $code, $user_email = '', $type =
 
 				// Check if the code is assigned to an email address and if the email address of the code is the same trying to register.
 				if ( isset( $all_in_one_invite_codes_options['email'] ) ) {
-					if ( ! empty( $all_in_one_invite_codes_options['email'] ) && $all_in_one_invite_codes_options['email'] != $user_email ) {
+
+					if ( ! empty( $all_in_one_invite_codes_options['email'] ) && strtolower($all_in_one_invite_codes_options['email']) != strtolower($user_email )) {
 						$result['error'] = __( 'eMail address does not below to this invite code.', 'all-in-one-invite-code' );
 
 						return $result;
