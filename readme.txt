@@ -1,8 +1,8 @@
 === All in One Invite Codes ===
-Contributors: svenl77, gfirem
-Tags: registration, invite only, invite codes,
+Contributors: svenl77, gfirem, marin25089
+Tags: registration, invite only, invite codes
 Requires at least: 4.9
-Tested up to: 5.4
+Tested up to: 5.5
 Requires PHP: 5.3
 Stable tag: 1.0.5
 License: GPL 3
@@ -13,6 +13,9 @@ Intelligent automatic invite codes system. Create Invite only Registration Funne
 == Description ==
 
 Get full control over the registration process by enabling invitation based Registration on your site.
+
+###Use Invite Coders in WordPress
+[youtube hhttps://youtu.be/tTsk7I71GPk]
 
 ### Why is this a great Idea?
 * Use it for Marketing
