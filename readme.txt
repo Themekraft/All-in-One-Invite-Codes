@@ -14,7 +14,7 @@ Intelligent automatic invite codes system. Create Invite only Registration Funne
 
 Get full control over the registration process by enabling invitation based Registration on your site.
 
-###Use Invite Coders in WordPress
+###Use Invite Codes in WordPress
 [youtube hhttps://youtu.be/tTsk7I71GPk]
 
 ### Why is this a great Idea?
