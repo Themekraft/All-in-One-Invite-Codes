@@ -51,7 +51,7 @@ function all_in_one_invite_code_registration_errors( $errors, $sanitized_user_lo
 
 		$type = isset($_GET['action']) ? strtolower($_GET['action']) : '';
 		if(empty($type)){
-			$type = isset($_POST['wp-submit']) ? strtolower($_GET['action']) : '';
+			$type = isset($_POST['wp-submit']) ? strtolower($_POST['wp-submit']) : '';
 		}
 		if(empty($type)){
 			$type = 'any';
