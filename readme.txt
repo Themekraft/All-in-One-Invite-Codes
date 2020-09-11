@@ -1,10 +1,10 @@
 === All in One Invite Codes ===
-Contributors: svenl77, gfirem, vmarin
-Tags: registration, invite only, invite codes,
+Contributors: svenl77, gfirem, marin25089
+Tags: registration, invite only, invite codes
 Requires at least: 4.9
-Tested up to: 5.3
+Tested up to: 5.5
 Requires PHP: 5.3
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPL 3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,6 +13,9 @@ Intelligent automatic invite codes system. Create Invite only Registration Funne
 == Description ==
 
 Get full control over the registration process by enabling invitation based Registration on your site.
+
+###Use Invite Codes in WordPress
+[youtube hhttps://youtu.be/tTsk7I71GPk]
 
 ### Why is this a great Idea?
 * Use it for Marketing
@@ -80,10 +83,21 @@ Have fun!
 6. eMail Form
 
 == Changelog ==
+= 1.0.5 – 28 April. 2020
+* Fixed case sensitive  email validation
+* Fixed email template and registration link
+* Updated the language files.
+* Fixed send email when create invite code
+* Fixed Add the front end assets to the all_in_one_invite_codes_list_codes_by_user shortcode
+* Created invite code from profile
+* Added the localization files.
+* Added victor as contributor of the plugin
+
+
 = 1.0.4 – 29 Jan. 2020
 * Fixed several smaller issues reported by users.
 * Update to the latest Freemius SDK
-*
+
 
 = 1.0.3 beta – 08 Jul. 2019
 * Set the invite code to active if created
