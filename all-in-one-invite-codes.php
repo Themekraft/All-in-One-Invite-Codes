@@ -11,6 +11,7 @@
  * Network: false
  * Text Domain: all-in-one-invite-codes
  * Domain Path: /languages
+ * Svn: all-in-one-invite-codes
  *
  * ****************************************************************************
  *
