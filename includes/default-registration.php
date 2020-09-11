@@ -49,8 +49,15 @@ function all_in_one_invite_code_registration_errors( $errors, $sanitized_user_lo
 
 		$tk_invite_code = sanitize_key( trim( $_POST['tk_invite_code'] ) );
 
+		$type = isset($_GET['action']) ? strtolower($_GET['action']) : '';
+		if(empty($type)){
+			$type = isset($_POST['wp-submit']) ? strtolower($_POST['wp-submit']) : '';
+		}
+		if(empty($type)){
+			$type = 'any';
+		}
 		// Validate teh code
-		$result = all_in_one_invite_codes_validate_code( $tk_invite_code, $user_email );
+		$result = all_in_one_invite_codes_validate_code( $tk_invite_code, $user_email,$type );
 		if ( isset( $result['error'] ) ) {
 			$errors->add( 'tk_invite_code_error', sprintf( '<strong>%s</strong>: %s', __( 'ERROR', 'all-in-one-invite-code' ), $result['error'] ) );
 		}

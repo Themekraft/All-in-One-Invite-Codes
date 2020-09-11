@@ -52,7 +52,7 @@ function all_in_one_invite_codes_validate_code( $code, $user_email = '', $type =
 
                     if ( ! empty( $all_in_one_invite_codes_options['type'] ) && $all_in_one_invite_codes_options['type'] != 'any' ) {
                         //Check if the code propose is for an especific type
-                        if($all_in_one_invite_codes_options['type'] != $type){
+                        if( strtolower($all_in_one_invite_codes_options['type']) != $type){
                             $result['error'] = __( 'This invite code can´t be applied on this page, is for : '.$all_in_one_invite_codes_options['type'].' page only.', 'all-in-one-invite-code' );
 
                             return $result;
