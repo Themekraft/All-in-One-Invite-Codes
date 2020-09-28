@@ -60,7 +60,10 @@ function all_in_one_invite_codes_create_code() {
 
 		// sent the mail
 		$headers = array( 'Content-Type: text/html; charset=UTF-8' );
-		$send    = wp_mail( $email, $subject, $body, $headers );
+		$email_param= array("to"=>$email,"subject"=>$subject,"body"=>$body,"headers"=>$headers);
+		$email_param = apply_filters("all_in_one_invite_code_custom_email",$email_param);
+		$send = wp_mail( $email_param["to"], $email_param["subject"] ,$email_param["body"]  ,$email_param["headers"]  );
+		//$send    = wp_mail( $email, $subject, $body, $headers );
 		// IF something went wrong during the sent message process
 		if ( ! $send ) {
 			$json['error'] = __( 'Invite could not get send. Please contact the Support.', 'all-in-one-invite-code' );

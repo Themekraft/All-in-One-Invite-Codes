@@ -55,7 +55,9 @@ function all_in_one_invite_codes_send_invite() {
 	$body        = all_in_one_invite_codes_replace_shortcode( $body, '[invite_link]', $invite_link );
 
 	// sent the mail
-	$send = wp_mail( $to, $subject, $body, $headers );
+	$email_param= array("to"=>$to,"subject"=>$subject,"body"=>$body,"headers"=>$headers);
+	$email_param = apply_filters("all_in_one_invite_code_custom_email",$email_param);
+	$send = wp_mail( $email_param["to"], $email_param["subject"] ,$email_param["body"]  ,$email_param["headers"]  );
 
 	$all_in_one_invite_codes_options = get_post_meta( $post_id, 'all_in_one_invite_codes_options', true );
 

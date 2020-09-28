@@ -213,7 +213,10 @@ function all_in_one_invite_codes_save_options( $post_id, $post ) {
         // sent the mail
         $headers     = array( 'Content-Type: text/html; charset=UTF-8' );
         if(isset($_POST['post_type']) && $_POST['post_type']=='tk_invite_codes'){
-            $send = wp_mail( $email, $subject, $body, $headers );
+			$email_param= array("to"=>$email,"subject"=>$subject,"body"=>$body,"headers"=>$headers);
+			$email_param = apply_filters("all_in_one_invite_code_custom_email",$email_param);
+			$send = wp_mail( $email_param["to"], $email_param["subject"] ,$email_param["body"]  ,$email_param["headers"]  );
+            //$send = wp_mail( $email, $subject, $body, $headers );
         }
     }
 
