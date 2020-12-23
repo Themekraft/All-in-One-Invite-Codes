@@ -4,7 +4,7 @@ Tags: registration, invite only, invite codes
 Requires at least: 4.9
 Tested up to: 5.5
 Requires PHP: 5.3
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: GPL 3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -83,6 +83,8 @@ Have fun!
 6. eMail Form
 
 == Changelog ==
+= 1.0.7 - 23 Dec  2020 =
+* Feature : The all_in_one_invite_code_custom_email filter is added to allow developers email modifications.
 = 1.0.6 - 14 Sept 2020 =
 * Update the minimum wordpress version.
 
