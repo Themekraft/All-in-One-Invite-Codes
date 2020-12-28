@@ -83,8 +83,9 @@ Have fun!
 6. eMail Form
 
 == Changelog ==
-= 1.0.7 - 23 Dec  2020 =
-* Feature : The all_in_one_invite_code_custom_email filter is added to allow developers email modifications.
+= 1.0.7 - 28 Dec  2020 =
+* Added new filter all_in_one_invite_code_custom_email to allow developers email modifications.
+
 = 1.0.6 - 14 Sept 2020 =
 * Update the minimum wordpress version.
 
