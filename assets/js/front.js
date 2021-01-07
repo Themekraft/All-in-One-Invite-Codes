@@ -46,7 +46,8 @@ jQuery(document).ready(function (jQuery) {
 
     });
 
-    jQuery(document.body).on('click', '#tk_all_in_one_invite_code_open_invite_form', function () {
+    jQuery(document.body).on('click', '#tk_all_in_one_invite_code_open_invite_form', function (e) {
+        e.preventDefault();
         var code_id = jQuery(this).attr('data-code_id');
 
         jQuery("#tk_all_in_one_invite_code_send_invite_form").appendTo("#tk_all_in_one_invite_code_open_invite_form_id_" + code_id);
