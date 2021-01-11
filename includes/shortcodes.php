@@ -44,16 +44,27 @@ function all_in_one_invite_codes_list_codes( $attr ) {
 			$email                           = empty( $all_in_one_invite_codes_options['email'] ) ? '' : $all_in_one_invite_codes_options['email'];
 
 			echo '<li>';
-			echo 'Code: ';
-			echo get_post_meta( get_the_ID(), 'tk_all_in_one_invite_code', true );
-			echo '<br>Status: ';
-			echo $status = all_in_one_invite_codes_get_status( get_the_ID() );
-			echo '<br>';
+			echo '<div class="aioic-top">';
+			echo '<div class="aioic-info">';
+				echo '<div>Code: ';
+				echo get_post_meta( get_the_ID(), 'tk_all_in_one_invite_code', true );
+				echo '</div>';
+				echo '<div>Status: ';
+				echo $status = all_in_one_invite_codes_get_status( get_the_ID() );
+				echo '</div>';
+			echo '</div>';
+
+			echo '<div class="aioic-right">';
+			if ( empty( $email ) && $status == 'Active' ) {
+				echo '<a class="button" data-code_id="' . get_the_ID() . '" id="tk_all_in_one_invite_code_open_invite_form" href="#">Invite a Friend Now</a>';
+			} else {
+				echo __( 'Invite was sent to: ', 'all_in_one_invite_codes' ) . $email;
+			}
+			echo '</div>';
+			echo '</div>';
 
 			if ( empty( $email ) && $status == 'Active' ) {
-				echo '<p><a data-code_id="' . get_the_ID() . '" id="tk_all_in_one_invite_code_open_invite_form" href="#">Invite a Friend Now</a></p><div id="tk_all_in_one_invite_code_open_invite_form_id_' . get_the_ID() . '"></div>';
-			} else {
-				echo '<p>' . __( 'Invite was sent to: ', 'all_in_one_invite_codes' ) . $email . '<p>';
+				echo '<div class="aioic-form" id="tk_all_in_one_invite_code_open_invite_form_id_' . get_the_ID() . '"></div>';
 			}
 
 			echo '</li>';
@@ -66,14 +77,9 @@ function all_in_one_invite_codes_list_codes( $attr ) {
 		?>
 
         <div style="display: none" id="tk_all_in_one_invite_code_send_invite_form">
-            <p>To: <input type="email" id="tk_all_in_one_invite_code_send_invite_to" value=""><span
-                        id="tk_all_in_one_invite_code_send_invite_to_error"></span></p>
-            <p>Subject: <input type="text" id="tk_all_in_one_invite_code_send_invite_subject"
-                               value="<?php echo empty( $all_in_one_invite_codes_mail_templates['subject'] ) ? '' : $all_in_one_invite_codes_mail_templates['subject']; ?>">
-            </p>
-            <p>Message Text:<textarea cols="70" rows="5"
-                                      id="tk_all_in_one_invite_code_send_invite_message_text"><?php echo empty( $all_in_one_invite_codes_mail_templates['message_text'] ) ? '' : $all_in_one_invite_codes_mail_templates['message_text']; ?></textarea>
-            </p>
+            <p><span>To:</span><input type="email" id="tk_all_in_one_invite_code_send_invite_to" value=""><span id="tk_all_in_one_invite_code_send_invite_to_error"></span></p>
+            <p><span>Subject:</span><input type="text" id="tk_all_in_one_invite_code_send_invite_subject" value="<?php echo empty( $all_in_one_invite_codes_mail_templates['subject'] ) ? '' : $all_in_one_invite_codes_mail_templates['subject']; ?>"></p>
+            <p><span>Message Text:</span><textarea cols="70" rows="5" id="tk_all_in_one_invite_code_send_invite_message_text"><?php echo empty( $all_in_one_invite_codes_mail_templates['message_text'] ) ? '' : $all_in_one_invite_codes_mail_templates['message_text']; ?></textarea></p>
             <a href="#" data-send_code_id="0" id="tk_all_in_one_invite_code_send_invite_submit" class="button">Send</a>
         </div>
 
