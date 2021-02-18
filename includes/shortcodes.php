@@ -12,7 +12,12 @@ function all_in_one_invite_codes_list_codes_user_tree( $attr ) {
 	<script>
 		<?php echo 'var ajaxurl = "' . admin_url( 'admin-ajax.php' ) . '";' ?>
 
+
+
 	</script>
+	<script src="<? echo  TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL.'assets/js/datatables.min.js' ?>"></script>
+	<link rel="stylesheet" href="<? echo  TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL.'assets/css/dataTables.min.css' ?>" ></link>
+
 
 	<?php
 
@@ -25,8 +30,9 @@ function all_in_one_invite_codes_list_codes_user_tree( $attr ) {
 			'order' => 'ASC'
 	);
 
-	$the_query = new WP_Query( $args );
 
+	$the_query = new WP_Query( $args );
+	$user_tree_data = '[';
 	if ( $the_query->have_posts() ) {
 		echo '<h2>Invite Code Tree</h2>';
 		//echo '<br/>';
@@ -43,18 +49,40 @@ function all_in_one_invite_codes_list_codes_user_tree( $attr ) {
 
 
 			if ( !empty( $email ) && $status == 'Active' ) {
-				echo '<li>';
-				echo '<div class="aioic-right">';
-				echo '<b>'.$author_login.': </b>'; echo __( 'Sent an invite to: ', 'all_in_one_invite_codes' ) . $email;
-				echo '</div>';
-				echo '</li>';
+
+				$user_tree_data.=  '["'.$author_login.'","'.$email.'"],';
+				//echo '<li>';
+				//echo '<div class="aioic-right">';
+				//echo '<b>'.$author_login.': </b>'; echo __( 'Sent an invite to: ', 'all_in_one_invite_codes' ) . $email;
+				//echo '</div>';
+				//echo '</li>';
 			}
 
 
 
 
 		endwhile;
+		$user_tree_data = rtrim($user_tree_data, ',');
+		$user_tree_data.=']';
+		//echo "var javascript_array = ". $user_tree_data . ";\n";
+		echo '<table id="tree_user_table" class="display">
+				<thead>
+					<tr>
+						<th>User</th>
+						<th>Invited</th>
+					</tr>
+				</thead>
+				<tbody>
+
+				</tbody>
+			</table>';
+
 		echo '</ul>';
+		echo "<script> jQuery('#tree_user_table');";
+		echo"	jQuery('#tree_user_table').dataTable( {data: ".$user_tree_data."}) ";
+
+		echo "</script>";
+
 
 		$all_in_one_invite_codes_mail_templates = get_option( 'all_in_one_invite_codes_mail_templates' )
 
