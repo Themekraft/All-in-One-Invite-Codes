@@ -52,6 +52,7 @@ function all_in_one_invite_codes_tree_admin_tabs( $current = 'general' ) {
 	$tabs                           = apply_filters( 'all_in_one_invite_codes_tree_admin_tabs', $tabs );
 	$tabs['invite_codes_tree']      = 'Invite Codes Tree';
 	$tabs['invite_codes_user_tree'] = 'User Tree';
+	$tabs['invite_codes_user_tracker'] = 'User Tracker';
 
 
 	echo '<h2 class="nav-tab-wrapper" style="padding-bottom: 0;">';
@@ -156,6 +157,29 @@ function all_in_one_invite_codes_tree_tabs_content() {
                     </div><!-- .metabox-holder -->
 					<?php
 					break;
+				case 'invite_codes_user_tracker' : ?>
+					<div class="metabox-holder">
+						<div class="postbox all_in_one_invite_codes-metabox">
+							<div class="inside">
+								<?php
+								add_filter( 'wp_list_pages', 'all_in_one_invite_codes_user_tracker_wp_list_pages_filter', 10, 3 );
+								add_filter( 'post_type_link', 'all_in_one_invite_codes_list_pages_permalink_filter', 10, 2 );
+
+								wp_list_pages( array(
+										'post_type'   => 'tk_invite_codes',
+										'title_li'    => 'User Tracker',
+										'post_status' => 'publish'
+
+								) );
+
+								remove_filter( 'wp_list_pages', 'all_in_one_invite_codes_wp_list_pages_filter', 10, 3 );
+								remove_filter( 'post_type_link', 'all_in_one_invite_codes_list_pages_permalink_filter', 10, 2 );
+								?>
+							</div><!-- .inside -->
+						</div><!-- .postbox -->
+					</div><!-- .metabox-holder -->
+					<?php
+					break;
 
 				default:
 					do_action( 'all_in_one_invite_codes_tree_page_tab', $tab );
@@ -172,7 +196,57 @@ function all_in_one_invite_codes_tree_tabs_content() {
 function all_in_one_invite_codes_list_pages_permalink_filter( $permalink, $page ) {
 	return get_edit_post_link( $page->ID );
 }
+ function all_in_one_invite_codes_user_tracker_wp_list_pages_filter($html, $key, $values){
 
+	 echo '<script src="'.  TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL.'assets/js/datatables.min.js'.'"></script>';
+      echo '<link rel="stylesheet" href="'. TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL.'assets/css/dataTables.min.css'.'"></link>';
+	 	$user_tree_data = '[';
+	 foreach ( $values as $key => $value ) {
+		 $old_title = $value->post_title;
+
+		 $values[ $key ] = $value;
+
+		 $invite_key     = get_post_meta( $value->ID, 'tk_all_in_one_invite_code', true );
+		 $invite_status  = get_post_meta( $value->ID, 'tk_all_in_one_invite_code_status', true );
+		 $invite_options = get_post_meta( $value->ID, 'all_in_one_invite_codes_options', true );
+
+
+		 $email = $invite_options['email'];
+		 if ( !empty($email)) {
+
+			 $invited     = get_user_by( 'email', $email );
+			 $inviter      = get_user_by( 'ID',$value->post_author );
+			 $invited_by = $inviter->display_name;
+			 $invited_user =  $invited->display_name ? $invited->display_name : "not registered yet." ;
+			 $user_tree_data.=  '["'.$invited_by.'","'.$email.' (<b>'.$invited_user.'</b>)"],';
+
+		 }
+
+		 //$html = str_replace( $old_title, $new_title, $html );
+	 }
+	 $user_tree_data = rtrim($user_tree_data, ',');
+	 $user_tree_data.=']';
+	 echo '<table id="tree_user_table" class="display">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Invited</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>';
+
+	 echo '</ul>';
+	 echo "<script> jQuery('#tree_user_table');";
+	 echo"    jQuery('#tree_user_table').dataTable( {data: ".$user_tree_data."}) ";
+
+	 echo "</script>";
+
+	// return $html;
+
+ }
 
 function all_in_one_invite_codes_user_tree_wp_list_pages_filter( $html, $key, $values ) {
 
