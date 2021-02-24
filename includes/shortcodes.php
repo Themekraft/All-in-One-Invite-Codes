@@ -1,105 +1,7 @@
 <?php
 
 
-function all_in_one_invite_codes_list_codes_user_tree( $attr ) {
 
-	AllinOneInviteCodes::setNeedAssets(true, 'all-in-one-invite-codes');
-	ob_start();
-
-
-
-	// Add the js in the shortcode so we can use this more easy as Block in a later process. ?>
-	<script>
-		<?php echo 'var ajaxurl = "' . admin_url( 'admin-ajax.php' ) . '";' ?>
-
-
-
-	</script>
-	<script src="<? echo  TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL.'assets/js/datatables.min.js' ?>"></script>
-	<link rel="stylesheet" href="<? echo  TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL.'assets/css/dataTables.min.css' ?>" ></link>
-
-
-	<?php
-
-	// Get the user invite codes
-	$args = array(
-
-			'posts_per_page' => - 1,
-			'post_type'      => 'tk_invite_codes', //you can use also 'any'
-			'orderby' => 'post_author',
-			'order' => 'ASC'
-	);
-
-
-	$the_query = new WP_Query( $args );
-	$user_tree_data = '[';
-	if ( $the_query->have_posts() ) {
-		echo '<h2>Invite Code Tree</h2>';
-		//echo '<br/>';
-		echo '<ul>';
-		while ( $the_query->have_posts() ) : $the_query->the_post();
-			$all_in_one_invite_codes_options = get_post_meta( get_the_ID(), 'all_in_one_invite_codes_options', true );
-			$email                           = empty( $all_in_one_invite_codes_options['email'] ) ? '' : $all_in_one_invite_codes_options['email'];
-			$status = all_in_one_invite_codes_get_status( get_the_ID() );
-			$author_id =  (int)$the_query->post->post_author;
-			$author_login = get_user_meta($author_id,'nickname',true);
-
-
-
-
-
-			if ( !empty( $email ) && $status == 'Active' ) {
-
-				$user_tree_data.=  '["'.$author_login.'","'.$email.'"],';
-				//echo '<li>';
-				//echo '<div class="aioic-right">';
-				//echo '<b>'.$author_login.': </b>'; echo __( 'Sent an invite to: ', 'all_in_one_invite_codes' ) . $email;
-				//echo '</div>';
-				//echo '</li>';
-			}
-
-
-
-
-		endwhile;
-		$user_tree_data = rtrim($user_tree_data, ',');
-		$user_tree_data.=']';
-		//echo "var javascript_array = ". $user_tree_data . ";\n";
-		echo '<table id="tree_user_table" class="display">
-				<thead>
-					<tr>
-						<th>User</th>
-						<th>Invited</th>
-					</tr>
-				</thead>
-				<tbody>
-
-				</tbody>
-			</table>';
-
-		echo '</ul>';
-		echo "<script> jQuery('#tree_user_table');";
-		echo"	jQuery('#tree_user_table').dataTable( {data: ".$user_tree_data."}) ";
-
-		echo "</script>";
-
-
-		$all_in_one_invite_codes_mail_templates = get_option( 'all_in_one_invite_codes_mail_templates' )
-
-
-		?>
-
-
-
-		<?php
-	}
-
-	wp_reset_postdata();
-
-	$tmp = ob_get_clean();
-
-	return $tmp;
-}
 /**
  * Create the list of codes for the user with a option to sent invites to new users.
  *
@@ -194,7 +96,7 @@ function all_in_one_invite_codes_list_codes( $attr ) {
 }
 
 add_shortcode( 'all_in_one_invite_codes_list_codes_by_user', 'all_in_one_invite_codes_list_codes' );
-add_shortcode( 'all_in_one_invite_codes_list_codes_user_tree', 'all_in_one_invite_codes_list_codes_user_tree' );
+
 
 function all_in_one_invite_codes_create( $attr ) {
 
