@@ -97,7 +97,8 @@ function all_in_one_invite_codes_list_codes( $attr ) {
 function all_in_one_invite_codes_invited_by_user($attr){
 
 	ob_start();
-	$filter_id = isset($attr['userid']) ? $attr['userid'] : 0;
+	$filter_id = isset($attr['userid']) ? $attr['userid'] : get_current_user_id();
+
 	$user = get_user_by( 'ID',$filter_id);
 	if ($user->ID){
 		$email= $user->user_email;
