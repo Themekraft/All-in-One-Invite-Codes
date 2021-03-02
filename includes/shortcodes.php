@@ -94,8 +94,70 @@ function all_in_one_invite_codes_list_codes( $attr ) {
 
 	return $tmp;
 }
+function all_in_one_invite_codes_invited_by_user($attr){
+
+	ob_start();
+	$filter_id = isset($attr['userid']) ? $attr['userid'] : get_current_user_id();
+
+	$user = get_user_by( 'ID',$filter_id);
+	if ($user->ID){
+		$email= $user->user_email;
+		$args = array(
+
+				'posts_per_page' => - 1,
+				'post_type'      => 'tk_invite_codes', //you can use also 'any'
+				'orderby' => 'post_author',
+				'order' => 'ASC'
+		);
+		$the_query = new WP_Query( $args );
+
+		if ( $the_query->have_posts() ) {
+
+			while ( $the_query->have_posts() ) : $the_query->the_post();
+				$all_in_one_invite_codes_options = get_post_meta( get_the_ID(), 'all_in_one_invite_codes_options', true );
+				$email_needle                           = empty( $all_in_one_invite_codes_options['email'] ) ? '' : $all_in_one_invite_codes_options['email'];
+
+
+				if ( $email == $email_needle ) {
+					$author_id =  (int)$the_query->post->post_author;
+					$inviter      = get_user_by( 'ID',$author_id);
+					$invited_by = $inviter->display_name;
+					$post_date = $the_query->post->post_date;
+
+					$formattedDate = date(DATE_COOKIE , strtotime($post_date));
+					echo sprintf(__('The user : %s was invited by %s on  ','all_in_one_invite_codes'),$user->display_name,$invited_by) .$formattedDate;
+					wp_reset_postdata();
+
+					$tmp = ob_get_clean();
+
+					return $tmp;
+
+				}
+
+
+
+
+			endwhile;
+		}
+		echo sprintf(__('The user : %s was not invited by anyone','all_in_one_invite_codes'),$user->display_name);
+		wp_reset_postdata();
+
+		$tmp = ob_get_clean();
+
+		return $tmp;
+	}
+	echo  __('No user was found with the ID : ','all_in_one_invite_codes').$filter_id;
+	wp_reset_postdata();
+
+	$tmp = ob_get_clean();
+
+	return $tmp;
+
+
+}
 
 add_shortcode( 'all_in_one_invite_codes_list_codes_by_user', 'all_in_one_invite_codes_list_codes' );
+add_shortcode( 'all_in_one_invite_codes_invited_by_user_filter', 'all_in_one_invite_codes_invited_by_user' );
 
 
 function all_in_one_invite_codes_create( $attr ) {
