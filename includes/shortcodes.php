@@ -125,7 +125,7 @@ function all_in_one_invite_codes_invited_by_user($attr){
 					$post_date = $the_query->post->post_date;
 
 					$formattedDate = date(DATE_COOKIE , strtotime($post_date));
-					echo 'The user : ' .$user->display_name. ' was invited by '.$invited_by. ' on '.$formattedDate;
+					echo sprintf(__('The user : %s was invited by %s on  ','all_in_one_invite_codes'),$user->display_name,$invited_by) .$formattedDate;
 					wp_reset_postdata();
 
 					$tmp = ob_get_clean();
@@ -139,19 +139,20 @@ function all_in_one_invite_codes_invited_by_user($attr){
 
 			endwhile;
 		}
-		echo 'The user : ' .$user->display_name. ' was not invited by anyone';
+		echo sprintf(__('The user : %s was not invited by anyone','all_in_one_invite_codes'),$user->display_name);
 		wp_reset_postdata();
 
 		$tmp = ob_get_clean();
 
 		return $tmp;
 	}
+	echo  __('No user was found with the ID : ','all_in_one_invite_codes').$filter_id;
 	wp_reset_postdata();
 
 	$tmp = ob_get_clean();
 
 	return $tmp;
-	echo 'No user was found with the ID : '.$filter_id;
+
 
 }
 
