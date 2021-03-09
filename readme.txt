@@ -84,6 +84,8 @@ Have fun!
 
 == Changelog ==
 = 1.0.9 - 8 Mar 2021 =
+* Added new feature to trace start to end of the invite codes information.
+* Added shortcode to tracker who invited user from Front-end.
 * Tested up with WordPress 5.7
 
 = 1.0.8 - 26 Jan  2021 =
