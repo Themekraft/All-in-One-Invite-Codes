@@ -29,7 +29,7 @@ function all_in_one_invite_codes_validate_code( $code, $user_email = '', $type =
 
 			// IF the status is set this code is not free to use and was already used before or got deactivated.
 			if ( ! all_in_one_invite_codes_is_valide( get_the_ID() ) ) {
-				$result['error'] = __( 'Invite code invalid', 'all-in-one-invite-code' );
+				$result['error'] = __( 'This invite code was already used before or got deactivated', 'all-in-one-invite-code' );
 
 				return $result;
 			} else {
