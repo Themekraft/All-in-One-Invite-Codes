@@ -28,7 +28,7 @@ function all_in_one_invite_codes_tree_page() { ?>
             <div id="post-body" class="metabox-holder columns-2">
 
                 <div id="postbox-container-1" class="postbox-container">
-                    A
+
                 </div>
                 <div id="postbox-container-2" class="postbox-container">
 					<?php all_in_one_invite_codes_tree_tabs_content(); ?>

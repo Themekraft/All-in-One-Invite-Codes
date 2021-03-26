@@ -181,6 +181,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 			if ( is_admin() ) {
 				require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/admin-settings.php' );
 				require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/tree.php' );
+				require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/invite-codes-bulk.php' );
 				require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/admin-ajax.php' );
 				require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/invite-codes-post-type.php' );
 				require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/invite-codes-options.php' );
