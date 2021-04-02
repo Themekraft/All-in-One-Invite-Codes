@@ -45,10 +45,10 @@ function all_in_one_invite_codes_send_invite() {
     if(function_exists('bp_is_active')){
         $buddypress_active = true;
     }
-    if ($buddypress_active){
+    if ($buddypress_active || !all_in_one_invite_codes_is_default_registration() ){
         $invite_link = '<a href="' . wp_registration_url() . '?invite_code=' . $invite_code . '">Link</a>';
     }
-    else{
+	else{
         $invite_link = '<a href="' . wp_registration_url() . '&invite_code=' . $invite_code . '">Link</a>';
     }
 	$subject     = all_in_one_invite_codes_replace_shortcode( $subject, '[invite_link]', $invite_link );

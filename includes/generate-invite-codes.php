@@ -48,7 +48,7 @@ function all_in_one_invite_codes_create_code() {
         if(function_exists('bp_is_active')){
             $buddypress_active = true;
         }
-        if ($buddypress_active){
+		if ($buddypress_active || !all_in_one_invite_codes_is_default_registration() ){
             $invite_link = '<a href="' . wp_registration_url() . '?invite_code=' . $tk_invite_code . '">Link</a>';
         }
         else{
