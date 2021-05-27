@@ -21,6 +21,15 @@ function all_in_one_invite_codes_create_code() {
 	$email                                                 = isset( $_POST['email'] ) ? $_POST['email'] : '';
 	$generate_codes                                        = isset( $_POST['generate_codes'] ) ? $_POST['generate_codes'] : '';
 	$type                                                  = isset( $_POST['type'] ) ? $_POST['type'] : 'any';
+	switch($type){
+
+		case 'any':
+		case 'register':$message_text = 'message_text'; break;
+		default:
+			$message_text = $type; break;
+
+	}
+
 	$all_in_one_invite_codes_new_options                   = array();
 	$all_in_one_invite_codes_new_options['email']          = sanitize_email( $email );
 	$all_in_one_invite_codes_new_options['generate_codes'] = wp_filter_post_kses( $generate_codes );
@@ -35,7 +44,7 @@ function all_in_one_invite_codes_create_code() {
 	if ( ! empty( $email ) ) {
         $all_in_one_invite_codes_mail_templates = get_option( 'all_in_one_invite_codes_mail_templates' );
         $subject     =  isset($all_in_one_invite_codes_mail_templates['subject']) ? sanitize_text_field($all_in_one_invite_codes_mail_templates['subject']) :   __("You've Been Invited!","all-in-one-invite-code");
-        $body        = isset($all_in_one_invite_codes_mail_templates['message_text']) ? sanitize_text_field($all_in_one_invite_codes_mail_templates['message_text']) :   __("You got an invite from the site [site_name]. Please use this link to register with your invite code [invite_link]","all-in-one-invite-code");
+        $body        = isset($all_in_one_invite_codes_mail_templates[$message_text]) ? sanitize_text_field($all_in_one_invite_codes_mail_templates[$message_text]) :   __("You got an invite from the site [site_name]. Please use this link to register with your invite code [invite_link]","all-in-one-invite-code");
         $site_name = get_bloginfo( 'name' );
         $subject   = all_in_one_invite_codes_replace_shortcode( $subject, '[site_name]', $site_name );
         $subject   = all_in_one_invite_codes_replace_shortcode( $subject, '[invite_code]', $tk_invite_code );
