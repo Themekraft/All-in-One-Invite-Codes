@@ -187,6 +187,13 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
                                 <form method="post" action="options.php">
 
 									<?php settings_fields( 'all_in_one_invite_codes_mail_templates' ); ?>
+									<style>
+										li {
+											font-size: 14px;
+											margin-left: 10px;
+											list-style-type: square;
+										}
+									</style>
 
 
                                     <table class="form-table">
@@ -198,6 +205,16 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
                                                 </h3>
                                             </th>
                                         </tr>
+										<tr>
+											<td colspan="2">
+												<b><?php echo __("You can use Shortcodes to dynamically add data to the text.","all-in-one-invite-codes") ;?></b>
+												<ul>
+													<li>[site_name]</li>
+													<li>[invite_code]</li>
+													<li>[invite_link]</li>
+												</ul>
+											</td>
+										</tr>
                                         <tr valign="top">
                                             <th scope="row" valign="top">
 												<?php _e( 'Subject', 'all-in-one-invite-codes' ); ?>
@@ -209,18 +226,27 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
                                                        value="<?php echo isset( $all_in_one_invite_codes_mail_templates['subject'] ) ? $all_in_one_invite_codes_mail_templates['subject'] : ''; ?>">
                                             </td>
                                         </tr>
-                                        <tr valign="top">
-                                            <th scope="row" valign="top">
-												<?php _e( 'Message Text', 'all_in_one_invite_codes' ); ?>
-                                            </th>
-                                            <td>
-                                                <label for="all_in_one_invite_codes_mail_templates"><p>You can use
-                                                        Shortcodes to dynamically add data to the text.</p>
-                                                </label>
-                                                <textarea cols="70" rows="5" id="all_in_one_invite_codes_mail_templates"
-                                                          name="all_in_one_invite_codes_mail_templates[message_text]"><?php echo empty( $all_in_one_invite_codes_mail_templates['message_text'] ) ? $message_text_default : $all_in_one_invite_codes_mail_templates['message_text']; ?></textarea>
-                                            </td>
-                                        </tr>
+
+											<? $email_templates_types             = array();
+											$email_templates_types['message_text']      = __( 'Message Text', 'all-in-one-invite-codes' );
+											$email_templates_types = apply_filters( 'all_in_one_invite_codes_options_email_templates', $email_templates_types );
+											?>
+
+
+											<?php foreach ( $email_templates_types as $key => $description ){
+												$template_message = empty( $all_in_one_invite_codes_mail_templates[$key] ) ? $message_text_default : $all_in_one_invite_codes_mail_templates[$key];
+												echo '<tr valign="top">';
+												echo '<th scope="row" valign="top">'. $description. '</th>';
+												echo '<td>';
+
+												echo '<textarea cols="70" rows="5" id="all_in_one_invite_codes_mail_templates" name="all_in_one_invite_codes_mail_templates['.$key.']" >'.$template_message.'</textarea>';
+												echo '</td>';
+												echo '</tr>';
+
+											}?>
+
+
+
                                         </tbody>
                                     </table>
 
