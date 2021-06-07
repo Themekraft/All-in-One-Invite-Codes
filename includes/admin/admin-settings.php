@@ -188,7 +188,7 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 
 									<?php settings_fields( 'all_in_one_invite_codes_mail_templates' ); ?>
 									<style>
-										li {
+										li.aioic-shortcode-list {
 											font-size: 14px;
 											margin-left: 10px;
 											list-style-type: square;
@@ -209,9 +209,9 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 											<td colspan="2">
 												<b><?php echo __("You can use Shortcodes to dynamically add data to the text.","all-in-one-invite-codes") ;?></b>
 												<ul>
-													<li>[site_name]</li>
-													<li>[invite_code]</li>
-													<li>[invite_link]</li>
+													<li class="ioic-shortcode-list">[site_name]</li>
+													<li class="ioic-shortcode-list">[invite_code]</li>
+													<li class="ioic-shortcode-list">[invite_link]</li>
 												</ul>
 											</td>
 										</tr>
