@@ -2,9 +2,9 @@
 Contributors: svenl77, gfirem, marin25089
 Tags: registration, invite only, invite codes
 Requires at least: 4.9
-Tested up to: 5.7
+Tested up to: 5.7.2
 Requires PHP: 5.3
-Stable tag: 1.0.9
+Stable tag: 1.0.10
 License: GPL 3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -83,6 +83,14 @@ Have fun!
 6. eMail Form
 
 == Changelog ==
+= 1.0.10 - 8 Jun 2021 =
+* Fixed: Show  descriptive message when an invite code was already used or got deactivated.
+* Feature: Bulk Create Invite Codes.
+* Fixed:  When default registration is disabled change the URL of the registration link.
+* Feature: Added new hook to add custom email templates.
+* Fixed: AIOIC  style overlaping Buddyforms li Tags.
+* Tested up with WordPress 5.7.2
+
 = 1.0.9 - 8 Mar 2021 =
 * Added new feature to trace start to end of the invite codes information.
 * Added shortcode to tracker who invited user from Front-end.
