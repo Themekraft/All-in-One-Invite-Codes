@@ -3,14 +3,14 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: All in One Invite Codes\n"
-"POT-Creation-Date: 2020-04-07 20:55-0300\n"
+"POT-Creation-Date: 2021-06-25 18:01-0300\n"
 "PO-Revision-Date: 2020-03-10 20:36-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.0\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: all-in-one-invite-codes.php\n"
@@ -21,15 +21,15 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: all-in-one-invite-codes.php:382
+#: all-in-one-invite-codes.php:384
 msgid "PHP Version Update Required!"
 msgstr ""
 
-#: all-in-one-invite-codes.php:383
+#: all-in-one-invite-codes.php:385
 msgid "You are using PHP Version "
 msgstr ""
 
-#: all-in-one-invite-codes.php:384
+#: all-in-one-invite-codes.php:386
 msgid "Please make sure you have at least php version 5.3 installed."
 msgstr ""
 
@@ -45,86 +45,168 @@ msgstr ""
 msgid "This invite code does not below to any email address"
 msgstr ""
 
-#: includes/admin/admin-settings.php:7 includes/admin/tree.php:7
+#: includes/admin/admin-ajax.php:102
+msgid "Form submit error. Please contact the site administrator."
+msgstr ""
+
+#: includes/admin/admin-ajax.php:143
+msgid " Invites Codes  generated successfully"
+msgstr ""
+
+#: includes/admin/admin-settings.php:8 includes/admin/tree.php:7
 msgid "All in One Invite Codes Settings"
 msgstr ""
 
-#: includes/admin/admin-settings.php:7
+#: includes/admin/admin-settings.php:8
 msgid "Settings"
 msgstr ""
 
-#: includes/admin/admin-settings.php:128
+#: includes/admin/admin-settings.php:44 includes/admin/admin-settings.php:133
 msgid "General Settings"
 msgstr ""
 
-#: includes/admin/admin-settings.php:135
+#: includes/admin/admin-settings.php:47
+msgid "Mail Templates"
+msgstr ""
+
+#: includes/admin/admin-settings.php:140
 msgid "Add Invite only Validation to the WordPress default registration form"
 msgstr ""
 
-#: includes/admin/admin-settings.php:155
+#: includes/admin/admin-settings.php:144 includes/admin/admin-settings.php:253
+msgid "Enable"
+msgstr ""
+
+#: includes/admin/admin-settings.php:145 includes/admin/admin-settings.php:252
+msgid "Disable"
+msgstr ""
+
+#: includes/admin/admin-settings.php:160
 msgid ""
 "How manny now Invite Codes should get generated after the new user is "
 "activated?"
 msgstr ""
 
-#: includes/admin/admin-settings.php:180
+#: includes/admin/admin-settings.php:182
+#: includes/admin/invite-codes-options.php:199
+#: includes/generate-invite-codes.php:47
 msgid ""
 "You got an invite from the site [site_name]. Please use this link to "
 "register with your invite code [invite_link]"
 msgstr ""
 
-#: includes/admin/admin-settings.php:197
+#: includes/admin/admin-settings.php:206
 msgid "Invite eMail Settings"
 msgstr ""
 
-#: includes/admin/admin-settings.php:203
+#: includes/admin/admin-settings.php:212
+msgid "You can use Shortcodes to dynamically add data to the text."
+msgstr ""
+
+#: includes/admin/admin-settings.php:222
 msgid "Subject"
 msgstr ""
 
-#: includes/admin/admin-settings.php:214
+#: includes/admin/admin-settings.php:230
 msgid "Message Text"
 msgstr ""
 
-#: includes/admin/invite-codes-options.php:57 includes/shortcodes.php:122
-msgid "Assign to specific email"
+#: includes/admin/admin-settings.php:248
+msgid "Email Template Restricted"
 msgstr ""
 
-#: includes/admin/invite-codes-options.php:58 includes/shortcodes.php:123
+#: includes/admin/admin-settings.php:265
 msgid ""
-"Restrict usage of this invite code for a specific email address. Leave blank "
-"if you want to make this invite code public accessible for any registration."
+"The email template is defined on the backend and the user can't change it on "
+"the frontend"
 msgstr ""
 
-#: includes/admin/invite-codes-options.php:72 includes/shortcodes.php:137
-msgid "Generate new Invite Codes after account activation"
+#: includes/admin/invite-codes-bulk.php:7
+msgid "All in One Invite Codes Bulk"
 msgstr ""
 
-#: includes/admin/invite-codes-options.php:73 includes/shortcodes.php:138
-msgid ""
-"Enter a number to generate new invite codes if this invite code got used."
+#: includes/admin/invite-codes-bulk.php:7
+msgid "Bulk Process"
 msgstr ""
 
-#: includes/admin/invite-codes-options.php:86 includes/shortcodes.php:151
+#: includes/admin/invite-codes-bulk.php:42
+msgid "Create Bulk Invites"
+msgstr ""
+
+#: includes/admin/invite-codes-bulk.php:46
+msgid "Create multiple invites codes at once."
+msgstr ""
+
+#: includes/admin/invite-codes-bulk.php:54
+msgid "Generate new Invites Codes"
+msgstr ""
+
+#: includes/admin/invite-codes-bulk.php:55
+msgid "Enter the amount of invites codes to generate."
+msgstr ""
+
+#: includes/admin/invite-codes-bulk.php:58
+#: includes/admin/invite-codes-options.php:76 includes/shortcodes.php:207
+msgid "Number:"
+msgstr ""
+
+#: includes/admin/invite-codes-bulk.php:68
+#: includes/admin/invite-codes-options.php:86 includes/shortcodes.php:212
 msgid "Purpose?"
 msgstr ""
 
-#: includes/admin/invite-codes-options.php:87 includes/shortcodes.php:152
+#: includes/admin/invite-codes-bulk.php:69
+#: includes/admin/invite-codes-options.php:87 includes/shortcodes.php:213
 msgid ""
 "Select an Action to limit the usage of the invite code to one particular "
 "action on your site and set the coupon code to used after thais action is "
 "done."
 msgstr ""
 
-#: includes/admin/invite-codes-options.php:93 includes/shortcodes.php:158
+#: includes/admin/invite-codes-bulk.php:75
+#: includes/admin/invite-codes-options.php:93 includes/shortcodes.php:219
 msgid "Any"
 msgstr ""
 
-#: includes/admin/invite-codes-options.php:94 includes/shortcodes.php:159
+#: includes/admin/invite-codes-bulk.php:76
+#: includes/admin/invite-codes-options.php:94 includes/shortcodes.php:220
 msgid "Register"
 msgstr ""
 
-#: includes/admin/invite-codes-options.php:187
-#: includes/generate-invite-codes.php:37
+#: includes/admin/invite-codes-bulk.php:83
+#: includes/admin/invite-codes-options.php:101 includes/shortcodes.php:227
+msgid "Purpose:"
+msgstr ""
+
+#: includes/admin/invite-codes-bulk.php:99
+msgid "Generate Invites"
+msgstr ""
+
+#: includes/admin/invite-codes-options.php:57 includes/shortcodes.php:193
+msgid "Assign to specific email"
+msgstr ""
+
+#: includes/admin/invite-codes-options.php:58 includes/shortcodes.php:194
+msgid ""
+"Restrict usage of this invite code for a specific email address. Leave blank "
+"if you want to make this invite code public accessible for any registration."
+msgstr ""
+
+#: includes/admin/invite-codes-options.php:61 includes/shortcodes.php:197
+msgid "eMail:"
+msgstr ""
+
+#: includes/admin/invite-codes-options.php:72 includes/shortcodes.php:203
+msgid "Generate new Invite Codes after account activation"
+msgstr ""
+
+#: includes/admin/invite-codes-options.php:73 includes/shortcodes.php:204
+msgid ""
+"Enter a number to generate new invite codes if this invite code got used."
+msgstr ""
+
+#: includes/admin/invite-codes-options.php:198
+#: includes/generate-invite-codes.php:46
 msgid "You've Been Invited!"
 msgstr ""
 
@@ -141,7 +223,7 @@ msgstr ""
 msgid "Code"
 msgstr ""
 
-#: includes/admin/invite-codes-post-type.php:88
+#: includes/admin/invite-codes-post-type.php:88 includes/admin/tree.php:268
 msgid "Status"
 msgstr ""
 
@@ -161,11 +243,47 @@ msgstr ""
 msgid "Tree View"
 msgstr ""
 
+#: includes/admin/tree.php:50
+msgid "General Statistics"
+msgstr ""
+
+#: includes/admin/tree.php:53
+msgid "Invite Codes Tree"
+msgstr ""
+
+#: includes/admin/tree.php:54 includes/admin/tree.php:147
+msgid "User Tree"
+msgstr ""
+
+#: includes/admin/tree.php:55
+msgid "User Tracker"
+msgstr ""
+
+#: includes/admin/tree.php:98
+msgid "Add some general statistics"
+msgstr ""
+
+#: includes/admin/tree.php:124
+msgid "Invite Codes Flow"
+msgstr ""
+
+#: includes/admin/tree.php:220
+msgid "not registered yet."
+msgstr ""
+
+#: includes/admin/tree.php:232 includes/admin/tree.php:268
+msgid "User"
+msgstr ""
+
+#: includes/admin/tree.php:233
+msgid "Invited"
+msgstr ""
+
 #: includes/default-registration.php:22
 msgid "Invitation Code"
 msgstr ""
 
-#: includes/default-registration.php:47 includes/default-registration.php:55
+#: includes/default-registration.php:47 includes/default-registration.php:62
 msgid "ERROR"
 msgstr ""
 
@@ -185,36 +303,78 @@ msgstr ""
 msgid "Valide"
 msgstr ""
 
-#: includes/generate-invite-codes.php:47 includes/send-invite-email.php:59
+#: includes/generate-invite-codes.php:78 includes/send-invite-email.php:72
 msgid "Invite could not get send. Please contact the Support."
 msgstr ""
 
-#: includes/generate-invite-codes.php:52 includes/send-invite-email.php:65
+#: includes/generate-invite-codes.php:83 includes/send-invite-email.php:78
 msgid "Invite send out successfully"
 msgstr ""
 
 #: includes/process-invite-code.php:32
-msgid "Invite code invalid"
+msgid "This invite code was already used before or got deactivated"
 msgstr ""
 
-#: includes/process-invite-code.php:44
+#: includes/process-invite-code.php:45
 msgid "eMail address does not below to this invite code."
 msgstr ""
 
-#: includes/process-invite-code.php:55
+#: includes/process-invite-code.php:56
 msgid "This invite code can´t be applied on this page, is for : "
 msgstr ""
 
-#: includes/process-invite-code.php:68
+#: includes/process-invite-code.php:69
 msgid "Invite code not exist"
 msgstr ""
 
-#: includes/shortcodes.php:17
+#: includes/shortcodes.php:20
 msgid "Please login to manage your invite codes."
 msgstr ""
 
-#: includes/shortcodes.php:56
+#: includes/shortcodes.php:52
+msgid "Code:"
+msgstr ""
+
+#: includes/shortcodes.php:55
+msgid "Status:"
+msgstr ""
+
+#: includes/shortcodes.php:62
+msgid "Invite a Friend Now"
+msgstr ""
+
+#: includes/shortcodes.php:64
 msgid "Invite was sent to: "
+msgstr ""
+
+#: includes/shortcodes.php:83
+msgid "To:"
+msgstr ""
+
+#: includes/shortcodes.php:86
+msgid "Subject:"
+msgstr ""
+
+#: includes/shortcodes.php:87
+msgid "Message Text:"
+msgstr ""
+
+#: includes/shortcodes.php:91
+msgid "Send"
+msgstr ""
+
+#: includes/shortcodes.php:135
+#, php-format
+msgid "The user : %s was invited by %s on  "
+msgstr ""
+
+#: includes/shortcodes.php:148
+#, php-format
+msgid "The user : %s was not invited by anyone"
+msgstr ""
+
+#: includes/shortcodes.php:155
+msgid "No user was found with the ID : "
 msgstr ""
 
 #. Plugin Name of the plugin/theme

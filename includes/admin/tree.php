@@ -4,7 +4,7 @@
  * Add the Settings Page to the All in One Invite Codes Menu
  */
 function all_in_one_invite_codes_tree_menu() {
-	add_submenu_page( 'edit.php?post_type=tk_invite_codes', __( 'All in One Invite Codes Settings', 'all_in_one_invite_codes_tree' ), __( 'Tree View', 'all_in_one_invite_codes_tree' ), 'manage_options', 'all_in_one_invite_codes_tree', 'all_in_one_invite_codes_tree_page' );
+	add_submenu_page( 'edit.php?post_type=tk_invite_codes', __( 'All in One Invite Codes Settings', 'all-in-one-invite-codes' ), __( 'Tree View', 'all-in-one-invite-codes' ), 'manage_options', 'all_in_one_invite_codes_tree', 'all_in_one_invite_codes_tree_page' );
 }
 
 add_action( 'admin_menu', 'all_in_one_invite_codes_tree_menu' );
@@ -47,12 +47,12 @@ function all_in_one_invite_codes_tree_page() { ?>
  * @param string $current
  */
 function all_in_one_invite_codes_tree_admin_tabs( $current = 'general' ) {
-	$tabs = array( 'general' => 'General Statistics' );
+	$tabs = array( 'general' => __('General Statistics','all-in-one-invite-codes') );
 
 	$tabs                           = apply_filters( 'all_in_one_invite_codes_tree_admin_tabs', $tabs );
-	$tabs['invite_codes_tree']      = 'Invite Codes Tree';
-	$tabs['invite_codes_user_tree'] = 'User Tree';
-	$tabs['invite_codes_user_tracker'] = 'User Tracker';
+	$tabs['invite_codes_tree']      = __('Invite Codes Tree','all-in-one-invite-codes');
+	$tabs['invite_codes_user_tree'] = __('User Tree','all-in-one-invite-codes');
+	$tabs['invite_codes_user_tracker'] = __('User Tracker','all-in-one-invite-codes');
 
 
 	echo '<h2 class="nav-tab-wrapper" style="padding-bottom: 0;">';
@@ -95,7 +95,7 @@ function all_in_one_invite_codes_tree_tabs_content() {
                     <div class="metabox-holder">
                         <div class="postbox all_in_one_invite_codes-metabox">
                             <div class="inside">
-                                Add some general statistics
+							<?php  _e('Add some general statistics', 'all-in-one-invite-codes'); ?> 
 
 								<?php
 								$invite_codes_stats = wp_count_posts( 'tk_invite_codes' );
@@ -121,7 +121,7 @@ function all_in_one_invite_codes_tree_tabs_content() {
 
 								wp_list_pages( array(
 									'post_type'   => 'tk_invite_codes',
-									'title_li'    => 'Invite Codes Flow',
+									'title_li'    => __('Invite Codes Flow','all-in-one-invite-codes'),
 									'post_status' => 'publish'
 								) );
 
@@ -144,7 +144,7 @@ function all_in_one_invite_codes_tree_tabs_content() {
 
 								wp_list_pages( array(
 									'post_type'   => 'tk_invite_codes',
-									'title_li'    => 'User Tree',
+									'title_li'    => __('User Tree','all-in-one-invite-codes'),
 									'post_status' => 'publish'
 
 								) );
@@ -217,7 +217,7 @@ function all_in_one_invite_codes_list_pages_permalink_filter( $permalink, $page 
 			 $invited     = get_user_by( 'email', $email );
 			 $inviter      = get_user_by( 'ID',$value->post_author );
 			 $invited_by = $inviter->display_name;
-			 $invited_user =  $invited->display_name ? $invited->display_name : "not registered yet." ;
+			 $invited_user =  $invited->display_name ? $invited->display_name : __("not registered yet.",'all-in-one-invite-codes') ;
 			 $user_tree_data.=  '["'.$invited_by.'","'.$email.' (<b>'.$invited_user.'</b>)"],';
 
 		 }
@@ -229,8 +229,8 @@ function all_in_one_invite_codes_list_pages_permalink_filter( $permalink, $page 
 	 echo '<table id="tree_user_table" class="display">
                 <thead>
                     <tr>
-                        <th>User</th>
-                        <th>Invited</th>
+                        <th>'.__("User","all-in-one-invite-codes").'</th>
+                        <th>'.__("Invited","all-in-one-invite-codes").'</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -265,7 +265,7 @@ function all_in_one_invite_codes_user_tree_wp_list_pages_filter( $html, $key, $v
 
 			$user      = get_user_by( 'email', $invite_options['email'] );
 			$avatar    = get_avatar_url( $user->ID );
-			$new_title = $invite_key . ' </a><br> <img src="' . $avatar . '" /> <br>Status: ' . $invite_status . ' <br> User: <a href="' . get_edit_user_link( $user->ID ) . '">  ' . $user->display_name;
+			$new_title = $invite_key . ' </a><br> <img src="' . $avatar . '" /> <br>'.__("Status","all-in-one-invite-codes").': ' . $invite_status . ' <br>'.__("User","all-in-one-invite-codes").' : <a href="' . get_edit_user_link( $user->ID ) . '">  ' . $user->display_name;
 
 		} else {
 			$new_title = '';

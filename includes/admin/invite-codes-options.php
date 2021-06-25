@@ -54,11 +54,11 @@ function all_in_one_invite_codes_render_metabox( $post ) {
             >
 
             <label for="all_in_one_invite_codes_options_email">
-                <b><?php _e( 'Assign to specific email', 'all_in_one_invite_codes' ); ?></b>
-                <p><?php _e( 'Restrict usage of this invite code for a specific email address. Leave blank if you want to make this invite code public accessible for any registration.', 'all_in_one_invite_codes' ); ?></p>
+                <b><?php _e( 'Assign to specific email', 'all-in-one-invite-codes' ); ?></b>
+                <p><?php _e( 'Restrict usage of this invite code for a specific email address. Leave blank if you want to make this invite code public accessible for any registration.', 'all-in-one-invite-codes' ); ?></p>
             </label>
 
-            <p> eMail: <input
+            <p> <?php  __('eMail:', 'all-in-one-invite-codes'); ?> <input
                         type="email"
                         name="all_in_one_invite_codes_options[email]"
                         id="all_in_one_invite_codes_options_email"
@@ -69,11 +69,11 @@ function all_in_one_invite_codes_render_metabox( $post ) {
         </div>
         <div>
             <label for="all_in_one_invite_codes_options_email">
-                <b><?php _e( 'Generate new Invite Codes after account activation', 'all_in_one_invite_codes' ); ?></b>
-                <p><?php _e( 'Enter a number to generate new invite codes if this invite code got used.', 'all_in_one_invite_codes' ); ?></p>
+                <b><?php _e( 'Generate new Invite Codes after account activation', 'all-in-one-invite-codes' ); ?></b>
+                <p><?php _e( 'Enter a number to generate new invite codes if this invite code got used.', 'all-in-one-invite-codes' ); ?></p>
             </label>
             <p>
-                Number: <input
+			<?php  __('Number:', 'all-in-one-invite-codes'); ?> <input
                         type="number"
                         name="all_in_one_invite_codes_options[generate_codes]"
                         id="all_in_one_invite_codes_options_generate_codes"
@@ -84,7 +84,7 @@ function all_in_one_invite_codes_render_metabox( $post ) {
         <div>
             <label for="all_in_one_invite_codes_options_type">
                 <b><?php _e( 'Purpose?', 'all-in-one-invite-codes' ); ?></b>
-                <p><?php _e( 'Select an Action to limit the usage of the invite code to one particular action on your site and set the coupon code to used after thais action is done.', 'all_in_one_invite_codes' ); ?></p>
+                <p><?php _e( 'Select an Action to limit the usage of the invite code to one particular action on your site and set the coupon code to used after thais action is done.', 'all-in-one-invite-codes' ); ?></p>
             </label>
 
 			<?php
@@ -98,7 +98,7 @@ function all_in_one_invite_codes_render_metabox( $post ) {
 
 			?>
             <p>
-                Purpose: <select
+			<?php  __('Purpose:', 'all-in-one-invite-codes'); ?>  <select
                         name="all_in_one_invite_codes_options[type]"
                         id="all_in_one_invite_codes_options_type"
                         value="<?php echo esc_attr( $type ); ?>">

@@ -49,19 +49,19 @@ function all_in_one_invite_codes_list_codes($attr)
 			echo '<li>';
 			echo '<div class="aioic-top">';
 			echo '<div class="aioic-info">';
-			echo '<div>Code: ';
+			echo '<div>'.__('Code:',"all-in-one-invite-codes").'';
 			echo get_post_meta(get_the_ID(), 'tk_all_in_one_invite_code', true);
 			echo '</div>';
-			echo '<div>Status: ';
+			echo '<div>'.__("Status:","all-in-one-invite-codes").' ';
 			echo $status = all_in_one_invite_codes_get_status(get_the_ID());
 			echo '</div>';
 			echo '</div>';
 
 			echo '<div class="aioic-right">';
 			if (empty($email) && $status == 'Active') {
-				echo '<a class="button" data-code_id="' . get_the_ID() . '" id="tk_all_in_one_invite_code_open_invite_form" href="#">Invite a Friend Now</a>';
+				echo '<a class="button" data-code_id="' . get_the_ID() . '" id="tk_all_in_one_invite_code_open_invite_form" href="#">'.__('Invite a Friend Now','all-in-one-invite-codes').'</a>';
 			} else {
-				echo __('Invite was sent to: ', 'all_in_one_invite_codes') . $email;
+				echo __('Invite was sent to: ', 'all-in-one-invite-codes') . $email;
 			}
 			echo '</div>';
 			echo '</div>';
@@ -80,15 +80,15 @@ function all_in_one_invite_codes_list_codes($attr)
 	?>
 
 		<div style="display: none" id="tk_all_in_one_invite_code_send_invite_form">
-			<p><span>To:</span><input type="email" id="tk_all_in_one_invite_code_send_invite_to" value=""><span id="tk_all_in_one_invite_code_send_invite_to_error"></span></p>
+			<p><span><?php _e('To:', 'all-in-one-invite-codes'); ?></span><input type="email" id="tk_all_in_one_invite_code_send_invite_to" value=""><span id="tk_all_in_one_invite_code_send_invite_to_error"></span></p>
 			<?php if ($email_template_restricted == false) : ?>
 
-				<p><span>Subject:</span><input  type="text" id="tk_all_in_one_invite_code_send_invite_subject" value="<?php echo empty($all_in_one_invite_codes_mail_templates['subject']) ? '' : $all_in_one_invite_codes_mail_templates['subject']; ?>"></p>
-			    <p><span>Message Text:</span><textarea cols="70" rows="5" id="tk_all_in_one_invite_code_send_invite_message_text"><?php echo empty($all_in_one_invite_codes_mail_templates['message_text']) ? '' : $all_in_one_invite_codes_mail_templates['message_text']; ?></textarea></p>			
+				<p><span><?php _e('Subject:', 'all-in-one-invite-codes'); ?></span><input  type="text" id="tk_all_in_one_invite_code_send_invite_subject" value="<?php echo empty($all_in_one_invite_codes_mail_templates['subject']) ? '' : $all_in_one_invite_codes_mail_templates['subject']; ?>"></p>
+			    <p><span><?php _e('Message Text:', 'all-in-one-invite-codes'); ?></span><textarea cols="70" rows="5" id="tk_all_in_one_invite_code_send_invite_message_text"><?php echo empty($all_in_one_invite_codes_mail_templates['message_text']) ? '' : $all_in_one_invite_codes_mail_templates['message_text']; ?></textarea></p>			
 
 			<?php endif ?>
 			
-			<a href="#" data-send_code_id="0" id="tk_all_in_one_invite_code_send_invite_submit" class="button">Send</a>
+			<a href="#" data-send_code_id="0" id="tk_all_in_one_invite_code_send_invite_submit" class="button"><?php _e('Send', 'all-in-one-invite-codes'); ?></a>
 		</div>
 
 	<?php
@@ -194,23 +194,23 @@ function all_in_one_invite_codes_create($attr)
 			<p><?php _e('Restrict usage of this invite code for a specific email address. Leave blank if you want to make this invite code public accessible for any registration.', 'all_in_one_invite_codes'); ?></p>
 		</label>
 
-		<p> eMail: <input type="email" name="all_in_one_invite_codes_options[email]" id="all_in_one_invite_codes_options_email" value="<?php echo esc_attr($email); ?>">
+		<p> <?php _e('eMail:', 'all-in-one-invite-codes'); ?> <input type="email" name="all_in_one_invite_codes_options[email]" id="all_in_one_invite_codes_options_email" value="<?php echo esc_attr($email); ?>">
 		</p>
 
 	</div>
 	<div>
 		<label for="all_in_one_invite_codes_options_email">
-			<b><?php _e('Generate new Invite Codes after account activation', 'all_in_one_invite_codes'); ?></b>
-			<p><?php _e('Enter a number to generate new invite codes if this invite code got used.', 'all_in_one_invite_codes'); ?></p>
+			<b><?php __('Generate new Invite Codes after account activation', 'all-in-one-invite-codes'); ?></b>
+			<p><?php __('Enter a number to generate new invite codes if this invite code got used.', 'all-in-one-invite-codes'); ?></p>
 		</label>
 		<p>
-			Number: <input type="number" name="all_in_one_invite_codes_options[generate_codes]" id="all_in_one_invite_codes_options_generate_codes" value="<?php echo esc_attr($generate_codes); ?>">
+		<?php  __('Number:', 'all-in-one-invite-codes'); ?>  <input type="number" name="all_in_one_invite_codes_options[generate_codes]" id="all_in_one_invite_codes_options_generate_codes" value="<?php echo esc_attr($generate_codes); ?>">
 		</p>
 	</div>
 	<div>
 		<label for="all_in_one_invite_codes_options_type">
-			<b><?php _e('Purpose?', 'all-in-one-invite-codes'); ?></b>
-			<p><?php _e('Select an Action to limit the usage of the invite code to one particular action on your site and set the coupon code to used after thais action is done.', 'all_in_one_invite_codes'); ?></p>
+			<b><?php __('Purpose?', 'all-in-one-invite-codes'); ?></b>
+			<p><?php __('Select an Action to limit the usage of the invite code to one particular action on your site and set the coupon code to used after thais action is done.', 'all-in-one-invite-codes'); ?></p>
 		</label>
 
 		<?php
@@ -224,7 +224,7 @@ function all_in_one_invite_codes_create($attr)
 
 		?>
 		<p>
-			Purpose: <select name="all_in_one_invite_codes_options[type]" id="all_in_one_invite_codes_options_type" value="<?php echo esc_attr($type); ?>">
+		<?php  _e('Purpose:', 'all-in-one-invite-codes'); ?>   <select name="all_in_one_invite_codes_options[type]" id="all_in_one_invite_codes_options_type" value="<?php echo esc_attr($type); ?>">
 
 				<?php foreach ($type_options as $slug => $option) {
 					if ($slug == $type) {

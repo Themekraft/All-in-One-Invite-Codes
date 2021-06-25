@@ -5,7 +5,7 @@
  */
 function all_in_one_invite_codes_settings_menu()
 {
-	add_submenu_page('edit.php?post_type=tk_invite_codes', __('All in One Invite Codes Settings', 'all_in_one_invite_codes'), __('Settings', 'all_in_one_invite_codes'), 'manage_options', 'all_in_one_invite_codes_settings', 'all_in_one_invite_codes_settings_page');
+	add_submenu_page('edit.php?post_type=tk_invite_codes', __('All in One Invite Codes Settings', 'all-in-one-invite-codes'), __('Settings', 'all-in-one-invite-codes'), 'manage_options', 'all_in_one_invite_codes_settings', 'all_in_one_invite_codes_settings_page');
 }
 
 add_action('admin_menu', 'all_in_one_invite_codes_settings_menu');
@@ -41,10 +41,10 @@ function all_in_one_invite_codes_settings_page()
  */
 function all_in_one_invite_codes_admin_tabs($current = 'general')
 {
-	$tabs = array('general' => 'General Settings');
+	$tabs = array('general' => __('General Settings', 'all-in-one-invite-codes'));
 
 	$tabs         = apply_filters('all_in_one_invite_codes_admin_tabs', $tabs);
-	$tabs['mail'] = 'Mail Templates';
+	$tabs['mail'] = __('Mail Templates','all-in-one-invite-codes');
 
 
 	echo '<h2 class="nav-tab-wrapper" style="padding-bottom: 0;">';
@@ -130,7 +130,7 @@ function all_in_one_invite_codes_settings_page_tabs_content()
 											<tr>
 												<th colspan="2">
 													<h3>
-														<span><?php _e('General Settings', 'all_in_one_invite_codes'); ?></span>
+														<span><?php _e('General Settings', 'all-in-one-invite-codes'); ?></span>
 													</h3>
 												</th>
 											</tr>
@@ -141,8 +141,8 @@ function all_in_one_invite_codes_settings_page_tabs_content()
 												</th>
 												<td>
 													<?php
-													$pages['enabled'] = 'Enable';
-													$pages['disable'] = 'Disable';
+													$pages['enabled'] = __('Enable','all-in-one-invite-codes');
+													$pages['disable'] = __('Disable','all-in-one-invite-codes');
 
 													if (isset($pages) && is_array($pages)) {
 														echo '<select name="all_in_one_invite_codes_general[default_registration]" id="all_in_one_invite_codes_general">';
@@ -154,7 +154,7 @@ function all_in_one_invite_codes_settings_page_tabs_content()
 													}
 													?>
 												</td>
-											</tr>
+											</tr>											
 											<tr valign="top">
 												<th scope="row" valign="top">
 													<?php _e('How manny now Invite Codes should get generated after the new user is activated?', 'all-in-one-invite-codes'); ?>
@@ -179,7 +179,7 @@ function all_in_one_invite_codes_settings_page_tabs_content()
 					$all_in_one_invite_codes_mail_templates = get_option('all_in_one_invite_codes_mail_templates');
 
 
-					$message_text_default = __('You got an invite from the site [site_name]. Please use this link to register with your invite code [invite_link]');
+					$message_text_default = __('You got an invite from the site [site_name]. Please use this link to register with your invite code [invite_link]','all-in-one-invite-codes');
 				?>
 					<div class="metabox-holder">
 						<div class="postbox all_in_one_invite_codes-metabox">
@@ -203,7 +203,7 @@ function all_in_one_invite_codes_settings_page_tabs_content()
 											<tr>
 												<th colspan="2">
 													<h3>
-														<span><?php _e('Invite eMail Settings', 'all_in_one_invite_codes'); ?></span>
+														<span><?php _e('Invite eMail Settings', 'all-in-one-invite-codes'); ?></span>
 													</h3>
 												</th>
 											</tr>
@@ -296,5 +296,5 @@ function all_in_one_invite_codes_settings_page_tabs_content()
 
 function all_in_one_invite_codes_settings_page_sidebar()
 {
-	echo '<p>Placeholder Text</p>';
+	//echo '<p>Placeholder Text</p>';
 }

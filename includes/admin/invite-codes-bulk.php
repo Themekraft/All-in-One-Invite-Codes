@@ -4,7 +4,7 @@
  * Add the Bulk Process Page to the All in One Invite Codes Menu
  */
 function all_in_one_invite_codes_bulk_menu() {
-	add_submenu_page( 'edit.php?post_type=tk_invite_codes', __( 'All in One Invite Codes Bulk', 'all_in_one_invite_codes' ), __( 'Bulk Process', 'all_in_one_invite_codes' ), 'manage_options', 'all_in_one_invite_codes_bulk', 'all_in_one_invite_codes_bulk_page' );
+	add_submenu_page( 'edit.php?post_type=tk_invite_codes', __( 'All in One Invite Codes Bulk', 'all-in-one-invite-codes' ), __( 'Bulk Process', 'all-in-one-invite-codes' ), 'manage_options', 'all_in_one_invite_codes_bulk', 'all_in_one_invite_codes_bulk_page' );
 }
 
 add_action( 'admin_menu', 'all_in_one_invite_codes_bulk_menu' );
@@ -39,11 +39,11 @@ function all_in_one_invite_codes_bulk_page() {
 				  <div class="" id="form_message_aioic"></div>
 				  <div class="form_wrapper clearfix">
 					  <h2 class="screen-heading general-settings-screen">
-						  <?php _e( 'Create Bulk Invites', 'all_in_one_invite_codes' ); ?>
+						  <?php _e( 'Create Bulk Invites', 'all-in-one-invite-codes' ); ?>
 					  </h2>
 
 					  <p class="info invite-info">
-						  <?php _e( 'Create multiple invites codes at once.', 'all_in_one_invite_codes-buddypress' ); ?>
+						  <?php  _e( 'Create multiple invites codes at once.', 'all-in-one-invite-codes' ); ?>
 					  </p>
 					  <form action="" method="post"  class="" id="bulk-invite-aioic">
 						  <input type="hidden" name="action" value="aioic_send_multiple_invites">
@@ -51,11 +51,11 @@ function all_in_one_invite_codes_bulk_page() {
 
 						  <div>
 							  <label for="all_in_one_invite_codes_options_email">
-								  <b><?php _e( 'Generate new Invites Codes', 'all_in_one_invite_codes' ); ?></b>
-								  <p><?php _e( 'Enter the amount of invites codes to generate.', 'all_in_one_invite_codes' ); ?></p>
+								  <b><?php _e( 'Generate new Invites Codes', 'all-in-one-invite-codes' ); ?></b>
+								  <p><?php _e( 'Enter the amount of invites codes to generate.', 'all-in-one-invite-codes' ); ?></p>
 							  </label>
 							  <p>
-								  Number: <input
+							  <?php _e('Number:', 'all-in-one-invite-codes'); ?> <input
 										  type="number"
 										  name="generate_codes"
 										  id="all_in_one_invite_codes_options_generate_codes"
@@ -66,7 +66,7 @@ function all_in_one_invite_codes_bulk_page() {
 						  <div>
 							  <label for="all_in_one_invite_codes_options_type">
 								  <b><?php _e( 'Purpose?', 'all-in-one-invite-codes' ); ?></b>
-								  <p><?php _e( 'Select an Action to limit the usage of the invite code to one particular action on your site and set the coupon code to used after thais action is done.', 'all_in_one_invite_codes' ); ?></p>
+								  <p><?php _e( 'Select an Action to limit the usage of the invite code to one particular action on your site and set the coupon code to used after thais action is done.', 'all-in-one-invite-codes' ); ?></p>
 							  </label>
 
 							  <?php
@@ -80,7 +80,7 @@ function all_in_one_invite_codes_bulk_page() {
 
 							  ?>
 							  <p>
-								  Purpose: <select
+							  <b><?php _e('Purpose:', 'all-in-one-invite-codes'); ?></b>  <select
 										  name="purpose"
 										  id="all_in_one_invite_codes_options_type"
 								  >
@@ -96,7 +96,7 @@ function all_in_one_invite_codes_bulk_page() {
 							  </p>
 						  </div>
 						  <p  class="submit" align="right">
-							  <input type="submit" name="aioic-invite-submit" id="submit" value="Generate Invites" class=" button button-primary aioic_submit">
+							  <input type="submit" name="aioic-invite-submit" id="submit" value="<?php _e('Generate Invites', 'all-in-one-invite-codes'); ?>" class=" button button-primary aioic_submit">
 						  </p>
 
 					  </form>
