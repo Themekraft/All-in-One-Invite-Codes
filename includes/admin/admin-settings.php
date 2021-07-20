@@ -239,13 +239,13 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
                                             </td>
                                         </tr>
 
-											<? $email_templates_types             = array();
+											<?php $email_templates_types             = array();
 											$email_templates_types['message_text']      = __( 'Message Text', 'all-in-one-invite-codes' );
 											$email_templates_types = apply_filters( 'all_in_one_invite_codes_options_email_templates', $email_templates_types );
-											?>
+											
 
 
-											<?php foreach ( $email_templates_types as $key => $description ){
+											foreach ( $email_templates_types as $key => $description ){
 												$template_message = empty( $all_in_one_invite_codes_mail_templates[$key] ) ? $message_text_default : $all_in_one_invite_codes_mail_templates[$key];
 												echo '<tr valign="top">';
 												echo '<th scope="row" valign="top">'. $description. '</th>';
