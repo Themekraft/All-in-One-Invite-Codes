@@ -15,6 +15,12 @@ function all_in_one_invite_codes_md5( $post_id = false ) {
 	}
 
 	$md5 = get_post_meta( $post_id, 'tk_all_in_one_invite_code', true );
+	$all_in_one_invite_codes_general = get_option( 'all_in_one_invite_codes_general' );
+	$code_length                     = $all_in_one_invite_codes_general['character_length'] ?? 5;
+
+	if ( ! $md5 ) {
+		$md5 = substr( md5( time() * rand() ), 0, $code_length );
+	}									
 
 	if ( ! $md5 ) {
 		$md5 = substr( md5( time() * rand() ), 0, 24 );

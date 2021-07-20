@@ -161,6 +161,18 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
                                                        value="<?php echo isset( $all_in_one_invite_codes_general['generate_codes_amount'] ) ? $all_in_one_invite_codes_general['generate_codes_amount'] : ''; ?>">
                                             </td>
                                         </tr>
+										<tr valign="top">
+                                            <th scope="row" valign="top">
+                                                <?php _e( 'Invites codes characters length', 'all-in-one-invite-codes' ); ?>
+                                            </th>
+                                            <td>
+                                                <input type="number"
+                                                       name="all_in_one_invite_codes_general[character_length]"
+                                                       id="all_in_one_invite_codes_general_character_length"
+                                                       min="5"
+                                                       value="<?php echo isset( $all_in_one_invite_codes_general['character_length'] ) ? $all_in_one_invite_codes_general['character_length'] : '5'; ?>">
+                                            </td>
+                                        </tr>
                                         </tbody>
                                     </table>
 
