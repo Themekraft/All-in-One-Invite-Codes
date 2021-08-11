@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: All in One Invite Codes\n"
-"POT-Creation-Date: 2020-04-07 20:55-0300\n"
-"PO-Revision-Date: 2020-03-10 20:36-0300\n"
+"POT-Creation-Date: 2021-08-11 15:00-0300\n"
+"PO-Revision-Date: 2021-08-11 16:00-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -122,6 +122,18 @@ msgstr ""
 #: includes/admin/invite-codes-options.php:94 includes/shortcodes.php:159
 msgid "Register"
 msgstr ""
+
+#: includes/shortcodes.php:197
+msgid "eMail"
+msgstr "eMail"
+
+#: includes/shortcodes.php:211
+msgid "Number: "
+msgstr "Número: "
+
+#: includes/shortcodes.php:235
+msgid "Purpose: "
+msgstr "Propósito: "
 
 #: includes/admin/invite-codes-options.php:187
 #: includes/generate-invite-codes.php:37

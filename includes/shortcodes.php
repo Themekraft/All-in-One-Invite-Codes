@@ -194,7 +194,7 @@ function all_in_one_invite_codes_create( $attr ) {
                 <p><?php _e( 'Restrict usage of this invite code for a specific email address. Leave blank if you want to make this invite code public accessible for any registration.', 'all_in_one_invite_codes' ); ?></p>
             </label>
 
-            <p> eMail: <input
+            <p><?php _e( 'eMail: ', 'all_in_one_invite_codes' ); ?><input
                         type="email"
                         name="all_in_one_invite_codes_options[email]"
                         id="all_in_one_invite_codes_options_email"
@@ -208,8 +208,7 @@ function all_in_one_invite_codes_create( $attr ) {
                 <b><?php _e( 'Generate new Invite Codes after account activation', 'all_in_one_invite_codes' ); ?></b>
                 <p><?php _e( 'Enter a number to generate new invite codes if this invite code got used.', 'all_in_one_invite_codes' ); ?></p>
             </label>
-            <p>
-                Number: <input
+            <p><?php _e( 'Number: ', 'all_in_one_invite_codes' ) ?><input
                         type="number"
                         name="all_in_one_invite_codes_options[generate_codes]"
                         id="all_in_one_invite_codes_options_generate_codes"
@@ -233,8 +232,8 @@ function all_in_one_invite_codes_create( $attr ) {
 			$type_options = apply_filters( 'all_in_one_invite_codes_options_type_options', $type_options )
 
 			?>
-            <p>
-                Purpose: <select
+            <p><?php _e('Purpose: ', 'all-in-one-invite-codes'); ?>
+				<select
                         name="all_in_one_invite_codes_options[type]"
                         id="all_in_one_invite_codes_options_type"
                         value="<?php echo esc_attr( $type ); ?>">

@@ -138,6 +138,18 @@ msgstr "Qualquer"
 msgid "Register"
 msgstr "Registrar"
 
+#: includes/shortcodes.php:197
+msgid "eMail"
+msgstr "eMail"
+
+#: includes/shortcodes.php:211
+msgid "Number: "
+msgstr "Número: "
+
+#: includes/shortcodes.php:235
+msgid "Purpose: "
+msgstr "Propósito: "
+
 #: includes/admin/invite-codes-options.php:187
 #: includes/generate-invite-codes.php:37
 msgid "You've Been Invited!"
