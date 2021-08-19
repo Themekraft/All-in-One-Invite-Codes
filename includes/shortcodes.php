@@ -44,12 +44,14 @@ function all_in_one_invite_codes_list_codes( $attr ) {
 		while ( $the_query->have_posts() ) : $the_query->the_post();
 			$all_in_one_invite_codes_options = get_post_meta( get_the_ID(), 'all_in_one_invite_codes_options', true );
 			$email                           = empty( $all_in_one_invite_codes_options['email'] ) ? '' : $all_in_one_invite_codes_options['email'];
+			$code_amount                     = isset( $all_in_one_invite_codes_options['generate_codes'] ) ? $all_in_one_invite_codes_options['generate_codes'] : 1;
+			$is_multiple_use				 = isset( $all_in_one_invite_codes_options['multiple_use'] ) ? "(".$code_amount.")" : '';
 
 			echo '<li>';
 			echo '<div class="aioic-top">';
 			echo '<div class="aioic-info">';
 				echo '<div>Code: ';
-				echo get_post_meta( get_the_ID(), 'tk_all_in_one_invite_code', true );
+				echo get_post_meta( get_the_ID(), 'tk_all_in_one_invite_code', true )." ".$is_multiple_use;
 				echo '</div>';
 				echo '<div>Status: ';
 				echo $status = all_in_one_invite_codes_get_status( get_the_ID() );

@@ -29,8 +29,7 @@ function all_in_one_invite_codes_send_invite() {
 	$subject     = sanitize_text_field( $_POST['subject'] );
 	$body        = sanitize_textarea_field( esc_html( $_POST['message_text'] ) );
 	$headers     = array( 'Content-Type: text/html; charset=UTF-8' );
-	$invite_code = $invite_code;
-	if ( ! empty( $$to ) ) {
+	if ( ! empty( $to ) ) {
 
 		// Replace Buddy text Shortcodes with form element values
 
@@ -75,16 +74,24 @@ function all_in_one_invite_codes_send_invite() {
 			echo json_encode( $json );
 			die();
 		}
+		else{
+			$json['message'] = __( 'Invite send out successfully', 'all-in-one-invite-code' );
+			echo json_encode( $json );
+			die();
+
+		}
+
+	}
+	else{
+		$json['error'] = __( 'Invite could not get send. destination email is empty.', 'all-in-one-invite-code' );
+		echo json_encode( $json );
+		die();
 
 	}
 
-	
 
-	// Great, all done message got sent
-	$json['message'] = __( 'Invite send out successfully', 'buddyforms' );;
 
-	echo json_encode( $json );
-	die();
+
 }
 
 add_action( 'wp_ajax_all_in_one_invite_codes_send_invite', 'all_in_one_invite_codes_send_invite' );

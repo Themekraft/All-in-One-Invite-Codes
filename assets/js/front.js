@@ -13,36 +13,39 @@ jQuery(document).ready(function (jQuery) {
                 "border-style": "solid"
             });
             jQuery("#tk_all_in_one_invite_code_send_invite_to").focus();
+            return false;
+        }else{
+            jQuery.ajax({
+                type: 'POST',
+                dataType: "json",
+                url: ajaxurl,
+                data: {
+                    "action": "all_in_one_invite_codes_send_invite",
+                    "post_id": code_id,
+                    "to": to,
+                    "subject": subject,
+                    "message_text": message_text,
+                    "nonce": allInOneInviteCodesFrontJs.nonce,
+                },
+                success: function (data) {
+                    console.log(data);
+
+                    if (data['error']) {
+                        alert(data['error']);
+                    } else {
+                        location.reload();
+                    }
+
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
         }
 
-        jQuery.ajax({
-            type: 'POST',
-            dataType: "json",
-            url: ajaxurl,
-            data: {
-                "action": "all_in_one_invite_codes_send_invite",
-                "post_id": code_id,
-                "to": to,
-                "subject": subject,
-                "message_text": message_text,
-                "nonce": allInOneInviteCodesFrontJs.nonce,
-            },
-            success: function (data) {
-                console.log(data);
 
-                if (data['error']) {
-                    alert(data['error']);
-                } else {
-                    location.reload();
-                }
 
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
 
-        return false;
 
     });
 
