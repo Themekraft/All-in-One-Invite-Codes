@@ -41,6 +41,7 @@ function all_in_one_invite_codes_render_metabox( $post ) {
 	$email          = isset( $all_in_one_invite_codes_options['email'] ) ? $all_in_one_invite_codes_options['email'] : '';
 	$generate_codes = isset( $all_in_one_invite_codes_options['generate_codes'] ) ? $all_in_one_invite_codes_options['generate_codes'] : '';
 	$type           = isset( $all_in_one_invite_codes_options['type'] ) ? $all_in_one_invite_codes_options['type'] : 'registration';
+	$multiple_use   = isset( $all_in_one_invite_codes_options['multiple_use'] ) ? 'checked="true"' : '';
 
 	?>
 
@@ -67,11 +68,30 @@ function all_in_one_invite_codes_render_metabox( $post ) {
             </p>
 
         </div>
+		<div>
+			<label for="all_in_one_invite_codes_options_multiple_use">
+				<b><?php _e( 'Set this invite code as multiple use', 'all_in_one_invite_codes' ); ?></b>
+
+			</label>
+			<p>
+				Multiple Use: <input
+						type="checkbox"
+						name="all_in_one_invite_codes_options[multiple_use]"
+						id="all_in_one_invite_codes_options_multiple_use"
+						<?php echo esc_attr( $multiple_use ); ?>
+				>
+			</p>
+		</div>
+
         <div>
-            <label for="all_in_one_invite_codes_options_email">
+            <label for="all_in_one_invite_codes_options_email" id="label_single_use">
                 <b><?php _e( 'Generate new Invite Codes after account activation', 'all_in_one_invite_codes' ); ?></b>
                 <p><?php _e( 'Enter a number to generate new invite codes if this invite code got used.', 'all_in_one_invite_codes' ); ?></p>
             </label>
+			<label for="all_in_one_invite_codes_options_email" id="label_multiple_use">
+
+				<p><?php _e( 'Enter invite code number of uses', 'all_in_one_invite_codes' ); ?></p>
+			</label>
             <p>
                 Number: <input
                         type="number"
@@ -152,6 +172,7 @@ function all_in_one_invite_codes_render_metabox( $post ) {
  * @return int
  */
 function all_in_one_invite_codes_save_options( $post_id, $post ) {
+	global $wpdb;
 
 	if ( ! isset( $_POST['all_in_one_invite_codes_options_process'] ) ) {
 		return $post_id;
@@ -179,6 +200,23 @@ function all_in_one_invite_codes_save_options( $post_id, $post ) {
 
 	// Do the update
 	update_post_meta( $post_id, 'all_in_one_invite_codes_options', $sanitized );
+	
+	// Check if code is multiuse
+	if(isset($sanitized['multiple_use']) && isset($sanitized['email'])){
+		$asign_user = get_user_by('email',$sanitized['email']);
+		if($asign_user){
+			$arg = array(
+				'ID' => $post_id,
+				'post_author' => $asign_user->ID,
+			);
+			$result = $wpdb->update( $wpdb->posts,array('post_author'=>$asign_user->ID), array('ID'=>$post_id), array("%d"), array("%d") );
+			if(!$result){
+				return false;
+			}
+			
+		}		
+	}
+
 
 	if(isset($_POST['all_in_one_invite_codes_options']['email']) && isset($_POST['tk_all_in_one_invite_code'])){
 
@@ -227,7 +265,7 @@ function all_in_one_invite_codes_save_options( $post_id, $post ) {
 			if(!empty($email)){
                 $send = wp_mail( $email_param["to"], $email_param["subject"] ,$email_param["body"]  ,$email_param["headers"]  );
             }
-            
+
         }
     }
 

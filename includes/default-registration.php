@@ -56,7 +56,7 @@ function all_in_one_invite_code_registration_errors( $errors, $sanitized_user_lo
 		if(empty($type)){
 			$type = 'any';
 		}
-		// Validate teh code
+		// Validate the code
 		$result = all_in_one_invite_codes_validate_code( $tk_invite_code, $user_email,$type );
 		if ( isset( $result['error'] ) ) {
 			$errors->add( 'tk_invite_code_error', sprintf( '<strong>%s</strong>: %s', __( 'ERROR', 'all-in-one-invite-code' ), $result['error'] ) );
@@ -104,8 +104,24 @@ function all_in_one_invite_code_registration_save( $user_id ) {
 
 	// get the invite code options
 	$all_in_one_invite_codes_options = get_post_meta( $post_parent_post_id, 'all_in_one_invite_codes_options', true );
+	$is_multiple_use				 = isset( $all_in_one_invite_codes_options['multiple_use'] ) ? true : false;
+	if($is_multiple_use){
+		$code_amount                 = isset( $all_in_one_invite_codes_options['generate_codes'] ) ? intval($all_in_one_invite_codes_options['generate_codes']) : 0;
+		if($code_amount > 0){
+			$code_amount                                       = $code_amount -1;
+			$all_in_one_invite_codes_options['generate_codes'] = $code_amount;
+		    update_post_meta( $post_parent_post_id, 'all_in_one_invite_codes_options', $all_in_one_invite_codes_options );			
 
-	// Check if and how many new invite code should get created.
+		}
+		else{
+			update_post_meta( $post_parent_post_id, 'tk_all_in_one_invite_code_status', 'Used' );	
+		}
+
+
+	}
+	else{
+
+		// Check if and how many new invite code should get created.
 	if ( isset( $all_in_one_invite_codes_options['generate_codes'] ) && $all_in_one_invite_codes_options['generate_codes'] > 0 ) {
 
 		// Alright, loop and create all needed codes for this user.
@@ -149,6 +165,9 @@ function all_in_one_invite_code_registration_save( $user_id ) {
 
 	update_post_meta( $post_parent_post_id, 'all_in_one_invite_codes_options', $all_in_one_invite_codes_options );
 	update_post_meta( $post_parent_post_id, 'tk_all_in_one_invite_code_status', 'Used' );
+	}
+
+	
 
 }
 add_action( 'user_register', 'all_in_one_invite_code_registration_save', 10, 1 );

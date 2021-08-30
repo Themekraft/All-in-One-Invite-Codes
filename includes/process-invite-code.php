@@ -26,8 +26,23 @@ function all_in_one_invite_codes_validate_code( $code, $user_email = '', $type =
 
 		while ( $query->have_posts() ) : $query->the_post();
 
-
-			// IF the status is set this code is not free to use and was already used before or got deactivated.
+			//IF the code is multi uyse  check if the use limit have being reached.
+			$all_in_one_invite_codes_options = get_post_meta( get_the_ID(), 'all_in_one_invite_codes_options', true );
+			$is_multiple_use				 = isset( $all_in_one_invite_codes_options['multiple_use'] ) ? true : false;
+			if($is_multiple_use){
+				$code_amount                 = isset( $all_in_one_invite_codes_options['generate_codes'] ) ? intval($all_in_one_invite_codes_options['generate_codes']) : 0;
+				if($code_amount <= 0){
+					
+					$all_in_one_invite_codes_options['generate_codes'] = 0;
+					update_post_meta( get_the_ID(), 'all_in_one_invite_codes_options', $all_in_one_invite_codes_options );	
+					$result['error'] = __( 'Multi use invite code limit reached', 'all-in-one-invite-code' );
+			 		return $result;		
+		
+				}
+		
+			}
+			else{
+				// IF the status is set this code is not free to use and was already used before or got deactivated.
 			if ( ! all_in_one_invite_codes_is_valide( get_the_ID() ) ) {
 				$result['error'] = __( 'This invite code was already used before or got deactivated', 'all-in-one-invite-code' );
 
@@ -61,6 +76,10 @@ function all_in_one_invite_codes_validate_code( $code, $user_email = '', $type =
                     }
                 }
 			}
+
+			}
+
+			
 		endwhile;
 
 
