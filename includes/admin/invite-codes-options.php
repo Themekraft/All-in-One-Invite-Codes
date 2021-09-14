@@ -203,6 +203,11 @@ function all_in_one_invite_codes_save_options( $post_id, $post ) {
 	
 	// Check if code is multiuse
 	if(isset($sanitized['multiple_use']) && isset($sanitized['email'])){
+		//If the code is multiple then save the total
+		$code_amount                     = isset( $sanitized['generate_codes'] ) ? $sanitized['generate_codes'] : 1;
+		$sanitized['code_total'] = $code_amount;
+		update_post_meta( $post_id, 'all_in_one_invite_codes_options', $sanitized );
+
 		$asign_user = get_user_by('email',$sanitized['email']);
 		if($asign_user){
 			$arg = array(
