@@ -2,9 +2,9 @@
 Contributors: svenl77, gfirem, marin25089
 Tags: registration, invite only, invite codes
 Requires at least: 4.9
-Tested up to: 5.7.2
+Tested up to: 5.8
 Requires PHP: 5.3
-Stable tag: 1.0.10
+Stable tag: 1.0.11
 License: GPL 3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -83,6 +83,11 @@ Have fun!
 6. eMail Form
 
 == Changelog ==
+= 1.0.11 - 19 Sep 2021 =
+* Fixed: wp_mail error when destination email is empty
+* Added Invite code length option
+* Tested up with WordPress 5.8
+
 = 1.0.10 - 8 Jun 2021 =
 * Fixed: Show  descriptive message when an invite code was already used or got deactivated.
 * Feature: Bulk Create Invite Codes.
