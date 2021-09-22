@@ -47,31 +47,62 @@ function all_in_one_invite_codes_list_codes( $attr ) {
 			$code_amount                     = isset( $all_in_one_invite_codes_options['generate_codes'] ) ? $all_in_one_invite_codes_options['generate_codes'] : 1;
 			$is_multiple_use				 = isset( $all_in_one_invite_codes_options['multiple_use'] ) ? "(".$code_amount.")" : '';
 
-			echo '<li>';
-			echo '<div class="aioic-top">';
-			echo '<div class="aioic-info">';
+			//If invite code is Multiple Use then run the multiple invite codes  logic and valdiations			
+			if(isset( $all_in_one_invite_codes_options['multiple_use'] ) ){
+				echo '<li>';
+				echo '<div class="aioic-top">';
+				echo '<div class="aioic-info">';
 				echo '<div>Code: ';
 				echo get_post_meta( get_the_ID(), 'tk_all_in_one_invite_code', true )." ".$is_multiple_use;
 				echo '</div>';
 				echo '<div>Status: ';
 				echo $status = all_in_one_invite_codes_get_status( get_the_ID() );
 				echo '</div>';
-			echo '</div>';
-
-			echo '<div class="aioic-right">';
-			if ( empty( $email ) && $status == 'Active' ) {
-				echo '<a class="button" data-code_id="' . get_the_ID() . '" id="tk_all_in_one_invite_code_open_invite_form" href="#">Invite a Friend Now</a>';
+				echo '</div>';
+				echo '<div class="aioic-right">';
+			if (  $code_amount > 0) {
+				echo __( 'Give this Invite Code to friends, they can use it to register on the site', 'all_in_one_invite_codes' );
 			} else {
-				echo __( 'Invite was sent to: ', 'all_in_one_invite_codes' ) . $email;
+				echo __( 'Invite Code limit reached', 'all_in_one_invite_codes' );
 			}
 			echo '</div>';
 			echo '</div>';
 
-			if ( empty( $email ) && $status == 'Active' ) {
+			if ( $code_amount > 0 ) {
 				echo '<div class="aioic-form" id="tk_all_in_one_invite_code_open_invite_form_id_' . get_the_ID() . '"></div>';
 			}
 
 			echo '</li>';
+
+			}
+			else{
+				echo '<li>';
+				echo '<div class="aioic-top">';
+				echo '<div class="aioic-info">';
+					echo '<div>Code: ';
+					echo get_post_meta( get_the_ID(), 'tk_all_in_one_invite_code', true );
+					echo '</div>';
+					echo '<div>Status: ';
+					echo $status = all_in_one_invite_codes_get_status( get_the_ID() );
+					echo '</div>';
+				echo '</div>';
+	
+				echo '<div class="aioic-right">';
+				if ( empty( $email ) && $status == 'Active' ) {
+					echo '<a class="button" data-code_id="' . get_the_ID() . '" id="tk_all_in_one_invite_code_open_invite_form" href="#">Invite a Friend Now</a>';
+				} else {
+					echo __( 'Invite was sent to: ', 'all_in_one_invite_codes' ) . $email;
+				}
+				echo '</div>';
+				echo '</div>';
+	
+				if ( empty( $email ) && $status == 'Active' ) {
+					echo '<div class="aioic-form" id="tk_all_in_one_invite_code_open_invite_form_id_' . get_the_ID() . '"></div>';
+				}
+	
+				echo '</li>';
+			}
+			
 		endwhile;
 		echo '</ul>';
 

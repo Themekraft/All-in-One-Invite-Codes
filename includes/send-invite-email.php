@@ -24,6 +24,9 @@ function all_in_one_invite_codes_send_invite() {
 
 	// Get the invite code
 	$invite_code = get_post_meta( $post_id, 'tk_all_in_one_invite_code', true );
+	$all_in_one_invite_codes_options = get_post_meta( $post_id, 'all_in_one_invite_codes_options', true );
+	$code_amount                     = isset( $all_in_one_invite_codes_options['generate_codes'] ) ? $all_in_one_invite_codes_options['generate_codes'] : 1;
+	$is_multiple_use				 = isset( $all_in_one_invite_codes_options['multiple_use'] ) ? true : false;
 
 	$to          = sanitize_email( $_POST['to'] );
 	$subject     = sanitize_text_field( $_POST['subject'] );
@@ -75,6 +78,7 @@ function all_in_one_invite_codes_send_invite() {
 			die();
 		}
 		else{
+			
 			$json['message'] = __( 'Invite send out successfully', 'all-in-one-invite-code' );
 			echo json_encode( $json );
 			die();

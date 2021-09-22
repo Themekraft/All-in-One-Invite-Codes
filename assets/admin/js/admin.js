@@ -1,5 +1,21 @@
 jQuery(document).ready(function (jQuery) {
 
+    jQuery(document).on('click','#all_in_one_invite_codes_options_multiple_use',this,function(event){
+
+
+        if(this.checked){
+            jQuery("#label_single_use").hide();
+            jQuery("#label_multiple_use").show();
+        }
+        else{
+            jQuery("#label_single_use").show();
+            jQuery("#label_multiple_use").hide();
+        }
+
+
+
+    })
+
     jQuery(document.body).on('click', '#all_in_one_disable_invite_code', function () {
 
         var post_id = jQuery(this).attr('data-post_id');
