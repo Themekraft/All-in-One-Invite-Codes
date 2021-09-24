@@ -293,3 +293,51 @@ function all_in_one_invite_codes_create( $attr ) {
 }
 
 add_shortcode( 'all_in_one_invite_codes_create', 'all_in_one_invite_codes_create' );
+
+/**
+ * Create a list of codes not assigned to any user
+ *
+ * @param $attr
+ *
+ * @return string
+ */
+
+ function all_in_one_invite_codes_list_codes_not_assigend( $attr ) {
+	global $wpdb;
+    AllinOneInviteCodes::setNeedAssets( true, 'all-in-one-invite-codes' );
+	ob_start();
+	// Add the js in the shortcode so we can use this more easy as Block in a later process. ?>
+    <script>
+		<?php echo 'var ajaxurl = "' . admin_url( 'admin-ajax.php' ) . '";' ?>
+    </script>
+	<?php
+	$generated_codes = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = %s AND post_status = %s", 'tk_invite_codes', 'publish' ) );
+	if ( ! empty( $generated_codes ) ){
+		$no_codes_unassigned_found = true;
+		foreach( $generated_codes as $unassigned_codes ){
+			$single_invite_code = get_post_meta( (int)$unassigned_codes, 'all_in_one_invite_codes_options', true );
+			if( empty( $single_invite_code['email'] ) ){
+				$no_codes_unassigned_found = false;
+				echo '<ul>
+						<li>
+							<div class="aioic-top">
+									<div class="aioic-info">
+										<div><strong>Code:</strong> ' . get_post_meta( (int)$unassigned_codes, 'tk_all_in_one_invite_code', true );
+				echo '					</div>
+									</div>
+							</div>
+							<div class="aioic-right"></div>
+						</li>
+					</ul>';
+			}	
+		}
+		if( $no_codes_unassigned_found ){
+			echo "Sorry, no unassigned invite codes were found.";
+		}
+	}
+	$wpdb->flush();
+	$tmp = ob_get_clean();
+	return $tmp;
+} 
+
+add_shortcode( 'all_in_one_invite_codes_list_codes_not_assigend', 'all_in_one_invite_codes_list_codes_not_assigend' );
