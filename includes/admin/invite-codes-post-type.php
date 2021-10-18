@@ -87,7 +87,7 @@ function tk_invite_codes_columns( $columns, $post_id = false ) {
 	$columns['code']           = __( 'Code', 'all-in-one-invite-codes' );
 	$columns['code_status']    = __( 'Status', 'all-in-one-invite-codes' );
 	$columns['email']          = __( 'eMail', 'all-in-one-invite-codes' );
-	$columns['code_parent']    = __( 'Parent', 'all-in-one-invite-codes' );
+	$columns['multiple_use']    = __( 'Multiple Use', 'all-in-one-invite-codes' );
 	$columns['generate_codes'] = __( 'Generate new codes after account activation', 'all-in-one-invite-codes' );
 
 	return $columns;
@@ -119,14 +119,57 @@ function custom_tk_invite_codes_columns( $columns, $post_id = false ) {
 			echo isset( $all_in_one_invite_codes_options['email'] ) ? $all_in_one_invite_codes_options['email'] : '--';
 			break;
 		case 'generate_codes' :
-			echo isset( $all_in_one_invite_codes_options['generate_codes'] ) ? $all_in_one_invite_codes_options['generate_codes'] : '--';
+			echo all_in_one_invite_codes_get_generate_code($post_id);
 			break;
-		case 'code_parent' :
-			echo wp_get_post_parent_id( $post_id );
+		case 'multiple_use' :
+			echo all_in_one_invite_codes_get_multiple_use( $post_id );
 			break;
 	}
 
 	return $columns;
+
+}
+function all_in_one_invite_codes_get_generate_code($invite_code_id){
+	if($invite_code_id){
+		$all_in_one_invite_codes_options = get_post_meta( get_the_ID(), 'all_in_one_invite_codes_options', true );
+		$code_amount                     = isset( $all_in_one_invite_codes_options['generate_codes'] ) ? intval($all_in_one_invite_codes_options['generate_codes']) : 1;
+		$is_multiple_use				  = isset( $all_in_one_invite_codes_options['multiple_use'] ) ? true : false;
+		$code_total                      = isset( $all_in_one_invite_codes_options['code_total'] ) ? intval($all_in_one_invite_codes_options['code_total']) : $code_amount;
+		if(!$is_multiple_use){		
+			
+			return isset( $all_in_one_invite_codes_options['generate_codes'] ) ? $all_in_one_invite_codes_options['generate_codes'] : '--';
+		 }
+		 else{
+
+			return '--';
+		 }
+
+	}
+
+
+}
+
+
+function all_in_one_invite_codes_get_multiple_use($invite_code_id){
+
+	if($invite_code_id){
+		$all_in_one_invite_codes_options = get_post_meta( get_the_ID(), 'all_in_one_invite_codes_options', true );
+		$code_amount                     = isset( $all_in_one_invite_codes_options['generate_codes'] ) ? intval($all_in_one_invite_codes_options['generate_codes']) : 1;
+		$is_multiple_use				  = isset( $all_in_one_invite_codes_options['multiple_use'] ) ? true : false;
+		$code_total                      = isset( $all_in_one_invite_codes_options['code_total'] ) ? intval($all_in_one_invite_codes_options['code_total']) : $code_amount;
+		if($is_multiple_use){		
+			
+			return sprintf('%d/%d',$code_amount,$code_total);		
+		 }
+		 else{
+
+			return '--';
+		 }
+
+	}
+
+	
+
 
 }
 
