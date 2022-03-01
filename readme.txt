@@ -2,9 +2,9 @@
 Contributors: svenl77, gfirem, marin25089
 Tags: registration, invite only, invite codes
 Requires at least: 4.9
-Tested up to: 5.8
+Tested up to: 5.9
 Requires PHP: 5.3
-Stable tag: 1.0.11
+Stable tag: 1.0.12
 License: GPL 3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -14,8 +14,7 @@ Intelligent automatic invite codes system. Create Invite only Registration Funne
 
 Get full control over the registration process by enabling invitation based Registration on your site.
 
-###Use Invite Codes in WordPress
-[youtube hhttps://youtu.be/tTsk7I71GPk]
+[youtube https://www.youtube.com/watch?v=GQ9f_YpyReQ]
 
 ### Why is this a great Idea?
 * Use it for Marketing
@@ -83,6 +82,12 @@ Have fun!
 6. eMail Form
 
 == Changelog ==
+= 1.0.12 - 1 Mar 2022 =
+* Added new option to allow multiple use codes.
+* Added new shortcode to create a list of unassigned codes on Frontend.
+* Added new descriptive video in readme.txt file.
+* Tested up to WordPress 5.9
+
 = 1.0.11 - 19 Sep 2021 =
 * Fixed: wp_mail error when destination email is empty
 * Added Invite code length option
