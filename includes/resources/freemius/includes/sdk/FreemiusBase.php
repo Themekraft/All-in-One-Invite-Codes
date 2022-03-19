@@ -15,6 +15,10 @@
 	 * under the License.
 	 */
 
+    if ( ! defined( 'ABSPATH' ) ) {
+        exit;
+    }
+
 	if ( ! defined( 'FS_API__VERSION' ) ) {
 		define( 'FS_API__VERSION', '1' );
 	}
@@ -137,7 +141,7 @@
 			} catch ( Exception $e ) {
 				// Map to error object.
 				$result = (object) array(
-					'error' => array(
+					'error' => (object) array(
 						'type'    => 'Unknown',
 						'message' => $e->getMessage() . ' (' . $e->getFile() . ': ' . $e->getLine() . ')',
 						'code'    => 'unknown',
