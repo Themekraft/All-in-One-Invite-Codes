@@ -2,9 +2,9 @@
 Contributors: svenl77, gfirem, marin25089
 Tags: registration, invite only, invite codes
 Requires at least: 4.9
-Tested up to: 5.9
+Tested up to: 5.9.3
 Requires PHP: 5.3
-Stable tag: 1.0.13
+Stable tag: 1.0.14
 License: GPL 3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -82,6 +82,9 @@ Have fun!
 6. eMail Form
 
 == Changelog ==
+= 1.0.14 - 17 May 2022 =
+* Updated readme.txt
+
 = 1.0.13 - 18 Mar 2022 =
 * Fixed security issue.
 
