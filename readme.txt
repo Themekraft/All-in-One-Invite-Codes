@@ -2,9 +2,9 @@
 Contributors: svenl77, gfirem, marin25089
 Tags: registration, invite only, invite codes
 Requires at least: 4.9
-Tested up to: 5.9.3
+Tested up to: 6.0
 Requires PHP: 5.3
-Stable tag: 1.0.14
+Stable tag: 1.0.15
 License: GPL 3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -82,6 +82,11 @@ Have fun!
 6. eMail Form
 
 == Changelog ==
+= 1.0.15 - 17 May 2022 =
+* Fixed vulnerability issue.
+* Fixed issue with tree view.
+* Tested up to WordPress 6.0
+
 = 1.0.14 - 17 May 2022 =
 * Updated readme.txt
 
