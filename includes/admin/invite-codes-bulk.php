@@ -9,10 +9,15 @@ function all_in_one_invite_codes_bulk_menu() {
 
 add_action( 'admin_menu', 'all_in_one_invite_codes_bulk_menu' );
 
-function all_in_one_invite_codes_bulk_page() {
+add_action( 'admin_enqueue_scripts', 'all_in_one_invite_codes_bulk_admin_js' );
+function all_in_one_invite_codes_bulk_admin_js() {
+	wp_register_script( 'invite_codes_bulk_validate_js', TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL . 'assets/js/jquery.validate.min.js' );
+	wp_enqueue_script( 'invite_codes_bulk_validate_js' );
+	wp_register_script( 'invite_codes_bulk_overlay_js', TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL . 'assets/loadingoverlay/loadingoverlay.js' );
+	wp_enqueue_script( 'invite_codes_bulk_overlay_js' );
+}
 
-	echo '<script src="' . esc_attr( TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL ) . 'assets/js/jquery.validate.min.js' . '"></script>';
-	echo '<script src="' . esc_attr( TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL ) . 'assets/loadingoverlay/loadingoverlay.js' . '"></script>';
+function all_in_one_invite_codes_bulk_page() {
 
 	?>
 		<style>

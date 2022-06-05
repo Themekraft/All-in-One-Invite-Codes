@@ -206,10 +206,17 @@ function all_in_one_invite_codes_tree_tabs_content() {
 function all_in_one_invite_codes_list_pages_permalink_filter( $permalink, $page ) {
 	return get_edit_post_link( $page->ID );
 }
+
+add_action( 'admin_enqueue_scripts', 'all_in_one_invite_codes_tree_admin_js_css' );
+function all_in_one_invite_codes_tree_admin_js_css() {
+	wp_register_script( 'invite_codes_tree_js', TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL . 'assets/js/datatables.min.js' );
+	wp_enqueue_script( 'invite_codes_tree_js' );
+	wp_register_style( 'invite_codes_tree_css', TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL . 'assets/css/dataTables.min.css' );
+	wp_enqueue_style( 'invite_codes_tree_css' );
+}
+
 function all_in_one_invite_codes_user_tracker_wp_list_pages_filter( $html, $key, $values ) {
 
-	echo '<script src="' . esc_attr( TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL ) . 'assets/js/datatables.min.js' . '"></script>';
-	 echo '<link rel="stylesheet" href="' . esc_attr( TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL ) . 'assets/css/dataTables.min.css' . '"></link>';
 	   $user_tree_data = '[';
 	foreach ( $values as $key => $value ) {
 		$old_title = $value->post_title;
