@@ -11,8 +11,8 @@ add_action( 'admin_menu', 'all_in_one_invite_codes_bulk_menu' );
 
 function all_in_one_invite_codes_bulk_page() {
 
-	echo '<script src="'.  TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL.'assets/js/jquery.validate.min.js'.'"></script>';
-	echo '<script src="'.  TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL.'assets/loadingoverlay/loadingoverlay.js'.'"></script>';
+	echo '<script src="' . esc_attr( TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL ) . 'assets/js/jquery.validate.min.js' . '"></script>';
+	echo '<script src="' . esc_attr( TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL ) . 'assets/loadingoverlay/loadingoverlay.js' . '"></script>';
 
 	?>
 		<style>
@@ -34,25 +34,25 @@ function all_in_one_invite_codes_bulk_page() {
 			}
 		</style>
 		<div class="metabox-holder">
-	      <div id="aioic_form_hero" class="postbox all_in_one_invite_codes-metabox ">
+		  <div id="aioic_form_hero" class="postbox all_in_one_invite_codes-metabox ">
 			  <div class="inside">
 				  <div class="" id="form_message_aioic"></div>
 				  <div class="form_wrapper clearfix">
 					  <h2 class="screen-heading general-settings-screen">
-						  <?php _e( 'Create Bulk Invites', 'all_in_one_invite_codes' ); ?>
+						  <?php esc_html_e( 'Create Bulk Invites', 'all_in_one_invite_codes' ); ?>
 					  </h2>
 
 					  <p class="info invite-info">
-						  <?php _e( 'Create multiple invites codes at once.', 'all_in_one_invite_codes-buddypress' ); ?>
+						  <?php esc_html_e( 'Create multiple invites codes at once.', 'all_in_one_invite_codes-buddypress' ); ?>
 					  </p>
 					  <form action="" method="post"  class="" id="bulk-invite-aioic">
 						  <input type="hidden" name="action" value="aioic_send_multiple_invites">
-						  <?php wp_nonce_field( 'buddyforms_form_nonce', '_wpnonce', true, true ) ;?>
+						  <?php wp_nonce_field( 'buddyforms_form_nonce', '_wpnonce', true, true ); ?>
 
 						  <div>
 							  <label for="all_in_one_invite_codes_options_email">
-								  <b><?php _e( 'Generate new Invites Codes', 'all_in_one_invite_codes' ); ?></b>
-								  <p><?php _e( 'Enter the amount of invites codes to generate.', 'all_in_one_invite_codes' ); ?></p>
+								  <b><?php esc_html_e( 'Generate new Invites Codes', 'all_in_one_invite_codes' ); ?></b>
+								  <p><?php esc_html_e( 'Enter the amount of invites codes to generate.', 'all_in_one_invite_codes' ); ?></p>
 							  </label>
 							  <p>
 								  Number: <input
@@ -65,32 +65,31 @@ function all_in_one_invite_codes_bulk_page() {
 						  </div>
 						  <div>
 							  <label for="all_in_one_invite_codes_options_type">
-								  <b><?php _e( 'Purpose?', 'all-in-one-invite-codes' ); ?></b>
-								  <p><?php _e( 'Select an Action to limit the usage of the invite code to one particular action on your site and set the coupon code to used after thais action is done.', 'all_in_one_invite_codes' ); ?></p>
+								  <b><?php esc_html_e( 'Purpose?', 'all-in-one-invite-codes' ); ?></b>
+								  <p><?php esc_html_e( 'Select an Action to limit the usage of the invite code to one particular action on your site and set the coupon code to used after thais action is done.', 'all_in_one_invite_codes' ); ?></p>
 							  </label>
 
 							  <?php
 
-							  $type_options             = array();
-							  $type_options['any']      = __( 'Any', 'all-in-one-invite-codes' );
-							  $type_options['register'] = __( 'Register', 'all-in-one-invite-codes' );
+								$type_options             = array();
+								$type_options['any']      = __( 'Any', 'all-in-one-invite-codes' );
+								$type_options['register'] = __( 'Register', 'all-in-one-invite-codes' );
 
+								$type_options = apply_filters( 'all_in_one_invite_codes_options_type_options', $type_options )
 
-							  $type_options = apply_filters( 'all_in_one_invite_codes_options_type_options', $type_options )
-
-							  ?>
+								?>
 							  <p>
 								  Purpose: <select
 										  name="purpose"
 										  id="all_in_one_invite_codes_options_type"
 								  >
 
-									  <?php foreach ( $type_options as $slug => $option ) {
-										  echo '<option value="' . $slug . '" >' . $option . '</option >';
+									  <?php
+										foreach ( $type_options as $slug => $option ) {
+											echo '<option value="' . esc_attr( $slug ) . '" >' . esc_html( $option ) . '</option >';
 
-
-									  }
-									  ?>
+										}
+										?>
 
 								  </select>
 							  </p>
@@ -109,7 +108,6 @@ function all_in_one_invite_codes_bulk_page() {
 	</div>
 
 		<?php
-
 
 }
 

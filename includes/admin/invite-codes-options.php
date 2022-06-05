@@ -45,32 +45,32 @@ function all_in_one_invite_codes_render_metabox( $post ) {
 
 	?>
 
-    <fieldset>
-        <div>
-            <input
-                    type="hidden"
-                    name="tk_all_in_one_invite_code"
-                    id="tk_all_in_one_invite_code"
-                    value="<?php echo esc_attr( $all_in_one_invite_code ); ?>"
-            >
+	<fieldset>
+		<div>
+			<input
+					type="hidden"
+					name="tk_all_in_one_invite_code"
+					id="tk_all_in_one_invite_code"
+					value="<?php echo esc_attr( $all_in_one_invite_code ); ?>"
+			>
 
-            <label for="all_in_one_invite_codes_options_email">
-                <b><?php _e( 'Assign to specific email', 'all_in_one_invite_codes' ); ?></b>
-                <p><?php _e( 'Restrict usage of this invite code for a specific email address. Leave blank if you want to make this invite code public accessible for any registration.', 'all_in_one_invite_codes' ); ?></p>
-            </label>
+			<label for="all_in_one_invite_codes_options_email">
+				<b><?php esc_html_e( 'Assign to specific email', 'all_in_one_invite_codes' ); ?></b>
+				<p><?php esc_html_e( 'Restrict usage of this invite code for a specific email address. Leave blank if you want to make this invite code public accessible for any registration.', 'all_in_one_invite_codes' ); ?></p>
+			</label>
 
-            <p> eMail: <input
-                        type="email"
-                        name="all_in_one_invite_codes_options[email]"
-                        id="all_in_one_invite_codes_options_email"
-                        value="<?php echo esc_attr( $email ); ?>"
-                >
-            </p>
+			<p> eMail: <input
+						type="email"
+						name="all_in_one_invite_codes_options[email]"
+						id="all_in_one_invite_codes_options_email"
+						value="<?php echo esc_attr( $email ); ?>"
+				>
+			</p>
 
-        </div>
+		</div>
 		<div>
 			<label for="all_in_one_invite_codes_options_multiple_use">
-				<b><?php _e( 'Set this invite code as multiple use', 'all_in_one_invite_codes' ); ?></b>
+				<b><?php esc_html_e( 'Set this invite code as multiple use', 'all_in_one_invite_codes' ); ?></b>
 
 			</label>
 			<p>
@@ -83,29 +83,29 @@ function all_in_one_invite_codes_render_metabox( $post ) {
 			</p>
 		</div>
 
-        <div>
-            <label for="all_in_one_invite_codes_options_email" id="label_single_use">
-                <b><?php _e( 'Generate new Invite Codes after account activation', 'all_in_one_invite_codes' ); ?></b>
-                <p><?php _e( 'Enter a number to generate new invite codes if this invite code got used.', 'all_in_one_invite_codes' ); ?></p>
-            </label>
+		<div>
+			<label for="all_in_one_invite_codes_options_email" id="label_single_use">
+				<b><?php esc_html_e( 'Generate new Invite Codes after account activation', 'all_in_one_invite_codes' ); ?></b>
+				<p><?php esc_html_e( 'Enter a number to generate new invite codes if this invite code got used.', 'all_in_one_invite_codes' ); ?></p>
+			</label>
 			<label for="all_in_one_invite_codes_options_email" id="label_multiple_use">
 
-				<p><?php _e( 'Enter invite code number of uses', 'all_in_one_invite_codes' ); ?></p>
+				<p><?php esc_html_e( 'Enter invite code number of uses', 'all_in_one_invite_codes' ); ?></p>
 			</label>
-            <p>
-                Number: <input
-                        type="number"
-                        name="all_in_one_invite_codes_options[generate_codes]"
-                        id="all_in_one_invite_codes_options_generate_codes"
-                        value="<?php echo esc_attr( $generate_codes ); ?>"
-                >
-            </p>
-        </div>
-        <div>
-            <label for="all_in_one_invite_codes_options_type">
-                <b><?php _e( 'Purpose?', 'all-in-one-invite-codes' ); ?></b>
-                <p><?php _e( 'Select an Action to limit the usage of the invite code to one particular action on your site and set the coupon code to used after thais action is done.', 'all_in_one_invite_codes' ); ?></p>
-            </label>
+			<p>
+				Number: <input
+						type="number"
+						name="all_in_one_invite_codes_options[generate_codes]"
+						id="all_in_one_invite_codes_options_generate_codes"
+						value="<?php echo esc_attr( $generate_codes ); ?>"
+				>
+			</p>
+		</div>
+		<div>
+			<label for="all_in_one_invite_codes_options_type">
+				<b><?php esc_html_e( 'Purpose?', 'all-in-one-invite-codes' ); ?></b>
+				<p><?php esc_html_e( 'Select an Action to limit the usage of the invite code to one particular action on your site and set the coupon code to used after thais action is done.', 'all_in_one_invite_codes' ); ?></p>
+			</label>
 
 			<?php
 
@@ -113,45 +113,45 @@ function all_in_one_invite_codes_render_metabox( $post ) {
 			$type_options['any']      = __( 'Any', 'all-in-one-invite-codes' );
 			$type_options['register'] = __( 'Register', 'all-in-one-invite-codes' );
 
-
 			$type_options = apply_filters( 'all_in_one_invite_codes_options_type_options', $type_options )
 
 			?>
-            <p>
-                Purpose: <select
-                        name="all_in_one_invite_codes_options[type]"
-                        id="all_in_one_invite_codes_options_type"
-                        value="<?php echo esc_attr( $type ); ?>">
+			<p>
+				Purpose: <select
+						name="all_in_one_invite_codes_options[type]"
+						id="all_in_one_invite_codes_options_type"
+						value="<?php echo esc_attr( $type ); ?>">
 
-					<?php foreach ( $type_options as $slug => $option ) {
+					<?php
+					foreach ( $type_options as $slug => $option ) {
 						if ( $slug == $type ) {
-							echo '<option value="' . $slug . '"  selected>' . $option . '</option >';
+							echo '<option value="' . esc_attr( $slug ) . '"  selected>' . esc_html( $option ) . '</option >';
 						} else {
-							echo '<option value="' . $slug . '" >' . $option . '</option >';
+							echo '<option value="' . esc_attr( $slug ) . '" >' . esc_html( $option ) . '</option >';
 						}
-
 					}
 					?>
 
-                </select>
-            </p>
-        </div>
-    </fieldset>
+				</select>
+			</p>
+		</div>
+	</fieldset>
 
 	<?php
 	// List related codes as child codes
 	$args = array(
 		'post_parent'    => $post_id,
 		'posts_per_page' => - 1,
-		'post_type'      => 'tk_invite_codes', //you can use also 'any'
+		'post_type'      => 'tk_invite_codes', // you can use also 'any'
 	);
 
 	$the_query = new WP_Query( $args );
 
 	if ( $the_query->have_posts() ) :
-		while ( $the_query->have_posts() ) : $the_query->the_post();
+		while ( $the_query->have_posts() ) :
+			$the_query->the_post();
 
-			echo '<a href="' . get_edit_post_link( get_the_ID() ) . '">' . get_post_meta( get_the_ID(), 'tk_all_in_one_invite_code', true ) . '</a>';
+			echo '<a href="' . esc_url( get_edit_post_link( get_the_ID() ) ) . '">' . esc_html( get_post_meta( get_the_ID(), 'tk_all_in_one_invite_code', true ) ) . '</a>';
 			echo '<br>';
 		endwhile;
 	endif;
@@ -194,86 +194,89 @@ function all_in_one_invite_codes_save_options( $post_id, $post ) {
 	$sanitized = array();
 
 	// Sanitize with wp_filter_post_kses
-	foreach ( $_POST['all_in_one_invite_codes_options'] as $key => $detail ) {
-		$sanitized[ $key ] = wp_filter_post_kses( $detail );
+	foreach ( wp_unslash( $_POST['all_in_one_invite_codes_options'] ) as $key => $detail ) {
+		$sanitized[ $key ] = wp_kses_post( $detail );
 	}
 
 	// Do the update
 	update_post_meta( $post_id, 'all_in_one_invite_codes_options', $sanitized );
-	
+
 	// Check if code is multiuse
-	if(isset($sanitized['multiple_use']) && isset($sanitized['email'])){
-		//If the code is multiple then save the total
-		$code_amount                     = isset( $sanitized['generate_codes'] ) ? $sanitized['generate_codes'] : 1;
+	if ( isset( $sanitized['multiple_use'] ) && isset( $sanitized['email'] ) ) {
+		// If the code is multiple then save the total
+		$code_amount             = isset( $sanitized['generate_codes'] ) ? $sanitized['generate_codes'] : 1;
 		$sanitized['code_total'] = $code_amount;
 		update_post_meta( $post_id, 'all_in_one_invite_codes_options', $sanitized );
 
-		$asign_user = get_user_by('email',$sanitized['email']);
-		if($asign_user){
-			$arg = array(
-				'ID' => $post_id,
+		$asign_user = get_user_by( 'email', $sanitized['email'] );
+		if ( $asign_user ) {
+			$arg    = array(
+				'ID'          => $post_id,
 				'post_author' => $asign_user->ID,
 			);
-			$result = $wpdb->update( $wpdb->posts,array('post_author'=>$asign_user->ID), array('ID'=>$post_id), array("%d"), array("%d") );
-			if(!$result){
+			$result = $wpdb->update( $wpdb->posts, array( 'post_author' => $asign_user->ID ), array( 'ID' => $post_id ), array( '%d' ), array( '%d' ) );
+			if ( ! $result ) {
 				return false;
 			}
-			
-		}		
+		}
 	}
 
+	if ( isset( $_POST['all_in_one_invite_codes_options']['email'] ) && isset( $_POST['tk_all_in_one_invite_code'] ) ) {
 
-	if(isset($_POST['all_in_one_invite_codes_options']['email']) && isset($_POST['tk_all_in_one_invite_code'])){
-
-        $email          = sanitize_email($_POST['all_in_one_invite_codes_options']['email']);
-        $type           = $_POST['all_in_one_invite_codes_options']['type'];
-		switch($type){
+		$email = sanitize_email( $_POST['all_in_one_invite_codes_options']['email'] );
+		$type  = sanitize_text_field( $_POST['all_in_one_invite_codes_options']['type'] );
+		switch ( $type ) {
 
 			case 'any':
-			case 'register':$message_text = 'message_text'; break;
+			case 'register':
+				$message_text = 'message_text';
+				break;
 			default:
-				$message_text = $type; break;
+				$message_text = $type;
+				break;
 
 		}
-        $tk_invite_code = sanitize_key($_POST['tk_all_in_one_invite_code']);
-        $all_in_one_invite_codes_mail_templates = get_option( 'all_in_one_invite_codes_mail_templates' );
+		$tk_invite_code                         = sanitize_key( $_POST['tk_all_in_one_invite_code'] );
+		$all_in_one_invite_codes_mail_templates = get_option( 'all_in_one_invite_codes_mail_templates' );
 
-        $subject     =  isset($all_in_one_invite_codes_mail_templates['subject']) ? sanitize_text_field($all_in_one_invite_codes_mail_templates['subject']) :   __("You've Been Invited!","all-in-one-invite-code");
-        $body        =  isset($all_in_one_invite_codes_mail_templates[$message_text]) ? sanitize_text_field($all_in_one_invite_codes_mail_templates[$message_text]) :   __("You got an invite from the site [site_name]. Please use this link to register with your invite code [invite_link]","all-in-one-invite-code");
-        $site_name = get_bloginfo( 'name' );
-        $subject   = all_in_one_invite_codes_replace_shortcode( $subject, '[site_name]', $site_name );
-        $subject   = all_in_one_invite_codes_replace_shortcode( $subject, '[invite_code]', $tk_invite_code );
+		$subject   = isset( $all_in_one_invite_codes_mail_templates['subject'] ) ? sanitize_text_field( $all_in_one_invite_codes_mail_templates['subject'] ) : __( "You've Been Invited!", 'all-in-one-invite-code' );
+		$body      = isset( $all_in_one_invite_codes_mail_templates[ $message_text ] ) ? sanitize_text_field( $all_in_one_invite_codes_mail_templates[ $message_text ] ) : __( 'You got an invite from the site [site_name]. Please use this link to register with your invite code [invite_link]', 'all-in-one-invite-code' );
+		$site_name = get_bloginfo( 'name' );
+		$subject   = all_in_one_invite_codes_replace_shortcode( $subject, '[site_name]', $site_name );
+		$subject   = all_in_one_invite_codes_replace_shortcode( $subject, '[invite_code]', $tk_invite_code );
 
-        $body      = all_in_one_invite_codes_replace_shortcode( $body, '[site_name]', $site_name );
-        $body      = all_in_one_invite_codes_replace_shortcode( $body, '[invite_code]', $tk_invite_code );
+		$body = all_in_one_invite_codes_replace_shortcode( $body, '[site_name]', $site_name );
+		$body = all_in_one_invite_codes_replace_shortcode( $body, '[invite_code]', $tk_invite_code );
 
-        // Invite Link
-        $buddypress_active = false;
-        if(function_exists('bp_is_active')){
-            $buddypress_active = true;
-        }
-		if ($buddypress_active || !all_in_one_invite_codes_is_default_registration() ){
-            $invite_link = '<a href="' . wp_registration_url() . '?invite_code=' . $tk_invite_code . '">Link</a>';
-        }
-        else{
-            $invite_link = '<a href="' . wp_registration_url() . '&invite_code=' . $tk_invite_code . '">Link</a>';
-        }
+		// Invite Link
+		$buddypress_active = false;
+		if ( function_exists( 'bp_is_active' ) ) {
+			$buddypress_active = true;
+		}
+		if ( $buddypress_active || ! all_in_one_invite_codes_is_default_registration() ) {
+			$invite_link = '<a href="' . wp_registration_url() . '?invite_code=' . $tk_invite_code . '">Link</a>';
+		} else {
+			$invite_link = '<a href="' . wp_registration_url() . '&invite_code=' . $tk_invite_code . '">Link</a>';
+		}
 
-        $subject     = all_in_one_invite_codes_replace_shortcode( $subject, '[invite_link]', $invite_link );
-        $body        = all_in_one_invite_codes_replace_shortcode( $body, '[invite_link]', $invite_link );
+		$subject = all_in_one_invite_codes_replace_shortcode( $subject, '[invite_link]', $invite_link );
+		$body    = all_in_one_invite_codes_replace_shortcode( $body, '[invite_link]', $invite_link );
 
-        // sent the mail
-        $headers     = array( 'Content-Type: text/html; charset=UTF-8' );
-        if(isset($_POST['post_type']) && $_POST['post_type']=='tk_invite_codes'){
-			$email_param= array("to"=>$email,"subject"=>$subject,"body"=>$body,"headers"=>$headers);
-			$email_param = apply_filters("all_in_one_invite_code_custom_email",$email_param);
-			if(!empty($email)){
-                $send = wp_mail( $email_param["to"], $email_param["subject"] ,$email_param["body"]  ,$email_param["headers"]  );
-            }
-
-        }
-    }
-
+		// sent the mail
+		$headers = array( 'Content-Type: text/html; charset=UTF-8' );
+		if ( isset( $_POST['post_type'] ) && $_POST['post_type'] == 'tk_invite_codes' ) {
+			$email_param = array(
+				'to'      => $email,
+				'subject' => $subject,
+				'body'    => $body,
+				'headers' => $headers,
+			);
+			$email_param = apply_filters( 'all_in_one_invite_code_custom_email', $email_param );
+			if ( ! empty( $email ) ) {
+				$send = wp_mail( $email_param['to'], $email_param['subject'], $email_param['body'], $email_param['headers'] );
+			}
+		}
+	}
 
 	if ( ! get_post_meta( $post_id, 'tk_all_in_one_invite_code_status', true ) ) {
 		update_post_meta( $post_id, 'tk_all_in_one_invite_code_status', 'Active' );
@@ -293,7 +296,6 @@ add_action( 'save_post_tk_invite_codes', 'all_in_one_invite_codes_save_options',
  * @return mixed
  */
 function all_in_one_invite_codes_save_code( $post_id, $post ) {
-
 
 	if ( ! isset( $_POST['all_in_one_invite_codes_options_process'] ) ) {
 		return $post_id;
