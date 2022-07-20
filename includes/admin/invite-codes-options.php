@@ -239,8 +239,8 @@ function all_in_one_invite_codes_save_options( $post_id, $post ) {
 		$tk_invite_code                         = sanitize_key( $_POST['tk_all_in_one_invite_code'] );
 		$all_in_one_invite_codes_mail_templates = get_option( 'all_in_one_invite_codes_mail_templates' );
 
-		$subject   = isset( $all_in_one_invite_codes_mail_templates['subject'] ) ? sanitize_text_field( $all_in_one_invite_codes_mail_templates['subject'] ) : __( "You've Been Invited!", 'all-in-one-invite-code' );
-		$body      = isset( $all_in_one_invite_codes_mail_templates[ $message_text ] ) ? sanitize_text_field( $all_in_one_invite_codes_mail_templates[ $message_text ] ) : __( 'You got an invite from the site [site_name]. Please use this link to register with your invite code [invite_link]', 'all-in-one-invite-code' );
+		$subject   = isset( $all_in_one_invite_codes_mail_templates['subject'] ) ? $all_in_one_invite_codes_mail_templates['subject'] : __( "You've Been Invited!", 'all-in-one-invite-code' );
+		$body      = isset( $all_in_one_invite_codes_mail_templates[ $message_text ] ) ? $all_in_one_invite_codes_mail_templates[ $message_text ] : __( 'You got an invite from the site [site_name]. Please use this link to register with your invite code [invite_link]', 'all-in-one-invite-code' );
 		$site_name = get_bloginfo( 'name' );
 		$subject   = all_in_one_invite_codes_replace_shortcode( $subject, '[site_name]', $site_name );
 		$subject   = all_in_one_invite_codes_replace_shortcode( $subject, '[invite_code]', $tk_invite_code );
