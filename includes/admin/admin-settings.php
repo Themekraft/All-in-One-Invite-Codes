@@ -108,6 +108,15 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 			switch ( $tab ) {
 				case 'general':
 					$all_in_one_invite_codes_general = get_option( 'all_in_one_invite_codes_general' );
+
+					if( empty( $all_in_one_invite_codes_general ) ){
+						$all_in_one_invite_codes_general = array();
+						$all_in_one_invite_codes_general['default_registration']  		  = 'Enable';
+						$all_in_one_invite_codes_general['generate_codes_amount'] 		  = '5';
+						$all_in_one_invite_codes_general['character_length']              = '5';
+						add_option( 'all_in_one_invite_codes_general', $all_in_one_invite_codes_general, '', 'yes' );
+					}
+					
 					?>
 					<div class="metabox-holder">
 						<div class="postbox all_in_one_invite_codes-metabox">
@@ -157,7 +166,7 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 												<input type="number"
 													   name="all_in_one_invite_codes_general[generate_codes_amount]"
 													   id="all_in_one_invite_codes_general_generate_codes_amount"
-													   value="<?php echo isset( $all_in_one_invite_codes_general['generate_codes_amount'] ) ? esc_attr( $all_in_one_invite_codes_general['generate_codes_amount'] ) : ''; ?>">
+													   value="<?php echo isset( $all_in_one_invite_codes_general['generate_codes_amount'] ) ? esc_attr( $all_in_one_invite_codes_general['generate_codes_amount'] ) : '5'; ?>">
 											</td>
 										</tr>
 										<tr valign="top">
@@ -185,6 +194,13 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 					break;
 				case 'mail':
 					$all_in_one_invite_codes_mail_templates = get_option( 'all_in_one_invite_codes_mail_templates' );
+
+					if( empty( $all_in_one_invite_codes_mail_templates ) ){
+						$all_in_one_invite_codes_mail_templates                 = array();
+						$all_in_one_invite_codes_mail_templates['subject']      = 'Invite code';
+						$all_in_one_invite_codes_mail_templates['message_text'] = 'You got an invite from the site [site_name]. Please use this link to register with your invite code [invite_link]';
+						add_option( 'all_in_one_invite_codes_mail_templates', $all_in_one_invite_codes_mail_templates, '', 'yes' );
+					}
 
 					$message_text_default = __( 'You got an invite from the site [site_name]. Please use this link to register with your invite code [invite_link]' );
 					?>
@@ -232,7 +248,7 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 												<input type="text"
 													   name="all_in_one_invite_codes_mail_templates[subject]"
 													   id="all_in_one_invite_codes_mail_templates"
-													   value="<?php echo isset( $all_in_one_invite_codes_mail_templates['subject'] ) ? esc_attr( $all_in_one_invite_codes_mail_templates['subject'] ) : ''; ?>">
+													   value="<?php echo isset( $all_in_one_invite_codes_mail_templates['subject'] ) ? esc_attr( $all_in_one_invite_codes_mail_templates['subject'] ) : 'Invite Code'; ?>">
 											</td>
 										</tr>
 

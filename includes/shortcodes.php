@@ -1,7 +1,6 @@
 <?php
 
-
-
+add_shortcode( 'all_in_one_invite_codes_list_codes_by_user', 'all_in_one_invite_codes_list_codes' );
 /**
  * Create the list of codes for the user with a option to sent invites to new users.
  *
@@ -53,13 +52,13 @@ function all_in_one_invite_codes_list_codes( $attr ) {
 				echo '<li>';
 				echo '<div class="aioic-top">';
 				echo '<div class="aioic-info">';
-				echo '<div>Code: ';
+				echo '<div><p>Code: ';
 				echo esc_html( get_post_meta( get_the_ID(), 'tk_all_in_one_invite_code', true ) ) . ' ' . esc_html( $is_multiple_use );
-				echo '</div>';
-				echo '<div>Status: ';
+				echo '</p></div>';
+				echo '<div><p>Status: ';
 				$status = all_in_one_invite_codes_get_status( get_the_ID() );
 				echo esc_html( $status );
-				echo '</div>';
+				echo '</p></div>';
 				echo '</div>';
 				echo '<div class="aioic-right">';
 				if ( $code_amount > 0 ) {
@@ -80,18 +79,18 @@ function all_in_one_invite_codes_list_codes( $attr ) {
 				echo '<li>';
 				echo '<div class="aioic-top">';
 				echo '<div class="aioic-info">';
-					echo '<div>Code: ';
+					echo '<div><p>Code: ';
 					echo esc_html( get_post_meta( get_the_ID(), 'tk_all_in_one_invite_code', true ) );
-					echo '</div>';
-					echo '<div>Status: ';
+					echo '</p></div>';
+					echo '<div><p>Status: ';
 					$status = all_in_one_invite_codes_get_status( get_the_ID() );
 					echo esc_html( $status );
-					echo '</div>';
+					echo '</p></div>';
 				echo '</div>';
 
 				echo '<div class="aioic-right">';
 				if ( empty( $email ) && $status == 'Active' ) {
-					echo '<a class="button" data-code_id="' . get_the_ID() . '" id="tk_all_in_one_invite_code_open_invite_form" href="#">Invite a Friend Now</a>';
+					echo '<p><a class="button" data-code_id="' . get_the_ID() . '" id="tk_all_in_one_invite_code_open_invite_form" href="#">Invite a Friend Now</a></p>';
 				} else {
 					echo esc_html__( 'Invite was sent to: ', 'all_in_one_invite_codes' ) . esc_html( $email );
 				}
@@ -113,10 +112,10 @@ function all_in_one_invite_codes_list_codes( $attr ) {
 		?>
 
 		<div style="display: none" id="tk_all_in_one_invite_code_send_invite_form">
-			<p><span>To:</span><input type="email" id="tk_all_in_one_invite_code_send_invite_to" value=""><span id="tk_all_in_one_invite_code_send_invite_to_error"></span></p>
-			<p><span>Subject:</span><input type="text" id="tk_all_in_one_invite_code_send_invite_subject" value="<?php echo empty( $all_in_one_invite_codes_mail_templates['subject'] ) ? '' : esc_html( $all_in_one_invite_codes_mail_templates['subject'] ); ?>"></p>
+			<p><span>To: </span><input type="email" id="tk_all_in_one_invite_code_send_invite_to" value=""><span id="tk_all_in_one_invite_code_send_invite_to_error"></span></p>
+			<p><span>Subject: </span><input type="text" id="tk_all_in_one_invite_code_send_invite_subject" value="<?php echo empty( $all_in_one_invite_codes_mail_templates['subject'] ) ? '' : esc_html( $all_in_one_invite_codes_mail_templates['subject'] ); ?>"></p>
 			<p><span>Message Text:</span><textarea cols="70" rows="5" id="tk_all_in_one_invite_code_send_invite_message_text"><?php echo empty( $all_in_one_invite_codes_mail_templates['message_text'] ) ? '' : esc_html( $all_in_one_invite_codes_mail_templates['message_text'] ); ?></textarea></p>
-			<a href="#" data-send_code_id="0" id="tk_all_in_one_invite_code_send_invite_submit" class="button">Send</a>
+			<a href="#" data-send_code_id="0" id="tk_all_in_one_invite_code_send_invite_submit" class="button">Send invitation</a>
 		</div>
 
 		<?php
@@ -128,6 +127,15 @@ function all_in_one_invite_codes_list_codes( $attr ) {
 
 	return $tmp;
 }
+
+add_shortcode( 'all_in_one_invite_codes_invited_by_user_filter', 'all_in_one_invite_codes_invited_by_user' );
+/**
+ * Create a list of invites by user
+ *
+ * @param $attr
+ *
+ * @return string
+ */
 function all_in_one_invite_codes_invited_by_user( $attr ) {
 
 	ob_start();
@@ -186,109 +194,7 @@ function all_in_one_invite_codes_invited_by_user( $attr ) {
 
 }
 
-add_shortcode( 'all_in_one_invite_codes_list_codes_by_user', 'all_in_one_invite_codes_list_codes' );
-add_shortcode( 'all_in_one_invite_codes_invited_by_user_filter', 'all_in_one_invite_codes_invited_by_user' );
-
-
-function all_in_one_invite_codes_create( $attr ) {
-
-	$post_id = ( ! empty( $post ) && isset( $post->ID ) ) ? $post->ID : false;
-
-	// Get or generate the invite code
-	$all_in_one_invite_code = all_in_one_invite_codes_md5( $post_id );
-
-	// Get the invite code options
-	$all_in_one_invite_codes_options = get_post_meta( $post_id, 'all_in_one_invite_codes_options', true );
-
-	// Get the default values
-	$all_in_one_invite_codes_options_defaults = all_in_one_invite_codes_options_defaults();
-
-	// Merge the options so we have the default take care of the missing values.
-	$all_in_one_invite_codes_options = wp_parse_args( $all_in_one_invite_codes_options, $all_in_one_invite_codes_options_defaults );
-
-	$email          = isset( $all_in_one_invite_codes_options['email'] ) ? $all_in_one_invite_codes_options['email'] : '';
-	$generate_codes = isset( $all_in_one_invite_codes_options['generate_codes'] ) ? $all_in_one_invite_codes_options['generate_codes'] : '';
-	$type           = isset( $all_in_one_invite_codes_options['type'] ) ? $all_in_one_invite_codes_options['type'] : 'registration';
-
-	?>
-		<div>
-			<input
-					type="hidden"
-					name="tk_all_in_one_invite_code"
-					id="tk_all_in_one_invite_code_modal"
-					value="<?php echo esc_attr( $all_in_one_invite_code ); ?>"
-			>
-
-			<label for="all_in_one_invite_codes_options_email">
-				<b><?php esc_html_e( 'Assign to specific email', 'all_in_one_invite_codes' ); ?></b>
-				<p><?php esc_html_e( 'Restrict usage of this invite code for a specific email address. Leave blank if you want to make this invite code public accessible for any registration.', 'all_in_one_invite_codes' ); ?></p>
-			</label>
-
-			<p> eMail: <input
-						type="email"
-						name="all_in_one_invite_codes_options[email]"
-						id="all_in_one_invite_codes_options_email"
-						value="<?php echo esc_attr( $email ); ?>"
-				>
-			</p>
-
-		</div>
-		<div>
-			<label for="all_in_one_invite_codes_options_email">
-				<b><?php esc_html_e( 'Generate new Invite Codes after account activation', 'all_in_one_invite_codes' ); ?></b>
-				<p><?php esc_html_e( 'Enter a number to generate new invite codes if this invite code got used.', 'all_in_one_invite_codes' ); ?></p>
-			</label>
-			<p>
-				Number: <input
-						type="number"
-						name="all_in_one_invite_codes_options[generate_codes]"
-						id="all_in_one_invite_codes_options_generate_codes"
-						value="<?php echo esc_attr( $generate_codes ); ?>"
-				>
-			</p>
-		</div>
-		<div>
-			<label for="all_in_one_invite_codes_options_type">
-				<b><?php esc_html_e( 'Purpose?', 'all-in-one-invite-codes' ); ?></b>
-				<p><?php esc_html_e( 'Select an Action to limit the usage of the invite code to one particular action on your site and set the coupon code to used after thais action is done.', 'all_in_one_invite_codes' ); ?></p>
-			</label>
-
-			<?php
-
-			$type_options             = array();
-			$type_options['any']      = __( 'Any', 'all-in-one-invite-codes' );
-			$type_options['register'] = __( 'Register', 'all-in-one-invite-codes' );
-
-			$type_options = apply_filters( 'all_in_one_invite_codes_options_type_options', $type_options )
-
-			?>
-			<p>
-				Purpose: <select
-						name="all_in_one_invite_codes_options[type]"
-						id="all_in_one_invite_codes_options_type"
-						value="<?php echo esc_attr( $type ); ?>">
-
-					<?php
-					foreach ( $type_options as $slug => $option ) {
-						if ( $slug == $type ) {
-							echo '<option value="' . esc_attr( $slug ) . '"  selected>' . esc_html( $option ) . '</option >';
-						} else {
-							echo '<option value="' . esc_attr( $slug ) . '" >' . esc_html( $option ) . '</option >';
-						}
-					}
-					?>
-
-				</select>
-			</p>
-		</div>
-	<?php
-
-	// add the nonce check
-	wp_nonce_field( 'all_in_one_invite_codes_options_nonce', 'all_in_one_invite_codes_options_process' );
-}
-
-add_shortcode( 'all_in_one_invite_codes_create', 'all_in_one_invite_codes_create' );
-
+add_shortcode( 'all_in_one_invite_codes_list_codes_not_assigend', 'all_in_one_invite_codes_list_codes_not_assigend' );
 /**
  * Create a list of codes not assigned to any user
  *
@@ -296,7 +202,6 @@ add_shortcode( 'all_in_one_invite_codes_create', 'all_in_one_invite_codes_create
  *
  * @return string
  */
-
 function all_in_one_invite_codes_list_codes_not_assigend( $attr ) {
 	global $wpdb;
 	AllinOneInviteCodes::setNeedAssets( true, 'all-in-one-invite-codes' );
@@ -335,5 +240,3 @@ function all_in_one_invite_codes_list_codes_not_assigend( $attr ) {
 	$tmp = ob_get_clean();
 	return $tmp;
 }
-
-add_shortcode( 'all_in_one_invite_codes_list_codes_not_assigend', 'all_in_one_invite_codes_list_codes_not_assigend' );
