@@ -80,9 +80,8 @@ add_action( 'wp_ajax_all_in_one_invite_codes_send_invite_mail', 'all_in_one_invi
 add_action( 'wp_ajax_aioic_generate_multiple_invites', 'aioic_generate_multiple_invites' );
 function aioic_generate_multiple_invites() {
 	$form_data = array();
-
 	if ( isset( $_POST['data'] ) ) {
-		parse_str( wp_kses_post( $_POST['data'] ), $form_data );
+		parse_str( filter_var ( $_POST['data'], FILTER_SANITIZE_STRING), $form_data );
 		$_POST = $form_data;
 	}
 	$json_array = array();

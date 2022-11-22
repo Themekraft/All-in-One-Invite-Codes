@@ -2,9 +2,9 @@
 Contributors: svenl77, gfirem, marin25089
 Tags: registration, invite only, invite codes
 Requires at least: 4.9
-Tested up to: 6.0.3
+Tested up to: 6.1.1
 Requires PHP: 5.3
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPL 3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -82,6 +82,10 @@ Have fun!
 6. eMail Form
 
 == Changelog ==
+= 1.1.2 - 21 Nov 2022 =
+* Fixed issue with invite codes bulk process.
+* Tested up to WordPress 6.1.1 
+
 = 1.1.1 - 19 Oct 2022 =
 * Fixed issue with email template default settings.
 * Fixed issue with general section default settings.
