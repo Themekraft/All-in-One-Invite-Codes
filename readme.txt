@@ -2,9 +2,9 @@
 Contributors: svenl77, gfirem, marin25089
 Tags: registration, invite only, invite codes
 Requires at least: 4.9
-Tested up to: 5.5
+Tested up to: 6.1.1
 Requires PHP: 5.3
-Stable tag: 1.0.6
+Stable tag: 1.1.4
 License: GPL 3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -14,8 +14,7 @@ Intelligent automatic invite codes system. Create Invite only Registration Funne
 
 Get full control over the registration process by enabling invitation based Registration on your site.
 
-###Use Invite Codes in WordPress
-[youtube hhttps://youtu.be/tTsk7I71GPk]
+[youtube https://www.youtube.com/watch?v=GQ9f_YpyReQ]
 
 ### Why is this a great Idea?
 * Use it for Marketing
@@ -83,6 +82,70 @@ Have fun!
 6. eMail Form
 
 == Changelog ==
+= 1.1.4 - 16 Dec 2022 =
+* Updated Freemius SDK.
+* Added bundle license auto activation.
+
+= 1.1.3 - 30 Nov 2022 =
+* Updated Freemius SDK.
+
+= 1.1.2 - 21 Nov 2022 =
+* Fixed issue with invite codes bulk process.
+* Tested up to WordPress 6.1.1 
+
+= 1.1.1 - 19 Oct 2022 =
+* Fixed issue with email template default settings.
+* Fixed issue with general section default settings.
+* Fixed CSS issues with two shortcodes.
+* Updated list of availables shortcodes.
+* Tested up to WordPress 6.0.3
+
+= 1.1.0 - 20 Jul 2022 =
+* Fixed issue with invite email template.
+* Fixed security issue.
+* Tested up to WordPress 6.0.1
+
+= 1.0.15 - 17 May 2022 =
+* Fixed vulnerability issue.
+* Fixed issue with tree view.
+* Tested up to WordPress 6.0
+
+= 1.0.14 - 17 May 2022 =
+* Updated readme.txt
+
+= 1.0.13 - 18 Mar 2022 =
+* Fixed security issue.
+
+= 1.0.12 - 1 Mar 2022 =
+* Added new option to allow multiple use codes.
+* Added new shortcode to create a list of unassigned codes on Frontend.
+* Added new descriptive video in readme.txt file.
+* Tested up to WordPress 5.9
+
+= 1.0.11 - 19 Sep 2021 =
+* Fixed: wp_mail error when destination email is empty
+* Added Invite code length option
+* Tested up with WordPress 5.8
+
+= 1.0.10 - 8 Jun 2021 =
+* Fixed: Show  descriptive message when an invite code was already used or got deactivated.
+* Feature: Bulk Create Invite Codes.
+* Fixed:  When default registration is disabled change the URL of the registration link.
+* Feature: Added new hook to add custom email templates.
+* Fixed: AIOIC  style overlaping Buddyforms li Tags.
+* Tested up with WordPress 5.7.2
+
+= 1.0.9 - 8 Mar 2021 =
+* Added new feature to trace start to end of the invite codes information.
+* Added shortcode to tracker who invited user from Front-end.
+* Tested up with WordPress 5.7
+
+= 1.0.8 - 26 Jan  2021 =
+*  Added first styles
+
+= 1.0.7 - 28 Dec  2020 =
+* Added new filter all_in_one_invite_code_custom_email to allow developers email modifications.
+
 = 1.0.6 - 14 Sept 2020 =
 * Update the minimum wordpress version.
 

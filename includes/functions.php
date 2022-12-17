@@ -14,7 +14,13 @@ function all_in_one_invite_codes_md5( $post_id = false ) {
 		$post_id = $post->ID;
 	}
 
-	$md5 = get_post_meta( $post_id, 'tk_all_in_one_invite_code', true );
+	$md5                             = get_post_meta( $post_id, 'tk_all_in_one_invite_code', true );
+	$all_in_one_invite_codes_general = get_option( 'all_in_one_invite_codes_general' );
+	$code_length                     = $all_in_one_invite_codes_general['character_length'] ?? 5;
+
+	if ( ! $md5 ) {
+		$md5 = substr( md5( time() * rand() ), 0, $code_length );
+	}
 
 	if ( ! $md5 ) {
 		$md5 = substr( md5( time() * rand() ), 0, 24 );
@@ -51,13 +57,13 @@ function all_in_one_invite_codes_get_status( $post_id ) {
 	$status = get_post_meta( $post_id, 'tk_all_in_one_invite_code_status', true );
 
 	switch ( $status ) {
-		case 'disabled' :
+		case 'disabled':
 			$status = __( 'Disabled', 'all-in-one-invite-codes' );
 			break;
-		case 'used' :
+		case 'used':
 			$status = __( 'Used', 'all-in-one-invite-codes' );
 			break;
-		case 'valide' :
+		case 'valide':
 			$status = __( 'Valide', 'all-in-one-invite-codes' );
 			break;
 	}
@@ -74,16 +80,16 @@ function all_in_one_invite_codes_get_code_id_by_code( $code ) {
 				'key'     => 'tk_all_in_one_invite_code',
 				'value'   => sanitize_key( trim( $_POST['tk_invite_code'] ) ),
 				'compare' => '=',
-			)
-		)
+			),
+		),
 	);
 	$query = new WP_Query( $args );
-
 
 	$podt_id = 0;
 	// Get the invite code id
 	if ( $query->have_posts() ) {
-		while ( $query->have_posts() ) : $query->the_post();
+		while ( $query->have_posts() ) :
+			$query->the_post();
 			$podt_id = get_the_ID();
 		endwhile;
 	}

@@ -4,17 +4,14 @@
  * Plugin Name: All in One Invite Codes
  * Plugin URI:  https://themekraft.com/all-in-one-invite-codes/
  * Description: Create Invite only Registration Funnels and Products. Boost your site launch and get the attention you desire by creating an intelligent invite only Platform.
- * Version: 1.0.6
+ * Version: 1.1.4
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/
  * Licence: GPLv3
  * Network: false
  * Text Domain: all-in-one-invite-codes
  * Domain Path: /languages
-<<<<<<< HEAD
-=======
  * Svn: all-in-one-invite-codes
->>>>>>> 3442e020d15fc45f04416b6acacb489fff160bb7
  *
  * ****************************************************************************
  *
@@ -32,7 +29,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA    02111-1307    USA
  *
- ****************************************************************************
+ * ***************************************************************************
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -47,7 +44,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		/**
 		 * @var string
 		 */
-		public static $version = '1.0.4';
+		public static $version = '1.1.4';
 
 		/**
 		 * Instance of this class
@@ -60,7 +57,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		 */
 		public static $assets;
 		public static $include_assets = array();
-		public static $slug = 'all-in-one-invite-codes';
+		public static $slug           = 'all-in-one-invite-codes';
 
 		/**
 		 * Initiate the class
@@ -75,15 +72,13 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 			$this->load_constants();
 
 			add_action( 'init', array( $this, 'init_hook' ), 1 );
-			add_action( 'init', array( $this, 'includes' ), 4);
+			add_action( 'init', array( $this, 'includes' ), 4 );
 			add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_styles' ), 102 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_js' ), 102 );
 
-
 			add_action( 'wp_footer', array( $this, 'front_js_loader' ) );
-
 
 			register_deactivation_hook( __FILE__, array( $this, 'plugin_deactivation' ) );
 		}
@@ -174,19 +169,20 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		 */
 		public function includes() {
 
-			require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . 'functions.php' );
-			require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . 'default-registration.php' );
-			require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . 'process-invite-code.php' );
-			require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . 'generate-invite-codes.php' );
-			require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . 'shortcodes.php' );
-			require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . 'send-invite-email.php' );
+			require_once TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . 'functions.php';
+			require_once TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . 'default-registration.php';
+			require_once TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . 'process-invite-code.php';
+			require_once TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . 'generate-invite-codes.php';
+			require_once TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . 'shortcodes.php';
+			require_once TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . 'send-invite-email.php';
 
 			if ( is_admin() ) {
-				require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/admin-settings.php' );
-				require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/tree.php' );
-				require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/admin-ajax.php' );
-				require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/invite-codes-post-type.php' );
-				require_once( TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/invite-codes-options.php' );
+				require_once TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/admin-settings.php';
+				require_once TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/tree.php';
+				require_once TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/invite-codes-bulk.php';
+				require_once TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/admin-ajax.php';
+				require_once TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/invite-codes-post-type.php';
+				require_once TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/invite-codes-options.php';
 			}
 		}
 
@@ -238,7 +234,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX && defined( 'DOING_CRON' ) && DOING_CRON ) {
 				return;
 			}
-			if ( AllinOneInviteCodes::getNeedAssets() ) {
+			if ( self::getNeedAssets() ) {
 				wp_enqueue_script( 'all-in-one-invite_codes-front-js', TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL . 'assets/js/front.js', array( 'jquery' ), self::getVersion() );
 				wp_localize_script( 'all-in-one-invite_codes-front-js', 'allInOneInviteCodesFrontJs', array( 'nonce' => wp_create_nonce( 'all_in_one_invite_code_nonce' ) ) );
 				add_thickbox();
@@ -313,6 +309,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 
 		/**
 		 * Plugin activation
+		 *
 		 * @since  0.1
 		 */
 		function plugin_activation() {
@@ -321,6 +318,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 
 		/**
 		 * Plugin deactivation
+		 *
 		 * @since  0.1
 		 */
 		function plugin_deactivation() {
@@ -335,7 +333,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		public static function get_instance() {
 			// If the single instance hasn't been set, set it now.
 			if ( null == self::$instance ) {
-				self::$instance = new self;
+				self::$instance = new self();
 			}
 
 			return self::$instance;
@@ -358,20 +356,23 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 			require_once dirname( __FILE__ ) . '/includes/resources/freemius/start.php';
 
 			try {
-				$all_in_one_invite_codes_core_fs = fs_dynamic_init( array(
-					'id'             => '3322',
-					'slug'           => 'all-in-one-invite-codes',
-					'type'           => 'plugin',
-					'public_key'     => 'pk_955be38b0c4d2a2914a9f4bc98355',
-					'is_premium'     => false,
-					'has_addons'     => true,
-					'has_paid_plans' => false,
-					'menu'           => array(
-						'slug'    => 'edit.php?post_type=tk_invite_codes',
-						'support' => false,
+				$all_in_one_invite_codes_core_fs = fs_dynamic_init(
+					array(
+						'id'             => '3322',
+						'slug'           => 'all-in-one-invite-codes',
+						'type'           => 'plugin',
+						'public_key'     => 'pk_955be38b0c4d2a2914a9f4bc98355',
+						'is_premium'     => false,
+						'has_addons'     => true,
+						'has_paid_plans' => false,
+						'menu'           => array(
+							'slug'    => 'edit.php?post_type=tk_invite_codes',
+							'support' => false,
 
-					),
-				) );
+						),
+						'bundle_license_auto_activation' => true,
+					)
+				);
 			} catch ( Freemius_Exception $e ) {
 				return false;
 			}
@@ -382,11 +383,11 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 
 	function all_in_one_invite_codes_php_version_admin_notice() {
 		?>
-        <div class="notice notice-error is-dismissible">
-            <p><?php _e( 'PHP Version Update Required!', 'all_in_one_invite_codes' ); ?></p>
-            <p><?php _e( 'You are using PHP Version ' . PHP_VERSION, 'all_in_one_invite_codes' ); ?></p>
-            <p><?php _e( 'Please make sure you have at least php version 5.3 installed.', 'all_in_one_invite_codes' ); ?></p>
-        </div>
+		<div class="notice notice-error is-dismissible">
+			<p><?php esc_html_e( 'PHP Version Update Required!', 'all_in_one_invite_codes' ); ?></p>
+			<p><?php esc_html_e( 'You are using PHP Version ' . PHP_VERSION, 'all_in_one_invite_codes' ); ?></p>
+			<p><?php esc_html_e( 'Please make sure you have at least php version 5.3 installed.', 'all_in_one_invite_codes' ); ?></p>
+		</div>
 		<?php
 	}
 

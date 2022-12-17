@@ -16,7 +16,7 @@ class RoboFile extends RoboFileBase {
 	 * @return array List of relative paths from the root folder of the plugin
 	 */
 	public function cleanPhpDirectories() {
-		return array( 'assets', 'includes/resources/freemius' );
+		return array(  'includes/resources/freemius' );
 	}
 
 	public function pluginMainFile() {
