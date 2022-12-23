@@ -38,10 +38,24 @@ function all_in_one_invite_codes_render_metabox( $post ) {
 	// Merge the options so we have the default take care of the missing values.
 	$all_in_one_invite_codes_options = wp_parse_args( $all_in_one_invite_codes_options, $all_in_one_invite_codes_options_defaults );
 
+
+
+// print_r($all_in_one_invite_codes_options);
+
 	$email          = isset( $all_in_one_invite_codes_options['email'] ) ? $all_in_one_invite_codes_options['email'] : '';
 	$generate_codes = isset( $all_in_one_invite_codes_options['generate_codes'] ) ? $all_in_one_invite_codes_options['generate_codes'] : '';
 	$type           = isset( $all_in_one_invite_codes_options['type'] ) ? $all_in_one_invite_codes_options['type'] : 'registration';
 	$multiple_use   = isset( $all_in_one_invite_codes_options['multiple_use'] ) ? 'checked="true"' : '';
+	$expire_date    = isset( $all_in_one_invite_codes_options['expire_date'] ) ? $all_in_one_invite_codes_options['expire_date'] : '';
+
+// if ( isset( $expire_date ) ){
+// 	$today = strtotime("now");
+// 	$expire_date = strtotime($expire_date);
+// 	echo $today;
+//
+// 	print_r($expire_date);
+// }
+
 
 	?>
 
@@ -64,6 +78,14 @@ function all_in_one_invite_codes_render_metabox( $post ) {
 						name="all_in_one_invite_codes_options[email]"
 						id="all_in_one_invite_codes_options_email"
 						value="<?php echo esc_attr( $email ); ?>"
+				>
+			</p>
+
+			<p> Expiration Date: <input
+						type="date"
+						name="all_in_one_invite_codes_options[expire_date]"
+						id="all_in_one_invite_codes_options_expire_date"
+						value="<?php echo esc_attr( $expire_date ); ?>"
 				>
 			</p>
 

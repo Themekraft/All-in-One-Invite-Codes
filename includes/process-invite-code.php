@@ -30,6 +30,19 @@ function all_in_one_invite_codes_validate_code( $code, $user_email = '', $type =
 			// IF the code is multi uyse  check if the use limit have being reached.
 			$all_in_one_invite_codes_options = get_post_meta( get_the_ID(), 'all_in_one_invite_codes_options', true );
 			$is_multiple_use                 = isset( $all_in_one_invite_codes_options['multiple_use'] ) ? true : false;
+
+			// Check the Expiration date
+			if( isset( $all_in_one_invite_codes_options['expire_date'] ) ){
+
+				$expire = strtotime($all_in_one_invite_codes_options['expire_date']);
+				$today = strtotime("now");
+
+				if($today >= $expire){
+					$result['error'] = __( 'This invite code is expired.', 'all-in-one-invite-code' );
+					return $result;
+				}
+			}
+
 			if ( $is_multiple_use ) {
 				$code_amount = isset( $all_in_one_invite_codes_options['generate_codes'] ) ? intval( $all_in_one_invite_codes_options['generate_codes'] ) : 0;
 				if ( $code_amount <= 0 ) {
