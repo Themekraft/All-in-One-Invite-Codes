@@ -100,6 +100,7 @@ function aioic_generate_multiple_invites() {
 	}
 	$invite_count = 0;
 	$amount       = isset( $form_data['generate_codes'] ) ? $form_data['generate_codes'] : 0;
+	$expire_date  = isset( $form_data['expire_date'] ) ? $form_data['expire_date'] : 0;
 	$type         = isset( $form_data['purpose'] ) ? $form_data['purpose'] : 'any';
 	$user_id      = get_current_user_id();
 	for ( $i = 1; $i <= $amount; $i ++ ) {
@@ -107,7 +108,6 @@ function aioic_generate_multiple_invites() {
 		$args        = array(
 			'post_type'   => 'tk_invite_codes',
 			'post_author' => $user_id,
-
 			'post_status' => 'publish',
 			'post_title'  => '',
 		);
@@ -125,8 +125,11 @@ function aioic_generate_multiple_invites() {
 
 		update_post_meta( $new_code_id, 'tk_all_in_one_invite_code', $code );
 
-		$all_in_one_invite_codes_new_options['generate_codes'] = 0;
-		$all_in_one_invite_codes_new_options['type']           = $type;
+		$all_in_one_invite_codes_new_options['generate_codes']  = 0;
+		if( $expire_date > 0 ){
+			$all_in_one_invite_codes_new_options['expire_date'] 	= $expire_date;
+		}
+		$all_in_one_invite_codes_new_options['type']            = $type;
 		update_post_meta( $new_code_id, 'all_in_one_invite_codes_options', $all_in_one_invite_codes_new_options );
 
 		update_post_meta( $new_code_id, 'tk_all_in_one_invite_code_status', 'Active' );
