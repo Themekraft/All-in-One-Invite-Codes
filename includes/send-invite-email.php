@@ -30,7 +30,7 @@ function all_in_one_invite_codes_send_invite() {
 
 	$to      = sanitize_email( wp_unslash( $_POST['to'] ) );
 	$subject = sanitize_text_field( wp_unslash( $_POST['subject'] ) );
-	$body    = sanitize_textarea_field( wp_unslash( $_POST['message_text'] ) );
+	$body    = wp_kses_post( wp_unslash( $_POST['message_text'] ) );
 	$headers = array( 'Content-Type: text/html; charset=UTF-8' );
 	if ( ! empty( $to ) ) {
 
