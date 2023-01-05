@@ -148,4 +148,87 @@ jQuery(document).ready(function (jQuery) {
         return false;
     });
 
+    jQuery('a.aioic-go-pro').css('color', '#fca300' );
+    jQuery('a.aioic-go-pro').parent().insertAfter('#menu-posts-tk_invite_codes > ul > li:last-child');
+
+    jQuery( ".bundle-list-see-more" ).click(function() {
+        jQuery(".show-more").animate({
+            height: "1100"
+        });
+        jQuery(".tk-bundle-2").height(620);
+        jQuery(".separator, .bundle-list-see-more").hide();
+    });
+
+    jQuery('#purchase-2').on('click', function (e) {
+
+        var handler = FS.Checkout.configure({
+            plugin_id:  '8013',
+            plan_id:    '13146',
+            public_key: 'pk_b8b8e319fd537d6d44d73a448f64e',
+            image:      '//s3-us-west-2.amazonaws.com/freemius/plugins/8013/icons/c505ef3d7561464423bc8498e8878783.png'
+        });
+        
+        handler.open({
+            name     : 'ThemeKraft Bundle',
+            licenses : jQuery('#licenses-2').val(),
+            purchaseCompleted  : function (response) {
+            },
+            success  : function (response) {
+            }
+        });
+        e.preventDefault();
+    });
+
+    jQuery('#purchase-3').on('click', function (e) {
+
+        var handler = FS.Checkout.configure({
+            plugin_id:  '2046',
+            plan_id:    '4316',
+            public_key: 'pk_ee958df753d34648b465568a836aa',
+            image:      '//s3-us-west-2.amazonaws.com/freemius/plugins/2046/icons/2921156b0159ff6ef809b152449e6aa9.jpg'
+        });
+        
+        handler.open({
+            name     : 'ThemeKraft Bundle',
+            licenses : jQuery('#licenses-3').val(),
+            purchaseCompleted  : function (response) {
+            },
+            success  : function (response) {
+            }
+        });
+        e.preventDefault();
+    });
+
+    jQuery("select#licenses-2").change(function () {
+        var selectedLicense = jQuery(this).children("option:selected").val();
+        if( selectedLicense == '1'){
+            jQuery('.fs-bundle-price-2').text('39.99');
+            jQuery('#savings-price-2').text('119.97');
+        }
+        if( selectedLicense == '5'){
+            jQuery('.fs-bundle-price-2').text('69.99');
+            jQuery('#savings-price-2').text('199.84');
+        }
+        if( selectedLicense == 'unlimited'){
+            jQuery('.fs-bundle-price-2').text('99.99');
+            jQuery('#savings-price-2').text('219.99');
+        }
+    });
+
+    jQuery("select#licenses-3").change(function () {
+        var selectedLicense = jQuery(this).children("option:selected").val();
+        if( selectedLicense == '1'){
+            jQuery('.fs-bundle-price-3').text('99.99');
+            jQuery('#savings-price-3').text('602.75');
+        }
+        if( selectedLicense == '5'){
+            jQuery('.fs-bundle-price-3').text('119.99');
+            jQuery('#savings-price-3').text('965.75');
+        }
+        if( selectedLicense == 'unlimited'){
+            jQuery('.fs-bundle-price-3').text('129.99');
+            jQuery('#savings-price-3').text('1168.76');
+        }
+    });
+
 });

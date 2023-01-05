@@ -233,10 +233,11 @@ function all_in_one_invite_codes_user_tracker_wp_list_pages_filter( $html, $key,
 
 				$invited         = get_user_by( 'email', $email );
 				$inviter         = get_user_by( 'ID', $value->post_author );
-				$invited_by      = $inviter->display_name;
-				$invited_user    = $invited->display_name ? $invited->display_name : 'not registered yet.';
-				$user_tree_data .= '["' . $invited_by . '","' . $email . ' (<b>' . $invited_user . '</b>)"],';
-	
+				if( ! empty( $inviter->display_name ) && ! empty( $invited->display_name ) ){
+					$invited_by      = $inviter->display_name;
+					$invited_user    = $invited->display_name ? $invited->display_name : 'not registered yet.';
+					$user_tree_data .= '["' . $invited_by . '","' . $email . ' (<b>' . $invited_user . '</b>)"],';
+				}
 			}
 		}
 	}
@@ -256,11 +257,9 @@ function all_in_one_invite_codes_user_tracker_wp_list_pages_filter( $html, $key,
 
 	echo '</ul>';
 	echo "<script> jQuery('#tree_user_table');";
-	echo "    jQuery('#tree_user_table').dataTable( {data: " . esc_js( $user_tree_data ) . '}) ';
+	echo "    jQuery('#tree_user_table').dataTable( {data: " . wp_kses_post( $user_tree_data ) . '}) ';
 
 	echo '</script>';
-
-	// return $html;
 }
 
 function all_in_one_invite_codes_user_tree_wp_list_pages_filter( $html, $key, $values ) {
