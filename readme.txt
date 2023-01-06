@@ -4,7 +4,7 @@ Tags: registration, invite only, invite codes
 Requires at least: 4.9
 Tested up to: 6.1.1
 Requires PHP: 5.3
-Stable tag: 1.1.5
+Stable tag: 1.1.6
 License: GPL 3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -82,6 +82,10 @@ Have fun!
 6. eMail Form
 
 == Changelog ==
+= 1.1.6 - 05 Jan 2023 =
+* Fixed issue with user tracker screen.
+* Added Go Pro menu tab.
+
 = 1.1.5 - 22 Dec 2022 =
 * Fixed issue with HTML tags in email template.
 
