@@ -42,7 +42,6 @@ function all_in_one_invite_codes_render_metabox( $post ) {
 	$generate_codes = isset( $all_in_one_invite_codes_options['generate_codes'] ) ? $all_in_one_invite_codes_options['generate_codes'] : '';
 	$type           = isset( $all_in_one_invite_codes_options['type'] ) ? $all_in_one_invite_codes_options['type'] : 'registration';
 	$multiple_use   = isset( $all_in_one_invite_codes_options['multiple_use'] ) ? 'checked="true"' : '';
-	$expire_date    = isset( $all_in_one_invite_codes_options['expire_date'] ) ? $all_in_one_invite_codes_options['expire_date'] : '';
 
 	?>
 
@@ -65,14 +64,6 @@ function all_in_one_invite_codes_render_metabox( $post ) {
 						name="all_in_one_invite_codes_options[email]"
 						id="all_in_one_invite_codes_options_email"
 						value="<?php echo esc_attr( $email ); ?>"
-				>
-			</p>
-
-			<p> Expiration Date: <input
-						type="date"
-						name="all_in_one_invite_codes_options[expire_date]"
-						id="all_in_one_invite_codes_options_expire_date"
-						value="<?php echo esc_attr( $expire_date ); ?>"
 				>
 			</p>
 

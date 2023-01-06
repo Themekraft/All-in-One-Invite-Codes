@@ -67,13 +67,6 @@ function all_in_one_invite_codes_bulk_page() {
 
 								  >
 							  </p>
-								<p> Expiration Date: <input
-											type="date"
-											name="expire_date"
-											id="all_in_one_invite_codes_options_expire_date"
-									>
-								</p>
-
 						  </div>
 						  <div>
 							  <label for="all_in_one_invite_codes_options_type">
