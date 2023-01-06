@@ -38,10 +38,10 @@ function all_in_one_invite_codes_go_pro_page() {
                         </select>
                         <div class="">
                             <ul>
-                                <li class="tk-bundle-product"><a href="https://themekraft.com/wordpress-products/frontend-post-form-buddyforms/" class="tk-bundle-link" target="_blank">All in One Invite Codes</a></li>
-                                <li class="tk-bundle-product"><a href="https://themekraft.com/wordpress-products/buddyforms-advanced-custom-fields/" class="tk-bundle-link" target="_blank">All in One Invite Codes BuddyPress</a></li>
-                                <li class="tk-bundle-product"><a href="https://themekraft.com/wordpress-products/buddyforms-anonymous-author/" class="tk-bundle-link" target="_blank">All in One Invite Codes BuddyForms</a></li>
-                                <li class="tk-bundle-product"><a href="https://themekraft.com/wordpress-products/buddypress-group-post/" class="tk-bundle-link" target="_blank">All in One Invite Codes WooCommerce Checkout</a></li>
+                                <li class="tk-bundle-product"><a href="https://themekraft.com/wordpress-products/all-in-one-invite-codes/" class="tk-bundle-link" target="_blank">All in One Invite Codes</a></li>
+                                <li class="tk-bundle-product"><a href="https://themekraft.com/wordpress-products/invite-codes-buddypress/" class="tk-bundle-link" target="_blank">All in One Invite Codes BuddyPress</a></li>
+                                <li class="tk-bundle-product"><a href="https://themekraft.com/wordpress-products/restrict-forms-invite-codes/" class="tk-bundle-link" target="_blank">All in One Invite Codes BuddyForms</a></li>
+                                <li class="tk-bundle-product"><a href="https://themekraft.com/wordpress-products/invite-codes-woocommerce/" class="tk-bundle-link" target="_blank">All in One Invite Codes WooCommerce Checkout</a></li>
                             </ul>
                         </div>
                         <button id="purchase-2">GET NOW</button>
