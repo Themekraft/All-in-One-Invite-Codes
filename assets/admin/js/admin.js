@@ -165,12 +165,11 @@ jQuery(document).ready(function (jQuery) {
             plugin_id:  '8013',
             plan_id:    '13146',
             public_key: 'pk_b8b8e319fd537d6d44d73a448f64e',
-            image:      '//s3-us-west-2.amazonaws.com/freemius/plugins/8013/icons/c505ef3d7561464423bc8498e8878783.png'
         });
         
         handler.open({
             name     : 'ThemeKraft Bundle',
-            licenses : jQuery('#licenses-2').val(),
+            licenses : jQuery('#aioic-bundle-license').val(),
             purchaseCompleted  : function (response) {
             },
             success  : function (response) {
@@ -185,12 +184,11 @@ jQuery(document).ready(function (jQuery) {
             plugin_id:  '2046',
             plan_id:    '4316',
             public_key: 'pk_ee958df753d34648b465568a836aa',
-            image:      '//s3-us-west-2.amazonaws.com/freemius/plugins/2046/icons/2921156b0159ff6ef809b152449e6aa9.jpg'
         });
         
         handler.open({
             name     : 'ThemeKraft Bundle',
-            licenses : jQuery('#licenses-3').val(),
+            licenses : jQuery('#aioic-membership-bundle').val(),
             purchaseCompleted  : function (response) {
             },
             success  : function (response) {
@@ -199,7 +197,7 @@ jQuery(document).ready(function (jQuery) {
         e.preventDefault();
     });
 
-    jQuery("select#licenses-2").change(function () {
+    jQuery("select#aioic-bundle-license").change(function () {
         var selectedLicense = jQuery(this).children("option:selected").val();
         if( selectedLicense == '1'){
             jQuery('.fs-bundle-price-2').text('39.99');
@@ -215,7 +213,7 @@ jQuery(document).ready(function (jQuery) {
         }
     });
 
-    jQuery("select#licenses-3").change(function () {
+    jQuery("select#aioic-membership-bundle").change(function () {
         var selectedLicense = jQuery(this).children("option:selected").val();
         if( selectedLicense == '1'){
             jQuery('.fs-bundle-price-3').text('99.99');

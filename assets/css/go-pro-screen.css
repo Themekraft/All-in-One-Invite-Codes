@@ -130,7 +130,7 @@ p.bundle-type{
     margin-bottom: 50px;
 }
 
-select#licenses-1, select#licenses-2, select#licenses-3{
+select#licenses-1, select#aioic-bundle-license, select#aioic-membership-bundle{
     margin-bottom: 30px;
 }
 

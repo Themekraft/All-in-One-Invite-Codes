@@ -31,7 +31,7 @@ function all_in_one_invite_codes_go_pro_page() {
                         <h4><span id='savings-price-2'>$119.97</span> <span>/year</span></h4>
                         <h5>GET ALL INVITE CODES PRODUCTS FOR THE PRICE OF ONE.</h5>
                         <h3><span class="fs-bundle-currency">$</span><span class="fs-bundle-price-2">39.99</span> /year</h3>
-                        <select id="licenses-2">
+                        <select id="aioic-bundle-license">
                             <option value="1" selected="selected">Single Site License</option>
                             <option value="5">5-Site License</option>
                             <option value="unlimited">Unlimited Sites License</option>
@@ -51,7 +51,7 @@ function all_in_one_invite_codes_go_pro_page() {
                         <h4><span id='savings-price-3'>$602.75</span> <span>/year</span></h4>
                         <h5>PREMIUM PACK WITH ALL OUR PRODUCTS INCLUDED.</h5>
                         <h3><span class="fs-bundle-currency">$</span><span class="fs-bundle-price-3">99.99</span> /year</h3>
-                        <select id="licenses-3">
+                        <select id="aioic-membership-bundle">
                             <option value="1" selected="selected">Single Site License</option>
                             <option value="5">5-Site License</option>
                             <option value="unlimited">Unlimited Sites License</option>
