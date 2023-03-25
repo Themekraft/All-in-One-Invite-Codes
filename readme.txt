@@ -4,7 +4,7 @@ Tags: registration, invite only, invite codes
 Requires at least: 4.9
 Tested up to: 6.1.1
 Requires PHP: 5.3
-Stable tag: 1.1.8
+Stable tag: 1.1.9
 License: GPL 3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -82,6 +82,10 @@ Have fun!
 6. eMail Form
 
 == Changelog ==
+= 1.1.9 - 24 Mar 2023 =
+* Removed unwanted text line from settings page.
+* Updated Freemius SDK.
+
 = 1.1.8 - 14 Mar 2023 =
 * Updated Freemius SDK.
 
