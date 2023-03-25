@@ -20,7 +20,6 @@ function all_in_one_invite_codes_settings_page() { ?>
 			<div id="post-body" class="metabox-holder columns-2">
 
 				<div id="postbox-container-1" class="postbox-container">
-					<?php all_in_one_invite_codes_settings_page_sidebar(); ?>
 				</div>
 				<div id="postbox-container-2" class="postbox-container">
 					<?php all_in_one_invite_codes_settings_page_tabs_content(); ?>
@@ -295,6 +294,3 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 	<?php
 }
 
-function all_in_one_invite_codes_settings_page_sidebar() {
-	echo '<p>Placeholder Text</p>';
-}
