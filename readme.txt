@@ -2,9 +2,9 @@
 Contributors: svenl77, gfirem, marin25089
 Tags: registration, invite only, invite codes
 Requires at least: 4.9
-Tested up to: 6.2.2
+Tested up to: 6.3.1
 Requires PHP: 5.3
-Stable tag: 1.1.12
+Stable tag: 1.1.13
 License: GPL 3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -82,6 +82,10 @@ Have fun!
 6. eMail Form
 
 == Changelog ==
+= 1.1.13 - 02 Sep 2023 =
+* Fixed issue with new invite codes amount in bulk creation process.
+* Tested up to WordPress 6.3.1
+
 = 1.1.12 - 25 Jul 2023 =
 * Fixed issue with extension All in One Invite Codes BuddyPress.
 
