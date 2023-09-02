@@ -79,6 +79,7 @@ jQuery(document).ready(function (jQuery) {
 
         var currentForm = jQuery("#bulk-invite-aioic");
         var formMessage = jQuery('#form_message_aioic');
+        var generateNewInvites = jQuery('#new_invites').val();
         formMessage.removeClass();
         if (jQuery.validator && !currentForm.valid()) {
             return false;
@@ -92,7 +93,8 @@ jQuery(document).ready(function (jQuery) {
             dataType: 'json',
             data: {
                 "action": "aioic_generate_multiple_invites",
-                "data": FormData
+                "data": FormData,
+                "newinvites":generateNewInvites,
             },
             error: function (xhr, status, error) {
                 formMessage.addClass('bf-alert error');

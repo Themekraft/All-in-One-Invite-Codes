@@ -100,6 +100,7 @@ function aioic_generate_multiple_invites() {
 	}
 	$invite_count = 0;
 	$amount       = isset( $form_data['generate_codes'] ) ? $form_data['generate_codes'] : 0;
+	$new_invites_amount = isset( $form_data['new_invites'] ) ? $form_data['new_invites'] : 0;
 	$type         = isset( $form_data['purpose'] ) ? $form_data['purpose'] : 'any';
 	$user_id      = get_current_user_id();
 	for ( $i = 1; $i <= $amount; $i ++ ) {
@@ -124,7 +125,7 @@ function aioic_generate_multiple_invites() {
 
 		update_post_meta( $new_code_id, 'tk_all_in_one_invite_code', $code );
 
-		$all_in_one_invite_codes_new_options['generate_codes']  = 0;
+		$all_in_one_invite_codes_new_options['generate_codes']  = intval( $new_invites_amount );
 		$all_in_one_invite_codes_new_options['type']            = $type;
 		update_post_meta( $new_code_id, 'all_in_one_invite_codes_options', $all_in_one_invite_codes_new_options );
 

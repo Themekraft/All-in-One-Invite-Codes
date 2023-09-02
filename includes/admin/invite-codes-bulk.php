@@ -68,6 +68,23 @@ function all_in_one_invite_codes_bulk_page() {
 								  >
 							  </p>
 						  </div>
+						<div>
+							<label for="all_in_one_invite_codes_options_email" id="label_single_use">
+								<b><?php esc_html_e( 'Generate new Invite Codes after account activation', 'all_in_one_invite_codes' ); ?></b>
+								<p><?php esc_html_e( 'Enter a number to generate new invite codes if this invite code got used.', 'all_in_one_invite_codes' ); ?></p>
+							</label>
+							<label for="all_in_one_invite_codes_options_email" id="label_multiple_use">
+
+								<p><?php esc_html_e( 'Enter invite code number of uses', 'all_in_one_invite_codes' ); ?></p>
+							</label>
+							<p>
+								Number: <input
+										type="number"
+										name="new_invites"
+										id="all_in_one_invite_codes_new_invites"
+								>
+							</p>
+						  </div>
 						  <div>
 							  <label for="all_in_one_invite_codes_options_type">
 								  <b><?php esc_html_e( 'Purpose?', 'all-in-one-invite-codes' ); ?></b>
