@@ -150,8 +150,13 @@ jQuery(document).ready(function (jQuery) {
         return false;
     });
 
-    jQuery('a.aioic-go-pro').css('color', '#fca300' );
-    jQuery('a.aioic-go-pro').parent().insertAfter('#menu-posts-tk_invite_codes > ul > li:last-child');
+    var goPro = jQuery(
+        'a[href="edit.php?post_type=tk_invite_codes&page=tk_invite_codes_bundle_screen"]'
+    );
+    goPro.css("color", "#fca300");
+    goPro
+        .parent()
+        .insertAfter("#menu-posts-tk_invite_codes > ul > li:last-child");
 
     jQuery( ".bundle-list-see-more" ).click(function() {
         jQuery(".show-more").animate({
@@ -168,7 +173,7 @@ jQuery(document).ready(function (jQuery) {
             plan_id:    '13146',
             public_key: 'pk_b8b8e319fd537d6d44d73a448f64e',
         });
-        
+
         handler.open({
             name     : 'ThemeKraft Bundle',
             licenses : jQuery('#aioic-bundle-license').val(),
@@ -187,7 +192,7 @@ jQuery(document).ready(function (jQuery) {
             plan_id:    '4316',
             public_key: 'pk_ee958df753d34648b465568a836aa',
         });
-        
+
         handler.open({
             name     : 'ThemeKraft Bundle',
             licenses : jQuery('#aioic-membership-bundle').val(),

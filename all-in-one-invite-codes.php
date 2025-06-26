@@ -75,12 +75,22 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 			add_action( 'init', array( $this, 'includes' ), 4 );
 			add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
+			add_action( 'admin_menu', array( $this, 'all_in_one_invite_codes_bundle_screen_menu' ), 9999 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_styles' ), 102 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_js' ), 102 );
 
 			add_action( 'wp_footer', array( $this, 'front_js_loader' ) );
 
 			register_deactivation_hook( __FILE__, array( $this, 'plugin_deactivation' ) );
+		}
+
+		/**
+		 * Add the bundle screen menu.
+		 */
+		public function all_in_one_invite_codes_bundle_screen_menu() {
+			if ( all_in_one_invite_codes_core_fs()->is_not_paying() ) {
+				add_submenu_page( 'edit.php?post_type=tk_invite_codes', __( 'Bundle', 'all_in_one_invite_codes' ), __( 'Go Pro!', 'all_in_one_invite_codes' ), 'manage_options', 'tk_invite_codes_bundle_screen', 'buddyforms_bundle_screen_content', 99 );
+			}
 		}
 
 		/**
@@ -183,7 +193,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 				require_once TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/admin-ajax.php';
 				require_once TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/invite-codes-post-type.php';
 				require_once TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/invite-codes-options.php';
-				require_once TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/go-pro-screen.php';
+				require_once TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . 'admin/pricing-page/pricing-page.php';
 			}
 		}
 
@@ -369,7 +379,6 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 						'menu'           => array(
 							'slug'    => 'edit.php?post_type=tk_invite_codes',
 							'support' => false,
-
 						),
 						'bundle_license_auto_activation' => true,
 					)
