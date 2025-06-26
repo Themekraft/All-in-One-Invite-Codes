@@ -2,9 +2,9 @@
 Contributors: svenl77, gfirem, marin25089
 Tags: registration, invite only, invite codes
 Requires at least: 4.9
-Tested up to: 6.6
+Tested up to: 6.8.1
 Requires PHP: 5.3
-Stable tag: 1.1.15
+Stable tag: 1.2.0
 License: GPL 3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -82,6 +82,11 @@ Have fun!
 6. eMail Form
 
 == Changelog ==
+= 1.2.0 - 26 Jun 2025 =
+* Updated Freemius SDK.
+* Update Go Pro page.
+* Tested up to WordPress 6.8.1.
+
 = 1.1.15 - 10 Jul 2024 =
 * Updated Freemius SDK.
 * Tested up to WordPress 6.6
@@ -132,7 +137,7 @@ Have fun!
 
 = 1.1.2 - 21 Nov 2022 =
 * Fixed issue with invite codes bulk process.
-* Tested up to WordPress 6.1.1 
+* Tested up to WordPress 6.1.1
 
 = 1.1.1 - 19 Oct 2022 =
 * Fixed issue with email template default settings.
