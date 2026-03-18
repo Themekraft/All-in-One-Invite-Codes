@@ -35,6 +35,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+require_once __DIR__ . '/vendor/autoload.php';
+
 if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 	/**
 	 * Class AllinOneInviteCodes
@@ -362,10 +365,6 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		$first_path = get_option( 'all_in_one_invite_codes_first_path_after_install' );
 
 		if ( ! isset( $all_in_one_invite_codes_core_fs ) ) {
-
-			// Include Freemius SDK.
-			require_once dirname( __FILE__ ) . '/includes/resources/freemius/start.php';
-
 			try {
 				$all_in_one_invite_codes_core_fs = fs_dynamic_init(
 					array(

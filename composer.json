@@ -11,6 +11,9 @@
   "license": "GPLv2 or later",
   "minimum-stability": "dev",
   "require": {
-  	"consolidation/robo": "^1.0.0"
+    "freemius/wordpress-sdk": "^2.13"
+  },
+  "require-dev": {
+    "consolidation/robo": "^1.0.0"
   }
 }

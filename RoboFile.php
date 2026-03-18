@@ -5,18 +5,18 @@ include '.tk/RoboFileBase.php';
 class RoboFile extends RoboFileBase {
 
 	public function directoriesStructure() {
-		return array( 'assets', 'includes', 'languages' );
+		return array( 'assets', 'includes', 'languages', 'vendor' );
 	}
 
 	public function fileStructure() {
-		return array( 'all-in-one-invite-codes.php', 'composer.json', 'license.txt', 'loco.xml', 'readme.txt' );
+		return array( 'all-in-one-invite-codes.php', 'composer.json', 'composer.lock', 'license.txt', 'loco.xml', 'readme.txt' );
 	}
 
 	/**
 	 * @return array List of relative paths from the root folder of the plugin
 	 */
 	public function cleanPhpDirectories() {
-		return array(  'includes/resources/freemius' );
+		return array( 'vendor' );
 	}
 
 	public function pluginMainFile() {
