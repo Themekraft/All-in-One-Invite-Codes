@@ -86,6 +86,9 @@ Have fun!
 * Updated Freemius SDK to 2.13.1.
 * Wired Freemius bundle credentials so the Invite Codes Bundle license auto-activates after purchase.
 * Reworked the Go Pro page to use the parameterized shared pricing-page submodule with three site-license tiers.
+* Refreshed the Go Pro page card layout to a responsive CSS grid.
+* Highlighted the Go Pro menu link in the admin sidebar.
+* Tested up to WordPress 6.9.
 
 = 1.2.0 - 26 Jun 2025 =
 * Updated Freemius SDK.
