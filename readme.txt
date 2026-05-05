@@ -4,7 +4,7 @@ Tags: registration, invite only, invite codes
 Requires at least: 4.9
 Tested up to: 6.8.1
 Requires PHP: 5.3
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPL 3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -82,6 +82,11 @@ Have fun!
 6. eMail Form
 
 == Changelog ==
+= 1.3.0 - 04 May 2026 =
+* Updated Freemius SDK to 2.13.1.
+* Wired Freemius bundle credentials so the Invite Codes Bundle license auto-activates after purchase.
+* Reworked the Go Pro page to use the parameterized shared pricing-page submodule with three site-license tiers.
+
 = 1.2.0 - 26 Jun 2025 =
 * Updated Freemius SDK.
 * Update Go Pro page.
