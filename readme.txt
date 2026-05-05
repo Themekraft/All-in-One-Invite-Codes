@@ -2,7 +2,7 @@
 Contributors: svenl77, gfirem, marin25089, camiloluna
 Tags: registration, invite only, invite codes
 Requires at least: 4.9
-Tested up to: 6.8.1
+Tested up to: 6.9
 Requires PHP: 5.3
 Stable tag: 1.3.0-beta.4
 License: GPL 3
