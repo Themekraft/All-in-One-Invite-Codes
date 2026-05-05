@@ -1,5 +1,5 @@
 === All in One Invite Codes ===
-Contributors: svenl77, gfirem, marin25089
+Contributors: svenl77, gfirem, marin25089, camiloluna
 Tags: registration, invite only, invite codes
 Requires at least: 4.9
 Tested up to: 6.8.1

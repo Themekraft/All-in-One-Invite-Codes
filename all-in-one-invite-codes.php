@@ -92,7 +92,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		 */
 		public function all_in_one_invite_codes_bundle_screen_menu() {
 			if ( all_in_one_invite_codes_core_fs()->is_not_paying() ) {
-				add_submenu_page( 'edit.php?post_type=tk_invite_codes', __( 'Bundle', 'all_in_one_invite_codes' ), __( 'Go Pro!', 'all_in_one_invite_codes' ), 'manage_options', 'tk_invite_codes_bundle_screen', 'buddyforms_bundle_screen_content', 99 );
+				add_submenu_page( 'edit.php?post_type=tk_invite_codes', __( 'Bundle', 'all_in_one_invite_codes' ), __( 'Go Pro!', 'all_in_one_invite_codes' ), 'manage_options', 'tk_invite_codes_bundle_screen', 'tk_pricing_page_render', 99 );
 			}
 		}
 
@@ -197,6 +197,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 				require_once TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/invite-codes-post-type.php';
 				require_once TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/invite-codes-options.php';
 				require_once TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . 'admin/pricing-page/pricing-page.php';
+				require_once TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/pricing-page-config.php';
 			}
 		}
 
@@ -357,37 +358,37 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 	/**
 	 * Create a helper function for easy SDK access.
 	 *
-	 * @return bool|Freemius
+	 * @return Freemius
 	 */
-	function all_in_one_invite_codes_core_fs() {
-		global $all_in_one_invite_codes_core_fs;
+	if ( ! function_exists( 'all_in_one_invite_codes_core_fs' ) ) {
+		function all_in_one_invite_codes_core_fs() {
+			global $all_in_one_invite_codes_core_fs;
 
-		$first_path = get_option( 'all_in_one_invite_codes_first_path_after_install' );
-
-		if ( ! isset( $all_in_one_invite_codes_core_fs ) ) {
-			try {
-				$all_in_one_invite_codes_core_fs = fs_dynamic_init(
-					array(
-						'id'             => '3322',
-						'slug'           => 'all-in-one-invite-codes',
-						'type'           => 'plugin',
-						'public_key'     => 'pk_955be38b0c4d2a2914a9f4bc98355',
-						'is_premium'     => false,
-						'has_addons'     => true,
-						'has_paid_plans' => false,
-						'menu'           => array(
-							'slug'    => 'edit.php?post_type=tk_invite_codes',
-							'support' => false,
-						),
-						'bundle_license_auto_activation' => true,
-					)
-				);
-			} catch ( Freemius_Exception $e ) {
-				return false;
+			if ( ! isset( $all_in_one_invite_codes_core_fs ) ) {
+				$all_in_one_invite_codes_core_fs = fs_dynamic_init( array(
+					'id'                             => '3322',
+					'slug'                           => 'all-in-one-invite-codes',
+					'type'                           => 'plugin',
+					'public_key'                     => 'pk_955be38b0c4d2a2914a9f4bc98355',
+					'is_premium'                     => false,
+					'has_addons'                     => true,
+					'has_paid_plans'                 => false,
+					'is_org_compliant'               => true,
+					'menu'                           => array(
+						'slug'    => 'edit.php?post_type=tk_invite_codes',
+						'support' => false,
+					),
+					'bundle_id'                      => '8013',
+					'bundle_public_key'              => 'pk_b8b8e319fd537d6d44d73a448f64e',
+					'bundle_license_auto_activation' => true,
+				) );
 			}
+
+			return $all_in_one_invite_codes_core_fs;
 		}
 
-		return $all_in_one_invite_codes_core_fs;
+		all_in_one_invite_codes_core_fs();
+		do_action( 'all_in_one_invite_codes_core_fs_loaded' );
 	}
 
 	function all_in_one_invite_codes_php_version_admin_notice() {
@@ -407,13 +408,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		} else {
 			// Init AllinOneInviteCodes.
 			$GLOBALS['all_in_one_invite_codes_new'] = AllinOneInviteCodes::get_instance();
-			// Init Freemius.
-			$freemius = all_in_one_invite_codes_core_fs();
-			if ( empty( $freemius ) ) {
-				return;
-			}
-			// Signal that parent SDK was initiated.
-			do_action( 'all_in_one_invite_codes_core_fs_loaded' );
+			$freemius                                = all_in_one_invite_codes_core_fs();
 			// GDPR Admin Notice
 			$freemius->add_filter( 'handle_gdpr_admin_notice', '__return_true' );
 

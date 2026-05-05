@@ -3,4 +3,4 @@
 	url = git@github.com:Themekraft/tk_script.git
 [submodule "includes/admin/pricing-page"]
 	path = includes/admin/pricing-page
-	url = git@github.com:Themekraft/pricing-page
+	url = git@github.com:Themekraft/pricing-page.git
