@@ -16,6 +16,11 @@ if ( ! function_exists( 'all_in_one_invite_codes_pricing_page_config' ) ) {
 	 * @return array<string,mixed>
 	 */
 	function all_in_one_invite_codes_pricing_page_config( $config ) {
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+		if ( ! $screen || ! str_contains( $screen->id, 'tk_invite_codes_bundle_screen' ) ) {
+			return $config;
+		}
+
 		$config['heading']    = __( 'Get the Invite Codes Bundle', 'all_in_one_invite_codes' );
 		$config['subheading'] = __( 'Unlock the full Invite Codes family — BuddyPress, BuddyForms and WooCommerce extensions, with a year of updates and support.', 'all_in_one_invite_codes' );
 
