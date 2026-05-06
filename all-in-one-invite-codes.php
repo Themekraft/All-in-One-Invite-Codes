@@ -76,7 +76,6 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 
 			add_action( 'init', array( $this, 'init_hook' ), 1 );
 			add_action( 'init', array( $this, 'includes' ), 4 );
-			add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
 			add_action( 'admin_menu', array( $this, 'all_in_one_invite_codes_bundle_screen_menu' ), 9999 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_styles' ), 102 );
@@ -200,18 +199,6 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 				require_once TK_ALL_IN_ONE_INVITE_CODES_INCLUDES_PATH . '/admin/pricing-page-config.php';
 			}
 		}
-
-		/**
-		 * Load the textdomain for the plugin
-		 *
-		 * @package all_in_one_invite_codes
-		 * @since  0.1
-		 */
-		public function load_plugin_textdomain() {
-			// phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound -- the plugin is not yet hosted on WordPress.org and ships its own /languages bundle.
-			load_plugin_textdomain( 'all-in-one-invite-codes', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-		}
-
 
 		/**
 		 * Enqueue the needed CSS for the admin screen
