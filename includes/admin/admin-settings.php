@@ -160,11 +160,12 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 				case 'general':
 					$all_in_one_invite_codes_general = get_option( 'all_in_one_invite_codes_general' );
 
-					if( empty( $all_in_one_invite_codes_general ) ){
-						$all_in_one_invite_codes_general = array();
-						$all_in_one_invite_codes_general['default_registration']  		  = 'Enable';
-						$all_in_one_invite_codes_general['generate_codes_amount'] 		  = '5';
-						$all_in_one_invite_codes_general['character_length']              = '5';
+					if ( empty( $all_in_one_invite_codes_general ) ) {
+						$all_in_one_invite_codes_general = array(
+							'default_registration'  => 'enabled',
+							'generate_codes_amount' => '5',
+							'character_length'      => '5',
+						);
 						add_option( 'all_in_one_invite_codes_general', $all_in_one_invite_codes_general, '', 'yes' );
 					}
 					

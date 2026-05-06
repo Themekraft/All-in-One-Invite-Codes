@@ -97,7 +97,7 @@ function all_in_one_invite_codes_send_invite_mail() {
 
 	$status = get_post_meta( $post_id, 'tk_all_in_one_invite_code_status', true );
 
-	if ( $status ) {
+	if ( 'Used' === $status || 'Disabled' === $status ) {
 		wp_send_json( array( 'error' => esc_html__( 'Used or Disabled Invite Codes can not get resent.', 'all-in-one-invite-codes' ) ) );
 	}
 
