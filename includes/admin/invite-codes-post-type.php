@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Create the post type to hold the codes. We use a normal WordPress Post Type and post meta to create and manage codes and code meta data.
  *
@@ -10,12 +14,12 @@
 function all_in_one_invite_codes_register_post_type() {
 
 	$labels = array(
-		'name'          => __( 'Invite Codes', 'all_in_one_invite_codes' ),
-		'singular_name' => __( 'Invite Code', 'all_in_one_invite_codes' ),
+		'name'          => __( 'Invite Codes', 'all-in-one-invite-codes' ),
+		'singular_name' => __( 'Invite Code', 'all-in-one-invite-codes' ),
 	);
 
 	$args = array(
-		'label'                 => __( 'Invite Codes', 'all_in_one_invite_codes' ),
+		'label'                 => __( 'Invite Codes', 'all-in-one-invite-codes' ),
 		'labels'                => $labels,
 		'description'           => '',
 		'public'                => false,

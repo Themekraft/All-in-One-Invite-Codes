@@ -84,6 +84,9 @@ Have fun!
 == Changelog ==
 = 1.3.0 - 04 May 2026 =
 * Plugin Check: fixed plugin-header License field, removed the invalid Network header, stripped hidden macOS metadata, and removed vestigial empty Freemius leftover directories.
+* Plugin Check: hardened AJAX endpoints with proper nonce verification, ownership-based authorization (post owners and admins) for the user-facing manage / disable / resend actions, and full unslash + sanitize on every accepted input.
+* Plugin Check: replaced raw output with escaped variants, replaced `rand()` with `wp_rand()`, fixed text-domain mismatches across the codebase, replaced concatenated translation strings with `sprintf()` plus translator notes, and added missing ABSPATH guards.
+* Plugin Check: switched the settings sanitize callbacks from a passthrough to typed sanitizers and cached the direct `$wpdb` query used by the bulk tree admin screen.
 * Updated Freemius SDK to 2.13.1.
 * Wired Freemius bundle credentials so the Invite Codes Bundle license auto-activates after purchase.
 * Reworked the Go Pro page to use the parameterized shared pricing-page submodule with three site-license tiers.

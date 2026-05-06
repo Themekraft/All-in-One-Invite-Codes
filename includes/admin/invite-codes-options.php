@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Create the metabox for the code options
  */
@@ -55,8 +59,8 @@ function all_in_one_invite_codes_render_metabox( $post ) {
 			>
 
 			<label for="all_in_one_invite_codes_options_email">
-				<b><?php esc_html_e( 'Assign to specific email', 'all_in_one_invite_codes' ); ?></b>
-				<p><?php esc_html_e( 'Restrict usage of this invite code for a specific email address. Leave blank if you want to make this invite code public accessible for any registration.', 'all_in_one_invite_codes' ); ?></p>
+				<b><?php esc_html_e( 'Assign to specific email', 'all-in-one-invite-codes' ); ?></b>
+				<p><?php esc_html_e( 'Restrict usage of this invite code for a specific email address. Leave blank if you want to make this invite code public accessible for any registration.', 'all-in-one-invite-codes' ); ?></p>
 			</label>
 
 			<p> eMail: <input
@@ -70,7 +74,7 @@ function all_in_one_invite_codes_render_metabox( $post ) {
 		</div>
 		<div>
 			<label for="all_in_one_invite_codes_options_multiple_use">
-				<b><?php esc_html_e( 'Set this invite code as multiple use', 'all_in_one_invite_codes' ); ?></b>
+				<b><?php esc_html_e( 'Set this invite code as multiple use', 'all-in-one-invite-codes' ); ?></b>
 
 			</label>
 			<p>
@@ -85,12 +89,12 @@ function all_in_one_invite_codes_render_metabox( $post ) {
 
 		<div>
 			<label for="all_in_one_invite_codes_options_email" id="label_single_use">
-				<b><?php esc_html_e( 'Generate new Invite Codes after account activation', 'all_in_one_invite_codes' ); ?></b>
-				<p><?php esc_html_e( 'Enter a number to generate new invite codes if this invite code got used.', 'all_in_one_invite_codes' ); ?></p>
+				<b><?php esc_html_e( 'Generate new Invite Codes after account activation', 'all-in-one-invite-codes' ); ?></b>
+				<p><?php esc_html_e( 'Enter a number to generate new invite codes if this invite code got used.', 'all-in-one-invite-codes' ); ?></p>
 			</label>
 			<label for="all_in_one_invite_codes_options_email" id="label_multiple_use">
 
-				<p><?php esc_html_e( 'Enter invite code number of uses', 'all_in_one_invite_codes' ); ?></p>
+				<p><?php esc_html_e( 'Enter invite code number of uses', 'all-in-one-invite-codes' ); ?></p>
 			</label>
 			<p>
 				Number: <input
@@ -104,7 +108,7 @@ function all_in_one_invite_codes_render_metabox( $post ) {
 		<div>
 			<label for="all_in_one_invite_codes_options_type">
 				<b><?php esc_html_e( 'Purpose?', 'all-in-one-invite-codes' ); ?></b>
-				<p><?php esc_html_e( 'Select an Action to limit the usage of the invite code to one particular action on your site and set the coupon code to used after thais action is done.', 'all_in_one_invite_codes' ); ?></p>
+				<p><?php esc_html_e( 'Select an Action to limit the usage of the invite code to one particular action on your site and set the coupon code to used after thais action is done.', 'all-in-one-invite-codes' ); ?></p>
 			</label>
 
 			<?php
@@ -174,11 +178,10 @@ function all_in_one_invite_codes_render_metabox( $post ) {
 function all_in_one_invite_codes_save_options( $post_id, $post ) {
 	global $wpdb;
 
-	if ( ! isset( $_POST['all_in_one_invite_codes_options_process'] ) ) {
-		return $post_id;
-	}
-
-	if ( ! wp_verify_nonce( $_POST['all_in_one_invite_codes_options_process'], 'all_in_one_invite_codes_options_nonce' ) ) {
+	$nonce = isset( $_POST['all_in_one_invite_codes_options_process'] )
+		? sanitize_text_field( wp_unslash( $_POST['all_in_one_invite_codes_options_process'] ) )
+		: '';
+	if ( '' === $nonce || ! wp_verify_nonce( $nonce, 'all_in_one_invite_codes_options_nonce' ) ) {
 		return $post_id;
 	}
 
@@ -186,16 +189,14 @@ function all_in_one_invite_codes_save_options( $post_id, $post ) {
 		return $post_id;
 	}
 
-	if ( ! isset( $_POST['all_in_one_invite_codes_options'] ) ) {
+	if ( ! isset( $_POST['all_in_one_invite_codes_options'] ) || ! is_array( $_POST['all_in_one_invite_codes_options'] ) ) {
 		return $post_id;
 	}
 
-	// Set up an empty array
-	$sanitized = array();
-
-	// Sanitize with wp_filter_post_kses
-	foreach ( wp_unslash( $_POST['all_in_one_invite_codes_options'] ) as $key => $detail ) {
-		$sanitized[ $key ] = wp_kses_post( $detail );
+	$raw_options = wp_unslash( $_POST['all_in_one_invite_codes_options'] );
+	$sanitized   = array();
+	foreach ( $raw_options as $key => $detail ) {
+		$sanitized[ sanitize_key( $key ) ] = is_scalar( $detail ) ? wp_kses_post( $detail ) : '';
 	}
 
 	// Do the update
@@ -210,21 +211,20 @@ function all_in_one_invite_codes_save_options( $post_id, $post ) {
 
 		$asign_user = get_user_by( 'email', $sanitized['email'] );
 		if ( $asign_user ) {
-			$arg    = array(
-				'ID'          => $post_id,
-				'post_author' => $asign_user->ID,
-			);
+			// Direct update keeps us out of the save_post recursion that wp_update_post would trigger.
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			$result = $wpdb->update( $wpdb->posts, array( 'post_author' => $asign_user->ID ), array( 'ID' => $post_id ), array( '%d' ), array( '%d' ) );
-			if ( ! $result ) {
+			if ( false === $result ) {
 				return false;
 			}
+			clean_post_cache( $post_id );
 		}
 	}
 
-	if ( isset( $_POST['all_in_one_invite_codes_options']['email'] ) && isset( $_POST['tk_all_in_one_invite_code'] ) ) {
+	if ( ! empty( $sanitized['email'] ) && isset( $_POST['tk_all_in_one_invite_code'] ) ) {
 
-		$email = sanitize_email( $_POST['all_in_one_invite_codes_options']['email'] );
-		$type  = sanitize_text_field( $_POST['all_in_one_invite_codes_options']['type'] );
+		$email = sanitize_email( $sanitized['email'] );
+		$type  = isset( $sanitized['type'] ) ? sanitize_key( $sanitized['type'] ) : 'any';
 		switch ( $type ) {
 
 			case 'any':
@@ -236,11 +236,11 @@ function all_in_one_invite_codes_save_options( $post_id, $post ) {
 				break;
 
 		}
-		$tk_invite_code                         = sanitize_key( $_POST['tk_all_in_one_invite_code'] );
+		$tk_invite_code                         = sanitize_key( wp_unslash( $_POST['tk_all_in_one_invite_code'] ) );
 		$all_in_one_invite_codes_mail_templates = get_option( 'all_in_one_invite_codes_mail_templates' );
 
-		$subject   = isset( $all_in_one_invite_codes_mail_templates['subject'] ) ? wp_kses_post( $all_in_one_invite_codes_mail_templates['subject'] ) : __( "You've Been Invited!", 'all-in-one-invite-code' );
-		$body      = isset( $all_in_one_invite_codes_mail_templates[ $message_text ] ) ? wp_kses_post( $all_in_one_invite_codes_mail_templates[ $message_text ] ) : __( 'You got an invite from the site [site_name]. Please use this link to register with your invite code [invite_link]', 'all-in-one-invite-code' );
+		$subject   = isset( $all_in_one_invite_codes_mail_templates['subject'] ) ? wp_kses_post( $all_in_one_invite_codes_mail_templates['subject'] ) : __( "You've Been Invited!", 'all-in-one-invite-codes' );
+		$body      = isset( $all_in_one_invite_codes_mail_templates[ $message_text ] ) ? wp_kses_post( $all_in_one_invite_codes_mail_templates[ $message_text ] ) : __( 'You got an invite from the site [site_name]. Please use this link to register with your invite code [invite_link]', 'all-in-one-invite-codes' );
 		$site_name = get_bloginfo( 'name' );
 		$subject   = all_in_one_invite_codes_replace_shortcode( $subject, '[site_name]', $site_name );
 		$subject   = all_in_one_invite_codes_replace_shortcode( $subject, '[invite_code]', $tk_invite_code );
@@ -249,22 +249,17 @@ function all_in_one_invite_codes_save_options( $post_id, $post ) {
 		$body = all_in_one_invite_codes_replace_shortcode( $body, '[invite_code]', $tk_invite_code );
 
 		// Invite Link
-		$buddypress_active = false;
-		if ( function_exists( 'bp_is_active' ) ) {
-			$buddypress_active = true;
-		}
-		if ( $buddypress_active || ! all_in_one_invite_codes_is_default_registration() ) {
-			$invite_link = '<a href="' . wp_registration_url() . '?invite_code=' . $tk_invite_code . '">Link</a>';
-		} else {
-			$invite_link = '<a href="' . wp_registration_url() . '&invite_code=' . $tk_invite_code . '">Link</a>';
-		}
+		$buddypress_active = function_exists( 'bp_is_active' );
+		$separator         = ( $buddypress_active || ! all_in_one_invite_codes_is_default_registration() ) ? '?' : '&';
+		$invite_link       = '<a href="' . esc_url( wp_registration_url() . $separator . 'invite_code=' . $tk_invite_code ) . '">Link</a>';
 
 		$subject = all_in_one_invite_codes_replace_shortcode( $subject, '[invite_link]', $invite_link );
 		$body    = all_in_one_invite_codes_replace_shortcode( $body, '[invite_link]', $invite_link );
 
 		// sent the mail
-		$headers = array( 'Content-Type: text/html; charset=UTF-8' );
-		if ( isset( $_POST['post_type'] ) && $_POST['post_type'] == 'tk_invite_codes' ) {
+		$headers   = array( 'Content-Type: text/html; charset=UTF-8' );
+		$post_type = isset( $_POST['post_type'] ) ? sanitize_key( wp_unslash( $_POST['post_type'] ) ) : '';
+		if ( 'tk_invite_codes' === $post_type ) {
 			$email_param = array(
 				'to'      => $email,
 				'subject' => $subject,
@@ -273,7 +268,7 @@ function all_in_one_invite_codes_save_options( $post_id, $post ) {
 			);
 			$email_param = apply_filters( 'all_in_one_invite_code_custom_email', $email_param );
 			if ( ! empty( $email ) ) {
-				$send = wp_mail( $email_param['to'], $email_param['subject'], $email_param['body'], $email_param['headers'] );
+				wp_mail( $email_param['to'], $email_param['subject'], $email_param['body'], $email_param['headers'] );
 			}
 		}
 	}
@@ -297,11 +292,10 @@ add_action( 'save_post_tk_invite_codes', 'all_in_one_invite_codes_save_options',
  */
 function all_in_one_invite_codes_save_code( $post_id, $post ) {
 
-	if ( ! isset( $_POST['all_in_one_invite_codes_options_process'] ) ) {
-		return $post_id;
-	}
-
-	if ( ! wp_verify_nonce( $_POST['all_in_one_invite_codes_options_process'], 'all_in_one_invite_codes_options_nonce' ) ) {
+	$nonce = isset( $_POST['all_in_one_invite_codes_options_process'] )
+		? sanitize_text_field( wp_unslash( $_POST['all_in_one_invite_codes_options_process'] ) )
+		: '';
+	if ( '' === $nonce || ! wp_verify_nonce( $nonce, 'all_in_one_invite_codes_options_nonce' ) ) {
 		return $post_id;
 	}
 
@@ -319,7 +313,7 @@ function all_in_one_invite_codes_save_code( $post_id, $post ) {
 		return $post_id;
 	}
 
-	$tk_invite_code = sanitize_key( trim( $_POST['tk_all_in_one_invite_code'] ) );
+	$tk_invite_code = sanitize_key( trim( wp_unslash( $_POST['tk_all_in_one_invite_code'] ) ) );
 
 	update_post_meta( $post_id, 'tk_all_in_one_invite_code', $tk_invite_code );
 
@@ -345,11 +339,11 @@ function all_in_one_invite_codes_change_title( $data ) {
 	}
 
 	$post_id = $data['ID'];
-	if ( ! isset( $_POST['all_in_one_invite_codes_options_process'] ) ) {
-		return $data;
-	}
 
-	if ( ! wp_verify_nonce( $_POST['all_in_one_invite_codes_options_process'], 'all_in_one_invite_codes_options_nonce' ) ) {
+	$nonce = isset( $_POST['all_in_one_invite_codes_options_process'] )
+		? sanitize_text_field( wp_unslash( $_POST['all_in_one_invite_codes_options_process'] ) )
+		: '';
+	if ( '' === $nonce || ! wp_verify_nonce( $nonce, 'all_in_one_invite_codes_options_nonce' ) ) {
 		return $data;
 	}
 
@@ -361,7 +355,7 @@ function all_in_one_invite_codes_change_title( $data ) {
 		return $data;
 	}
 
-	$data['post_title'] = sanitize_key( trim( $_POST['tk_all_in_one_invite_code'] ) );
+	$data['post_title'] = sanitize_key( trim( wp_unslash( $_POST['tk_all_in_one_invite_code'] ) ) );
 
 	return $data;
 }

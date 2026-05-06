@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Validate and process the code.
  *
@@ -10,8 +14,12 @@ function all_in_one_invite_codes_validate_code( $code, $user_email = '', $type =
 
 	// Get all invite codes with this code. Should only be one post.
 	$args  = array(
-		'post_type'  => 'tk_invite_codes',
-		'meta_query' => array(
+		'post_type'              => 'tk_invite_codes',
+		'posts_per_page'         => 1,
+		'no_found_rows'          => true,
+		'update_post_term_cache' => false,
+		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- meta_query is required to look up an invite code by its hash; result is bounded to 1 post.
+		'meta_query'             => array(
 			array(
 				'key'     => 'tk_all_in_one_invite_code',
 				'value'   => $code,
@@ -37,14 +45,14 @@ function all_in_one_invite_codes_validate_code( $code, $user_email = '', $type =
 
 					$all_in_one_invite_codes_options['generate_codes'] = 0;
 					update_post_meta( get_the_ID(), 'all_in_one_invite_codes_options', $all_in_one_invite_codes_options );
-					$result['error'] = __( 'Multi use invite code limit reached', 'all-in-one-invite-code' );
+					$result['error'] = __( 'Multi use invite code limit reached', 'all-in-one-invite-codes' );
 					return $result;
 
 				}
 			} else {
 				// IF the status is set this code is not free to use and was already used before or got deactivated.
 				if ( ! all_in_one_invite_codes_is_valide( get_the_ID() ) ) {
-					$result['error'] = __( 'This invite code was already used before or got deactivated', 'all-in-one-invite-code' );
+					$result['error'] = __( 'This invite code was already used before or got deactivated', 'all-in-one-invite-codes' );
 
 					return $result;
 				} else {
@@ -56,7 +64,7 @@ function all_in_one_invite_codes_validate_code( $code, $user_email = '', $type =
 					if ( isset( $all_in_one_invite_codes_options['email'] ) ) {
 
 						if ( ! empty( $all_in_one_invite_codes_options['email'] ) && strtolower( $all_in_one_invite_codes_options['email'] ) != strtolower( $user_email ) ) {
-							$result['error'] = __( 'eMail address does not below to this invite code.', 'all-in-one-invite-code' );
+							$result['error'] = __( 'eMail address does not below to this invite code.', 'all-in-one-invite-codes' );
 
 							return $result;
 						}
@@ -67,7 +75,11 @@ function all_in_one_invite_codes_validate_code( $code, $user_email = '', $type =
 						if ( ! empty( $all_in_one_invite_codes_options['type'] ) && $all_in_one_invite_codes_options['type'] != 'any' ) {
 							// Check if the code propose is for an especific type
 							if ( strtolower( $all_in_one_invite_codes_options['type'] ) != $type ) {
-								$result['error'] = __( 'This invite code can´t be applied on this page, is for : ' . $all_in_one_invite_codes_options['type'] . ' page only.', 'all-in-one-invite-code' );
+								$result['error'] = sprintf(
+									/* translators: %s: page type / purpose for which the invite code was issued. */
+									__( 'This invite code can´t be applied on this page, is for : %s page only.', 'all-in-one-invite-codes' ),
+									$all_in_one_invite_codes_options['type']
+								);
 
 								return $result;
 							}
@@ -80,7 +92,7 @@ function all_in_one_invite_codes_validate_code( $code, $user_email = '', $type =
 
 	} else {
 		// Error, something went wrong there where no code found
-		$result['error'] = __( 'Invite code not exist', 'all-in-one-invite-code' );
+		$result['error'] = __( 'Invite code not exist', 'all-in-one-invite-codes' );
 
 		return $result;
 

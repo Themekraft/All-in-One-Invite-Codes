@@ -92,7 +92,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		 */
 		public function all_in_one_invite_codes_bundle_screen_menu() {
 			if ( all_in_one_invite_codes_core_fs()->is_not_paying() ) {
-				add_submenu_page( 'edit.php?post_type=tk_invite_codes', __( 'Bundle', 'all_in_one_invite_codes' ), __( 'Go Pro!', 'all_in_one_invite_codes' ), 'manage_options', 'tk_invite_codes_bundle_screen', 'tk_pricing_page_render', 99 );
+				add_submenu_page( 'edit.php?post_type=tk_invite_codes', __( 'Bundle', 'all-in-one-invite-codes' ), __( 'Go Pro!', 'all-in-one-invite-codes' ), 'manage_options', 'tk_invite_codes_bundle_screen', 'tk_pricing_page_render', 99 );
 			}
 		}
 
@@ -208,7 +208,8 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		 * @since  0.1
 		 */
 		public function load_plugin_textdomain() {
-			load_plugin_textdomain( 'all_in_one_invite_codes', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+			// phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound -- the plugin is not yet hosted on WordPress.org and ships its own /languages bundle.
+			load_plugin_textdomain( 'all-in-one-invite-codes', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		}
 
 
@@ -235,7 +236,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		 * @package all_in_one_invite_codes
 		 */
 		function admin_js( $hook_suffix ) {
-			wp_enqueue_script( 'all-in-one-invite_codes-admin-js', TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL . 'assets/admin/js/admin.js', array(), self::getVersion() );
+			wp_enqueue_script( 'all-in-one-invite_codes-admin-js', TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL . 'assets/admin/js/admin.js', array(), self::getVersion(), true );
 			wp_localize_script( 'all-in-one-invite_codes-admin-js', 'allInOneInviteCodesAdminJs', array( 'nonce' => wp_create_nonce( 'all_in_one_invite_code_nonce' ) ) );
 		}
 
@@ -250,14 +251,15 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 				return;
 			}
 			if ( self::getNeedAssets() ) {
-				wp_enqueue_script( 'all-in-one-invite_codes-front-js', TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL . 'assets/js/front.js', array( 'jquery' ), self::getVersion() );
+				wp_enqueue_script( 'all-in-one-invite_codes-front-js', TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL . 'assets/js/front.js', array( 'jquery' ), self::getVersion(), true );
 				wp_localize_script( 'all-in-one-invite_codes-front-js', 'allInOneInviteCodesFrontJs', array( 'nonce' => wp_create_nonce( 'all_in_one_invite_code_nonce' ) ) );
 				add_thickbox();
 			}
 		}
 
 		public static function error_log( $message ) {
-			if ( ! empty( $message ) ) {
+			if ( ! empty( $message ) && defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- guarded behind WP_DEBUG/WP_DEBUG_LOG.
 				error_log( self::getSlug() . ' -- ' . $message );
 			}
 		}
@@ -394,9 +396,17 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 	function all_in_one_invite_codes_php_version_admin_notice() {
 		?>
 		<div class="notice notice-error is-dismissible">
-			<p><?php esc_html_e( 'PHP Version Update Required!', 'all_in_one_invite_codes' ); ?></p>
-			<p><?php esc_html_e( 'You are using PHP Version ' . PHP_VERSION, 'all_in_one_invite_codes' ); ?></p>
-			<p><?php esc_html_e( 'Please make sure you have at least php version 5.3 installed.', 'all_in_one_invite_codes' ); ?></p>
+			<p><?php esc_html_e( 'PHP Version Update Required!', 'all-in-one-invite-codes' ); ?></p>
+			<p>
+				<?php
+				printf(
+					/* translators: %s: PHP version reported by the server. */
+					esc_html__( 'You are using PHP Version %s', 'all-in-one-invite-codes' ),
+					esc_html( PHP_VERSION )
+				);
+				?>
+			</p>
+			<p><?php esc_html_e( 'Please make sure you have at least php version 5.3 installed.', 'all-in-one-invite-codes' ); ?></p>
 		</div>
 		<?php
 	}

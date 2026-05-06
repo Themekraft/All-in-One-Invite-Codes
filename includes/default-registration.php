@@ -1,5 +1,29 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Read the invite code submitted via $_POST['tk_invite_code'].
+ *
+ * The invite code is a hex/alphanumeric MD5-style string, so sanitize_key()
+ * is the right narrowing: it lowercases and strips anything that isn't
+ * `[a-z0-9_-]`. Returns an empty string if the field is missing or blank.
+ *
+ * The WordPress registration flow (wp-login.php?action=register) verifies
+ * its own nonce before the registration_errors filter / user_register hook
+ * fires, so we don't add a nonce check here.
+ *
+ * @return string
+ */
+function all_in_one_invite_code_get_submitted_code() {
+	if ( empty( $_POST['tk_invite_code'] ) ) {
+		return '';
+	}
+	return sanitize_key( trim( wp_unslash( $_POST['tk_invite_code'] ) ) );
+}
+
 /**
  * Add the invite only form element to the WordPress default registration
  *
@@ -14,12 +38,14 @@ function all_in_one_invite_code_register_form() {
 		return;
 	}
 
-	// Check if the invite code is coming from a link
-	$tk_invite_code = ( ! empty( $_GET['invite_code'] ) ) ? sanitize_key( trim( $_GET['invite_code'] ) ) : '';
+	// Check if the invite code is coming from a link.
+	$tk_invite_code = ! empty( $_GET['invite_code'] )
+		? sanitize_key( trim( wp_unslash( $_GET['invite_code'] ) ) )
+		: '';
 
 	?>
 	<p>
-		<label for="tk_invite_code"><?php esc_html_e( 'Invitation Code', 'all-in-one-invite-code' ); ?><br/>
+		<label for="tk_invite_code"><?php esc_html_e( 'Invitation Code', 'all-in-one-invite-codes' ); ?><br/>
 			<input type="text" name="tk_invite_code" id="tk_invite_code" class="input"
 				   value="<?php echo esc_attr( $tk_invite_code ); ?>" size="25"/></label>
 	</p>
@@ -42,25 +68,39 @@ function all_in_one_invite_code_registration_errors( $errors, $sanitized_user_lo
 		return $errors;
 	}
 
-	// Check if the field has a code
-	if ( empty( $_POST['tk_invite_code'] ) || ! empty( $_POST['tk_invite_code'] ) && sanitize_key( trim( $_POST['tk_invite_code'] ) ) == '' ) {
-		$errors->add( 'tk_invite_code_error', sprintf( '<strong>%s</strong>: %s', __( 'ERROR', 'all-in-one-invite-code' ), __( 'You must include a Invite Code.', 'all-in-one-invite-code' ) ) );
-	} else {
+	$tk_invite_code = all_in_one_invite_code_get_submitted_code();
 
-		$tk_invite_code = sanitize_key( trim( $_POST['tk_invite_code'] ) );
+	if ( '' === $tk_invite_code ) {
+		$errors->add(
+			'tk_invite_code_error',
+			sprintf(
+				'<strong>%s</strong>: %s',
+				esc_html__( 'ERROR', 'all-in-one-invite-codes' ),
+				esc_html__( 'You must include a Invite Code.', 'all-in-one-invite-codes' )
+			)
+		);
+		return $errors;
+	}
 
-		$type = isset( $_GET['action'] ) ? strtolower( sanitize_text_field( $_GET['action'] ) ) : '';
-		if ( empty( $type ) ) {
-			$type = isset( $_POST['wp-submit'] ) ? strtolower( sanitize_text_field( $_POST['wp-submit'] ) ) : '';
-		}
-		if ( empty( $type ) ) {
-			$type = 'any';
-		}
-		// Validate the code
-		$result = all_in_one_invite_codes_validate_code( $tk_invite_code, $user_email, $type );
-		if ( isset( $result['error'] ) ) {
-			$errors->add( 'tk_invite_code_error', sprintf( '<strong>%s</strong>: %s', __( 'ERROR', 'all-in-one-invite-code' ), $result['error'] ) );
-		}
+	$type = isset( $_GET['action'] ) ? strtolower( sanitize_key( wp_unslash( $_GET['action'] ) ) ) : '';
+	if ( '' === $type ) {
+		$type = isset( $_POST['wp-submit'] ) ? strtolower( sanitize_text_field( wp_unslash( $_POST['wp-submit'] ) ) ) : '';
+	}
+	if ( '' === $type ) {
+		$type = 'any';
+	}
+
+	// Validate the code.
+	$result = all_in_one_invite_codes_validate_code( $tk_invite_code, $user_email, $type );
+	if ( isset( $result['error'] ) ) {
+		$errors->add(
+			'tk_invite_code_error',
+			sprintf(
+				'<strong>%s</strong>: %s',
+				esc_html__( 'ERROR', 'all-in-one-invite-codes' ),
+				wp_kses_post( $result['error'] )
+			)
+		);
 	}
 
 	return $errors;
@@ -71,11 +111,10 @@ add_filter( 'registration_errors', 'all_in_one_invite_code_registration_errors',
 
 function all_in_one_invite_code_registration_save( $user_id ) {
 
-	if ( empty( $_POST['tk_invite_code'] ) ) {
+	$tk_invite_code = all_in_one_invite_code_get_submitted_code();
+	if ( '' === $tk_invite_code ) {
 		return;
 	}
-
-	$tk_invite_code = sanitize_key( trim( $_POST['tk_invite_code'] ) );
 
 	// Save the invite code as user meta data to know the relation for later query's/ stats
 	update_user_meta( $user_id, 'tk_all_in_one_invite_code', $tk_invite_code );

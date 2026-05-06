@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Get existing or create new Invite Code
  *
@@ -19,11 +23,11 @@ function all_in_one_invite_codes_md5( $post_id = false ) {
 	$code_length                     = $all_in_one_invite_codes_general['character_length'] ?? 5;
 
 	if ( ! $md5 ) {
-		$md5 = substr( md5( time() * rand() ), 0, $code_length );
+		$md5 = substr( md5( time() * wp_rand() ), 0, $code_length );
 	}
 
 	if ( ! $md5 ) {
-		$md5 = substr( md5( time() * rand() ), 0, 24 );
+		$md5 = substr( md5( time() * wp_rand() ), 0, 24 );
 	}
 	$md5 = sanitize_key( $md5 );
 	return $md5;
@@ -71,29 +75,46 @@ function all_in_one_invite_codes_get_status( $post_id ) {
 	return $status;
 }
 
+/**
+ * Look up the post id for a given invite code string.
+ *
+ * @param string $code Invite code (already sanitized by the caller).
+ *
+ * @return int Post id, or 0 if not found.
+ */
 function all_in_one_invite_codes_get_code_id_by_code( $code ) {
-	// Get the invite code
-	$args  = array(
-		'post_type'  => 'tk_invite_codes',
-		'meta_query' => array(
+	$code = sanitize_key( $code );
+	if ( '' === $code ) {
+		return 0;
+	}
+
+	$args = array(
+		'post_type'              => 'tk_invite_codes',
+		'posts_per_page'         => 1,
+		'no_found_rows'          => true,
+		'update_post_term_cache' => false,
+		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- meta_query is required to look up an invite code by its hash; result is bounded to 1 post.
+		'meta_query'             => array(
 			array(
 				'key'     => 'tk_all_in_one_invite_code',
-				'value'   => sanitize_key( trim( $_POST['tk_invite_code'] ) ),
+				'value'   => $code,
 				'compare' => '=',
 			),
 		),
 	);
+
 	$query = new WP_Query( $args );
 
-	$podt_id = 0;
-	// Get the invite code id
+	$post_id = 0;
 	if ( $query->have_posts() ) {
 		while ( $query->have_posts() ) :
 			$query->the_post();
-			$podt_id = get_the_ID();
+			$post_id = get_the_ID();
 		endwhile;
 	}
-	return $podt_id;
+
+	wp_reset_postdata();
+	return $post_id;
 }
 
 function all_in_one_invite_codes_is_valide( $code_id ) {

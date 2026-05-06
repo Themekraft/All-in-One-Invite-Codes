@@ -1,10 +1,14 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Add the Settings Page to the All in One Invite Codes Menu
  */
 function all_in_one_invite_codes_tree_menu() {
-	add_submenu_page( 'edit.php?post_type=tk_invite_codes', __( 'All in One Invite Codes Settings', 'all_in_one_invite_codes_tree' ), __( 'Tree View', 'all_in_one_invite_codes_tree' ), 'manage_options', 'all_in_one_invite_codes_tree', 'all_in_one_invite_codes_tree_page' );
+	add_submenu_page( 'edit.php?post_type=tk_invite_codes', __( 'All in One Invite Codes Settings', 'all-in-one-invite-codes' ), __( 'Tree View', 'all-in-one-invite-codes' ), 'manage_options', 'all_in_one_invite_codes_tree', 'all_in_one_invite_codes_tree_page' );
 }
 
 add_action( 'admin_menu', 'all_in_one_invite_codes_tree_menu' );
@@ -65,29 +69,29 @@ function all_in_one_invite_codes_tree_admin_tabs( $current = 'general' ) {
 
 function all_in_one_invite_codes_tree_tabs_content() {
 	global $pagenow, $all_in_one_invite_codes;
+
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
+	// Tab navigation links carry their own admin URLs; this is a read-only
+	// admin screen, so a nonce isn't required for routing — capability is.
+	$page_param = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
+	$tab        = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'general';
+	$updated    = isset( $_GET['updated'] ) ? sanitize_key( wp_unslash( $_GET['updated'] ) ) : '';
 	?>
 	<div id="poststuff">
 
 		<?php
 
 		// Display the Update Message
-		if ( isset( $_GET['updated'] ) && 'true' == sanitize_text_field( $_GET['updated'] ) ) {
+		if ( 'true' === $updated ) {
 			echo '<div class="updated" ><p>All in One Invite Codes...</p></div>';
 		}
 
-		if ( isset( $_GET['tab'] ) ) {
-			all_in_one_invite_codes_tree_admin_tabs( sanitize_key( $_GET['tab'] ) );
-		} else {
-			all_in_one_invite_codes_tree_admin_tabs( 'general' );
-		}
+		all_in_one_invite_codes_tree_admin_tabs( $tab );
 
-		if ( $pagenow == 'edit.php' && $_GET['page'] == 'all_in_one_invite_codes_tree' ) {
-
-			if ( isset( $_GET['tab'] ) ) {
-				$tab = sanitize_key( $_GET['tab'] );
-			} else {
-				$tab = 'general';
-			}
+		if ( $pagenow === 'edit.php' && 'all_in_one_invite_codes_tree' === $page_param ) {
 
 			switch ( $tab ) {
 				case 'general':
@@ -209,9 +213,20 @@ function all_in_one_invite_codes_list_pages_permalink_filter( $permalink, $page 
 
 add_action( 'admin_enqueue_scripts', 'all_in_one_invite_codes_tree_admin_js_css' );
 function all_in_one_invite_codes_tree_admin_js_css() {
-	wp_register_script( 'invite_codes_tree_js', TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL . 'assets/js/datatables.min.js' );
+	wp_register_script(
+		'invite_codes_tree_js',
+		TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL . 'assets/js/datatables.min.js',
+		array( 'jquery' ),
+		AllinOneInviteCodes::getVersion(),
+		true
+	);
 	wp_enqueue_script( 'invite_codes_tree_js' );
-	wp_register_style( 'invite_codes_tree_css', TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL . 'assets/css/dataTables.min.css' );
+	wp_register_style(
+		'invite_codes_tree_css',
+		TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL . 'assets/css/dataTables.min.css',
+		array(),
+		AllinOneInviteCodes::getVersion()
+	);
 	wp_enqueue_style( 'invite_codes_tree_css' );
 }
 
@@ -326,14 +341,36 @@ function all_in_one_invite_codes_wp_list_pages_filter( $html, $key, $values ) {
 
 
 function all_in_one_invite_codes_exclude_drafts_branches() {
-	global $wpdb;
-	$exclude = array();
-	$results = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} where post_status = 'draft' AND post_type = 'tk_invite_codes' " );
-	$exclude = array_merge( $exclude, $results );
-	while ( $results ) :
-		$results = $wpdb->get_col( "SELECT DISTINCT ID FROM {$wpdb->posts} WHERE post_type = 'tk_invite_codes' AND post_status = 'publish' AND post_parent > 0 AND post_parent IN (" . join( ',', $results ) . ') ' );
-		$exclude = array_merge( $exclude, $results );
-	endwhile;
+	$cache_key = 'all_in_one_invite_codes_exclude_drafts';
+	$cached    = wp_cache_get( $cache_key, 'all_in_one_invite_codes' );
+	if ( false !== $cached ) {
+		return $cached;
+	}
 
-	return join( ',', $exclude );
+	global $wpdb;
+
+	$results = $wpdb->get_col( $wpdb->prepare(
+		"SELECT ID FROM {$wpdb->posts} WHERE post_status = %s AND post_type = %s",
+		'draft',
+		'tk_invite_codes'
+	) );
+	$exclude = array_map( 'intval', (array) $results );
+
+	while ( ! empty( $results ) ) {
+		$results = array_map( 'intval', (array) $results );
+		$placeholders = implode( ',', array_fill( 0, count( $results ), '%d' ) );
+		$args = array_merge( array( 'tk_invite_codes', 'publish' ), $results );
+		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- placeholders generated via array_fill, all args bound below.
+		$results = $wpdb->get_col( $wpdb->prepare(
+			"SELECT DISTINCT ID FROM {$wpdb->posts}
+			 WHERE post_type = %s AND post_status = %s
+			   AND post_parent > 0 AND post_parent IN ($placeholders)",
+			$args
+		) );
+		$exclude = array_merge( $exclude, array_map( 'intval', (array) $results ) );
+	}
+
+	$result = implode( ',', $exclude );
+	wp_cache_set( $cache_key, $result, 'all_in_one_invite_codes', MINUTE_IN_SECONDS );
+	return $result;
 }

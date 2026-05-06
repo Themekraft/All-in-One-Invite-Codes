@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 add_shortcode( 'all_in_one_invite_codes_list_codes_by_user', 'all_in_one_invite_codes_list_codes' );
 /**
  * Create the list of codes for the user with a option to sent invites to new users.
@@ -62,15 +66,15 @@ function all_in_one_invite_codes_list_codes( $attr ) {
 				echo '</div>';
 				echo '<div class="aioic-right">';
 				if ( $code_amount > 0 ) {
-					echo esc_html__( 'Give this Invite Code to friends, they can use it to register on the site', 'all_in_one_invite_codes' );
+					echo esc_html__( 'Give this Invite Code to friends, they can use it to register on the site', 'all-in-one-invite-codes' );
 				} else {
-					echo esc_html__( 'Invite Code limit reached', 'all_in_one_invite_codes' );
+					echo esc_html__( 'Invite Code limit reached', 'all-in-one-invite-codes' );
 				}
 				echo '</div>';
 				echo '</div>';
 
 				if ( $code_amount > 0 ) {
-					echo '<div class="aioic-form" id="tk_all_in_one_invite_code_open_invite_form_id_' . get_the_ID() . '"></div>';
+					echo '<div class="aioic-form" id="tk_all_in_one_invite_code_open_invite_form_id_' . esc_attr( get_the_ID() ) . '"></div>';
 				}
 
 				echo '</li>';
@@ -90,15 +94,15 @@ function all_in_one_invite_codes_list_codes( $attr ) {
 
 				echo '<div class="aioic-right">';
 				if ( empty( $email ) && $status == 'Active' ) {
-					echo '<p><a class="button" data-code_id="' . get_the_ID() . '" id="tk_all_in_one_invite_code_open_invite_form" href="#">Invite a Friend Now</a></p>';
+					echo '<p><a class="button" data-code_id="' . esc_attr( get_the_ID() ) . '" id="tk_all_in_one_invite_code_open_invite_form" href="#">' . esc_html__( 'Invite a Friend Now', 'all-in-one-invite-codes' ) . '</a></p>';
 				} else {
-					echo esc_html__( 'Invite was sent to: ', 'all_in_one_invite_codes' ) . esc_html( $email );
+					echo esc_html__( 'Invite was sent to: ', 'all-in-one-invite-codes' ) . esc_html( $email );
 				}
 				echo '</div>';
 				echo '</div>';
 
 				if ( empty( $email ) && $status == 'Active' ) {
-					echo '<div class="aioic-form" id="tk_all_in_one_invite_code_open_invite_form_id_' . get_the_ID() . '"></div>';
+					echo '<div class="aioic-form" id="tk_all_in_one_invite_code_open_invite_form_id_' . esc_attr( get_the_ID() ) . '"></div>';
 				}
 
 				echo '</li>';
@@ -166,8 +170,9 @@ function all_in_one_invite_codes_invited_by_user( $attr ) {
 					$invited_by = $inviter->display_name;
 					$post_date  = $the_query->post->post_date;
 
-					$formattedDate = date( DATE_COOKIE, strtotime( $post_date ) );
-					echo sprintf( esc_html__( 'The user : %1$s was invited by %2$s on  ', 'all_in_one_invite_codes' ), esc_html( $user->display_name ), esc_html( $invited_by ) ) . esc_html( $formattedDate );
+					$formatted_date = wp_date( DATE_COOKIE, strtotime( $post_date ) );
+					/* translators: 1: invited user's display name, 2: inviter's display name */
+					echo sprintf( esc_html__( 'The user : %1$s was invited by %2$s on  ', 'all-in-one-invite-codes' ), esc_html( $user->display_name ), esc_html( $invited_by ) ) . esc_html( $formatted_date );
 					wp_reset_postdata();
 
 					$tmp = ob_get_clean();
@@ -178,14 +183,15 @@ function all_in_one_invite_codes_invited_by_user( $attr ) {
 
 			endwhile;
 		}
-		echo sprintf( esc_html__( 'The user : %s was not invited by anyone', 'all_in_one_invite_codes' ), esc_html( $user->display_name ) );
+		/* translators: %s: user's display name */
+		echo sprintf( esc_html__( 'The user : %s was not invited by anyone', 'all-in-one-invite-codes' ), esc_html( $user->display_name ) );
 		wp_reset_postdata();
 
 		$tmp = ob_get_clean();
 
 		return $tmp;
 	}
-	echo esc_html__( 'No user was found with the ID : ', 'all_in_one_invite_codes' ) . esc_html( $filter_id );
+	echo esc_html__( 'No user was found with the ID : ', 'all-in-one-invite-codes' ) . esc_html( $filter_id );
 	wp_reset_postdata();
 
 	$tmp = ob_get_clean();
@@ -203,7 +209,6 @@ add_shortcode( 'all_in_one_invite_codes_list_codes_not_assigend', 'all_in_one_in
  * @return string
  */
 function all_in_one_invite_codes_list_codes_not_assigend( $attr ) {
-	global $wpdb;
 	AllinOneInviteCodes::setNeedAssets( true, 'all-in-one-invite-codes' );
 	ob_start();
 	// Add the js in the shortcode so we can use this more easy as Block in a later process.
@@ -212,31 +217,36 @@ function all_in_one_invite_codes_list_codes_not_assigend( $attr ) {
 		<?php echo 'var ajaxurl = "' . esc_js( admin_url( 'admin-ajax.php' ) ) . '";'; ?>
 	</script>
 	<?php
-	$generated_codes = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = %s AND post_status = %s", 'tk_invite_codes', 'publish' ) );
+
+	$cache_key = 'all_in_one_invite_codes_published_ids';
+	$generated_codes = wp_cache_get( $cache_key, 'all_in_one_invite_codes' );
+	if ( false === $generated_codes ) {
+		global $wpdb;
+		$generated_codes = $wpdb->get_col( $wpdb->prepare(
+			"SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_status = %s",
+			'tk_invite_codes',
+			'publish'
+		) );
+		wp_cache_set( $cache_key, $generated_codes, 'all_in_one_invite_codes', MINUTE_IN_SECONDS );
+	}
+
 	if ( ! empty( $generated_codes ) ) {
 		$no_codes_unassigned_found = true;
 		foreach ( $generated_codes as $unassigned_codes ) {
 			$single_invite_code = get_post_meta( (int) $unassigned_codes, 'all_in_one_invite_codes_options', true );
 			if ( empty( $single_invite_code['email'] ) ) {
 				$no_codes_unassigned_found = false;
-				echo '<ul>
-						<li>
-							<div class="aioic-top">
-									<div class="aioic-info">
-										<div><strong>Code:</strong> ' . esc_html( get_post_meta( (int) $unassigned_codes, 'tk_all_in_one_invite_code', true ) );
-				echo '					</div>
-									</div>
-							</div>
-							<div class="aioic-right"></div>
-						</li>
-					</ul>';
+				printf(
+					'<ul><li><div class="aioic-top"><div class="aioic-info"><div><strong>%1$s</strong> %2$s</div></div></div><div class="aioic-right"></div></li></ul>',
+					esc_html__( 'Code:', 'all-in-one-invite-codes' ),
+					esc_html( get_post_meta( (int) $unassigned_codes, 'tk_all_in_one_invite_code', true ) )
+				);
 			}
 		}
 		if ( $no_codes_unassigned_found ) {
-			echo 'Sorry, no unassigned invite codes were found.';
+			echo esc_html__( 'Sorry, no unassigned invite codes were found.', 'all-in-one-invite-codes' );
 		}
 	}
-	$wpdb->flush();
 	$tmp = ob_get_clean();
 	return $tmp;
 }
@@ -272,8 +282,8 @@ function all_in_one_invite_codes_create( $attr ) {
             >
 
             <label for="all_in_one_invite_codes_options_email">
-                <b><?php _e( 'Assign to specific email', 'all_in_one_invite_codes' ); ?></b>
-                <p><?php _e( 'Restrict usage of this invite code for a specific email address. Leave blank if you want to make this invite code public accessible for any registration.', 'all_in_one_invite_codes' ); ?></p>
+                <b><?php esc_html_e( 'Assign to specific email', 'all-in-one-invite-codes' ); ?></b>
+                <p><?php esc_html_e( 'Restrict usage of this invite code for a specific email address. Leave blank if you want to make this invite code public accessible for any registration.', 'all-in-one-invite-codes' ); ?></p>
             </label>
 
             <p> eMail: <input
@@ -287,8 +297,8 @@ function all_in_one_invite_codes_create( $attr ) {
         </div>
         <div>
             <label for="all_in_one_invite_codes_options_email">
-                <b><?php _e( 'Generate new Invite Codes after account activation', 'all_in_one_invite_codes' ); ?></b>
-                <p><?php _e( 'Enter a number to generate new invite codes if this invite code got used.', 'all_in_one_invite_codes' ); ?></p>
+                <b><?php esc_html_e( 'Generate new Invite Codes after account activation', 'all-in-one-invite-codes' ); ?></b>
+                <p><?php esc_html_e( 'Enter a number to generate new invite codes if this invite code got used.', 'all-in-one-invite-codes' ); ?></p>
             </label>
             <p>
                 Number: <input
@@ -301,36 +311,22 @@ function all_in_one_invite_codes_create( $attr ) {
         </div>
         <div>
             <label for="all_in_one_invite_codes_options_type">
-                <b><?php _e( 'Purpose?', 'all-in-one-invite-codes' ); ?></b>
-                <p><?php _e( 'Select an Action to limit the usage of the invite code to one particular action on your site and set the coupon code to used after thais action is done.', 'all_in_one_invite_codes' ); ?></p>
+                <b><?php esc_html_e( 'Purpose?', 'all-in-one-invite-codes' ); ?></b>
+                <p><?php esc_html_e( 'Select an Action to limit the usage of the invite code to one particular action on your site and set the coupon code to used after thais action is done.', 'all-in-one-invite-codes' ); ?></p>
             </label>
 
 			<?php
-
-			$type_options             = array();
-			$type_options['any']      = __( 'Any', 'all-in-one-invite-codes' );
-			$type_options['register'] = __( 'Register', 'all-in-one-invite-codes' );
-
-
-			$type_options = apply_filters( 'all_in_one_invite_codes_options_type_options', $type_options )
-
+			$type_options = array(
+				'any'      => __( 'Any', 'all-in-one-invite-codes' ),
+				'register' => __( 'Register', 'all-in-one-invite-codes' ),
+			);
+			$type_options = apply_filters( 'all_in_one_invite_codes_options_type_options', $type_options );
 			?>
             <p>
-                Purpose: <select
-                        name="all_in_one_invite_codes_options[type]"
-                        id="all_in_one_invite_codes_options_type"
-                        value="<?php echo esc_attr( $type ); ?>">
-
-					<?php foreach ( $type_options as $slug => $option ) {
-						if ( $slug == $type ) {
-							echo '<option value="' . $slug . '"  selected>' . $option . '</option >';
-						} else {
-							echo '<option value="' . $slug . '" >' . $option . '</option >';
-						}
-
-					}
-					?>
-
+                Purpose: <select name="all_in_one_invite_codes_options[type]" id="all_in_one_invite_codes_options_type">
+					<?php foreach ( $type_options as $slug => $option ) : ?>
+						<option value="<?php echo esc_attr( $slug ); ?>" <?php selected( $slug, $type ); ?>><?php echo esc_html( $option ); ?></option>
+					<?php endforeach; ?>
                 </select>
             </p>
         </div>
