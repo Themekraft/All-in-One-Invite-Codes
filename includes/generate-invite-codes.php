@@ -8,12 +8,12 @@ add_action( 'wp_ajax_all_in_one_invite_codes_create_code', 'all_in_one_invite_co
 function all_in_one_invite_codes_create_code() {
 
 	if ( ! is_user_logged_in() ) {
-		wp_send_json_error( array( 'message' => 'forbidden' ), 403 );
+		wp_send_json( array( 'error' => esc_html__( 'You must be logged in to create invite codes.', 'all-in-one-invite-codes' ) ) );
 	}
 
 	$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 	if ( ! wp_verify_nonce( $nonce, 'all_in_one_invite_code_nonce' ) ) {
-		wp_send_json_error( array( 'message' => 'bad nonce' ), 403 );
+		wp_send_json( array( 'error' => esc_html__( 'Security check failed. Please reload the page and try again.', 'all-in-one-invite-codes' ) ) );
 	}
 
 	if ( empty( $_POST['tk_invite_code'] ) ) {

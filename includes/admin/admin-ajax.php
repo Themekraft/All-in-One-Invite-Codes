@@ -15,7 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 function all_in_one_invite_codes_ajax_check_nonce( $action ) {
 	$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 	if ( ! wp_verify_nonce( $nonce, $action ) ) {
-		wp_send_json_error( array( 'message' => 'bad nonce' ), 403 );
+		// Match the rest of this plugin's response shape so the inline JS error renderer surfaces it.
+		wp_send_json( array( 'error' => esc_html__( 'Security check failed. Please reload the page and try again.', 'all-in-one-invite-codes' ) ) );
 	}
 }
 
@@ -32,7 +33,7 @@ function all_in_one_invite_codes_ajax_check_nonce( $action ) {
 function all_in_one_invite_codes_ajax_check_can_manage( $post_id ) {
 	$post = get_post( $post_id );
 	if ( ! $post || 'tk_invite_codes' !== $post->post_type ) {
-		wp_send_json_error( array( 'message' => 'not found' ), 404 );
+		wp_send_json( array( 'error' => esc_html__( 'Invite code not found.', 'all-in-one-invite-codes' ) ) );
 	}
 
 	if ( current_user_can( 'manage_options' ) ) {
@@ -43,7 +44,7 @@ function all_in_one_invite_codes_ajax_check_can_manage( $post_id ) {
 		return;
 	}
 
-	wp_send_json_error( array( 'message' => 'forbidden' ), 403 );
+	wp_send_json( array( 'error' => esc_html__( 'You do not have permission to manage this invite code.', 'all-in-one-invite-codes' ) ) );
 }
 
 /**
@@ -115,7 +116,7 @@ add_action( 'wp_ajax_aioic_generate_multiple_invites', 'aioic_generate_multiple_
 function aioic_generate_multiple_invites() {
 
 	if ( ! current_user_can( 'manage_options' ) ) {
-		wp_send_json_error( array( 'message' => 'forbidden' ), 403 );
+		wp_send_json( array( 'errors' => esc_html__( 'You do not have permission to generate invite codes.', 'all-in-one-invite-codes' ) ) );
 	}
 
 	// The bulk-create form serialises its inputs into a single 'data' field;
@@ -127,7 +128,7 @@ function aioic_generate_multiple_invites() {
 
 	$nonce = isset( $form_data['_wpnonce'] ) ? sanitize_text_field( $form_data['_wpnonce'] ) : '';
 	if ( ! wp_verify_nonce( $nonce, 'buddyforms_form_nonce' ) ) {
-		wp_send_json_error( array( 'errors' => esc_html__( 'Form submit error. Please contact the site administrator.', 'all-in-one-invite-codes' ) ), 403 );
+		wp_send_json( array( 'errors' => esc_html__( 'Form submit error. Please contact the site administrator.', 'all-in-one-invite-codes' ) ) );
 	}
 
 	$amount             = isset( $form_data['generate_codes'] ) ? absint( $form_data['generate_codes'] ) : 0;
