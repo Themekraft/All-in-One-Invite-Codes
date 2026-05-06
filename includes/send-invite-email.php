@@ -70,16 +70,16 @@ function all_in_one_invite_codes_send_invite() {
 
 	$send = wp_mail( $email_param['to'], $email_param['subject'], $email_param['body'], $email_param['headers'] );
 
-	$all_in_one_invite_codes_options = get_post_meta( $post_id, 'all_in_one_invite_codes_options', true );
+	if ( ! $send ) {
+		wp_send_json( array( 'error' => esc_html__( 'Invite could not get send. Please contact the Support.', 'all-in-one-invite-codes' ) ) );
+	}
 
-	// Assign the mail to the code so this code can only get used from the invited user.
+	// Bind the recipient email to the code only after a successful send, so a delivery
+	// failure doesn't permanently lock the code to an address it never reached.
+	$all_in_one_invite_codes_options = get_post_meta( $post_id, 'all_in_one_invite_codes_options', true );
 	if ( empty( $all_in_one_invite_codes_options['email'] ) ) {
 		$all_in_one_invite_codes_options['email'] = $to;
 		update_post_meta( $post_id, 'all_in_one_invite_codes_options', $all_in_one_invite_codes_options );
-	}
-
-	if ( ! $send ) {
-		wp_send_json( array( 'error' => esc_html__( 'Invite could not get send. Please contact the Support.', 'all-in-one-invite-codes' ) ) );
 	}
 
 	wp_send_json( array( 'message' => esc_html__( 'Invite send out successfully', 'all-in-one-invite-codes' ) ) );
