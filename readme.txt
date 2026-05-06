@@ -89,6 +89,7 @@ Have fun!
 * Plugin Check: switched the settings sanitize callbacks from a passthrough to typed sanitizers and cached the direct `$wpdb` query used by the bulk tree admin screen.
 * Plugin Check: dropped the manual `load_plugin_textdomain()` call — WordPress.org has loaded translations automatically since WP 4.6.
 * Fixed a long-standing bug in the "Invite a Friend Now" handler that bound the recipient email to the invite code before checking whether `wp_mail()` actually delivered. A delivery failure no longer permanently locks the code to an address it never reached, so the inviter can retry from the same code.
+* Cleaned up the user-facing English copy: typos ("manny", "thais", "below to" → "belong to", "Valide" → "Valid"), broken phrasing ("could not get send" → "could not be sent", "can not get changed/resent" → "cannot be changed/resent", "Multi use invite code limit reached" → "Use limit reached for this multi-use invite code"), and several rewritten admin descriptions for clarity. POT regenerated; bundled es_ES / pt_BR translations carried forward where the meaning was preserved.
 * Updated Freemius SDK to 2.13.1.
 * Wired Freemius bundle credentials so the Invite Codes Bundle license auto-activates after purchase.
 * Reworked the Go Pro page to use the parameterized shared pricing-page submodule with three site-license tiers.

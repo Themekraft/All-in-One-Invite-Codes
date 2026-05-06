@@ -1,7 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: All in One Invite Codes\n"
-"POT-Creation-Date: 2020-04-07 20:52-0300\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/all-in-one-invite-"
+"codes\n"
+"POT-Creation-Date: 2026-05-06T16:34:17+00:00\n"
 "PO-Revision-Date: 2020-04-07 20:52-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -15,241 +17,23 @@ msgstr ""
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: all-in-one-invite-codes.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: all-in-one-invite-codes.php:382
-msgid "PHP Version Update Required!"
-msgstr "Se requiere actualizar la versión de PHP!"
-
-#: all-in-one-invite-codes.php:383
-msgid "You are using PHP Version "
-msgstr "Usted está usando la versión PHP "
-
-#: all-in-one-invite-codes.php:384
-msgid "Please make sure you have at least php version 5.3 installed."
-msgstr ""
-"Por favor, asegúrese de tener al menos la versión 5.3 de php instalada."
-
-#: includes/admin/admin-ajax.php:26
-msgid "Used or Disabled Invite Codes can not get changed."
-msgstr ""
-"Los códigos de invitación usados o deshabilitados no se pueden cambiar."
-
-#: includes/admin/admin-ajax.php:62
-msgid "Used or Disabled Invite Codes can not get resent."
-msgstr ""
-"Los códigos de invitación usados o deshabilitados no se pueden resentir."
-
-#: includes/admin/admin-ajax.php:69
-msgid "This invite code does not below to any email address"
-msgstr ""
-"Este código de invitación no se muestra a continuación a ninguna dirección "
-"de correo electrónico"
-
-#: includes/admin/admin-settings.php:7 includes/admin/tree.php:7
-msgid "All in One Invite Codes Settings"
-msgstr "Configuración de todos en uno de los códigos de invitación"
-
-#: includes/admin/admin-settings.php:7
-msgid "Settings"
-msgstr "Ajustes"
-
-#: includes/admin/admin-settings.php:128
-msgid "General Settings"
-msgstr "Configuración general"
-
-#: includes/admin/admin-settings.php:135
-msgid "Add Invite only Validation to the WordPress default registration form"
-msgstr ""
-"Añadir invitar solo validación al formulario de registro predeterminado de "
-"WordPress"
-
-#: includes/admin/admin-settings.php:155
-msgid ""
-"How manny now Invite Codes should get generated after the new user is "
-"activated?"
-msgstr ""
-"¿Cómo se deben generar los códigos de invitación ahora tripulante después de "
-"activar el nuevo usuario?"
-
-#: includes/admin/admin-settings.php:180
-msgid ""
-"You got an invite from the site [site_name]. Please use this link to "
-"register with your invite code [invite_link]"
-msgstr ""
-"Recibió una invitación del sitio [site_name]. Utilice este enlace para "
-"registrarse con su código de invitación [invite_link]"
-
-#: includes/admin/admin-settings.php:197
-msgid "Invite eMail Settings"
-msgstr "Invitar a la configuración de correo electrónico"
-
-#: includes/admin/admin-settings.php:203
-msgid "Subject"
-msgstr "Asunto"
-
-#: includes/admin/admin-settings.php:214
-msgid "Message Text"
-msgstr "Texto del mensaje"
-
-#: includes/admin/invite-codes-options.php:57 includes/shortcodes.php:122
-msgid "Assign to specific email"
-msgstr "Asignar a correo electrónico específico"
-
-#: includes/admin/invite-codes-options.php:58 includes/shortcodes.php:123
-msgid ""
-"Restrict usage of this invite code for a specific email address. Leave blank "
-"if you want to make this invite code public accessible for any registration."
-msgstr ""
-"Restringir el uso de este código de invitación para una dirección de correo "
-"electrónico específica. Deje en blanco si desea que este código de "
-"invitación sea público accesible para cualquier registro."
-
-#: includes/admin/invite-codes-options.php:72 includes/shortcodes.php:137
-msgid "Generate new Invite Codes after account activation"
-msgstr ""
-"Generar nuevos códigos de invitación después de la activación de la cuenta"
-
-#: includes/admin/invite-codes-options.php:73 includes/shortcodes.php:138
-msgid ""
-"Enter a number to generate new invite codes if this invite code got used."
-msgstr ""
-"Introduzca un número para generar nuevos códigos de invitación si se ha "
-"utilizado este código de invitación."
-
-#: includes/admin/invite-codes-options.php:86 includes/shortcodes.php:151
-msgid "Purpose?"
-msgstr "¿Propósito?"
-
-#: includes/admin/invite-codes-options.php:87 includes/shortcodes.php:152
-msgid ""
-"Select an Action to limit the usage of the invite code to one particular "
-"action on your site and set the coupon code to used after thais action is "
-"done."
-msgstr ""
-"Seleccione una acción para limitar el uso del código de invitación a una "
-"acción en particular en su sitio y establezca el código de cupón que se "
-"usará después de que se realice la acción thais."
-
-#: includes/admin/invite-codes-options.php:93 includes/shortcodes.php:158
-msgid "Any"
-msgstr "Cualquiera"
-
-#: includes/admin/invite-codes-options.php:94 includes/shortcodes.php:159
-msgid "Register"
-msgstr "Registrarse"
-
-#: includes/admin/invite-codes-options.php:187
-#: includes/generate-invite-codes.php:37
-msgid "You've Been Invited!"
-msgstr "¡Te han invitado!"
-
-#: includes/admin/invite-codes-post-type.php:14
-#: includes/admin/invite-codes-post-type.php:19
-msgid "Invite Codes"
-msgstr "Códigos de Invitación"
-
-#: includes/admin/invite-codes-post-type.php:15
-msgid "Invite Code"
-msgstr "Código de Invitación"
-
-#: includes/admin/invite-codes-post-type.php:87
-msgid "Code"
-msgstr "Código"
-
-#: includes/admin/invite-codes-post-type.php:88
-msgid "Status"
-msgstr "Estado"
-
-#: includes/admin/invite-codes-post-type.php:89
-msgid "eMail"
-msgstr "Email"
-
-#: includes/admin/invite-codes-post-type.php:90
-msgid "Parent"
-msgstr "Superior"
-
-#: includes/admin/invite-codes-post-type.php:91
-msgid "Generate new codes after account activation"
-msgstr "Generar nuevos códigos después de la activación de la cuenta"
-
-#: includes/admin/tree.php:7
-msgid "Tree View"
-msgstr "Título"
-
-#: includes/default-registration.php:22
-msgid "Invitation Code"
-msgstr "Código de invitación"
-
-#: includes/default-registration.php:47 includes/default-registration.php:55
-msgid "ERROR"
-msgstr "ERROR"
-
-#: includes/default-registration.php:47
-msgid "You must include a Invite Code."
-msgstr "Debe incluir un código de invitación."
-
-#: includes/functions.php:55
-msgid "Disabled"
-msgstr "Desactivado"
-
-#: includes/functions.php:58
-msgid "Used"
-msgstr "Usado"
-
-#: includes/functions.php:61
-msgid "Valide"
-msgstr "Valide"
-
-#: includes/generate-invite-codes.php:47 includes/send-invite-email.php:59
-msgid "Invite could not get send. Please contact the Support."
-msgstr ""
-"Invitar no pudo recibir el envío. Póngase en contacto con el equipo de "
-"soporte."
-
-#: includes/generate-invite-codes.php:52 includes/send-invite-email.php:65
-msgid "Invite send out successfully"
-msgstr "Invitar enviar con éxito"
-
-#: includes/process-invite-code.php:32
-msgid "Invite code invalid"
-msgstr "Invitar código no válido"
-
-#: includes/process-invite-code.php:44
-msgid "eMail address does not below to this invite code."
-msgstr ""
-"Dirección de correo electrónico no a continuación a este código de "
-"invitación."
-
-#: includes/process-invite-code.php:55
-msgid "This invite code can´t be applied on this page, is for : "
-msgstr "Este código de invitación no se puede aplicar en esta página, es para:"
-
-#: includes/process-invite-code.php:68
-msgid "Invite code not exist"
-msgstr "El código de invitación no existe"
-
-#: includes/shortcodes.php:17
-msgid "Please login to manage your invite codes."
-msgstr "Por favor, inicie sesión para administrar sus códigos de invitación."
-
-#: includes/shortcodes.php:56
-msgid "Invite was sent to: "
-msgstr "Se envió la invitación a:"
-
-#. Plugin Name of the plugin/theme
+#. Plugin Name of the plugin
+#: all-in-one-invite-codes.php includes/admin/pricing-page-config.php:40
 msgid "All in One Invite Codes"
 msgstr "Todos en uno Códigos de invitación BuddyPress"
 
-#. Plugin URI of the plugin/theme
+#. Plugin URI of the plugin
+#: all-in-one-invite-codes.php
 msgid "https://themekraft.com/all-in-one-invite-codes/"
 msgstr "https://themekraft.com/all-in-one-invite-codes/"
 
-#. Description of the plugin/theme
+#. Description of the plugin
+#: all-in-one-invite-codes.php
 msgid ""
 "Create Invite only Registration Funnels and Products. Boost your site launch "
 "and get the attention you desire by creating an intelligent invite only "
@@ -259,10 +43,474 @@ msgstr ""
 "lanzamiento de su sitio y obtenga la atención que desea mediante la creación "
 "de una plataforma inteligente solo para invitar."
 
-#. Author of the plugin/theme
+#. Author of the plugin
+#: all-in-one-invite-codes.php
 msgid "ThemeKraft"
 msgstr "ThemeKraft"
 
-#. Author URI of the plugin/theme
+#. Author URI of the plugin
+#: all-in-one-invite-codes.php
 msgid "https://themekraft.com/"
 msgstr "https://themekraft.com/buddyforms/"
+
+#: all-in-one-invite-codes.php:94
+msgid "Bundle"
+msgstr ""
+
+#: all-in-one-invite-codes.php:94
+msgid "Go Pro!"
+msgstr ""
+
+#: all-in-one-invite-codes.php:386
+msgid "PHP Version Update Required!"
+msgstr "Se requiere actualizar la versión de PHP!"
+
+#. translators: %s: PHP version reported by the server.
+#: all-in-one-invite-codes.php:391
+#, php-format
+#| msgid "You are using PHP Version "
+msgid "You are using PHP Version %s"
+msgstr "Usted está usando la versión PHP "
+
+#: all-in-one-invite-codes.php:396
+msgid "Please make sure you have at least php version 5.3 installed."
+msgstr ""
+"Por favor, asegúrese de tener al menos la versión 5.3 de php instalada."
+
+#: includes/admin/admin-ajax.php:19 includes/generate-invite-codes.php:16
+msgid "Security check failed. Please reload the page and try again."
+msgstr ""
+
+#: includes/admin/admin-ajax.php:36
+#| msgid "Invite code not exist"
+msgid "Invite code not found."
+msgstr "El código de invitación no existe"
+
+#: includes/admin/admin-ajax.php:47
+#| msgid "Please login to manage your invite codes."
+msgid "You do not have permission to manage this invite code."
+msgstr "Por favor, inicie sesión para administrar sus códigos de invitación."
+
+#: includes/admin/admin-ajax.php:71
+#| msgid "Used or Disabled Invite Codes can not get changed."
+msgid "Used or Disabled Invite Codes cannot be changed."
+msgstr ""
+"Los códigos de invitación usados o deshabilitados no se pueden cambiar."
+
+#: includes/admin/admin-ajax.php:101
+#| msgid "Used or Disabled Invite Codes can not get resent."
+msgid "Used or Disabled Invite Codes cannot be resent."
+msgstr ""
+"Los códigos de invitación usados o deshabilitados no se pueden resentir."
+
+#: includes/admin/admin-ajax.php:107
+#| msgid "This invite code does not below to any email address"
+msgid "This invite code does not belong to any email address."
+msgstr ""
+"Este código de invitación no se muestra a continuación a ninguna dirección "
+"de correo electrónico"
+
+#: includes/admin/admin-ajax.php:119
+msgid "You do not have permission to generate invite codes."
+msgstr ""
+
+#: includes/admin/admin-ajax.php:131
+msgid "Form submit error. Please contact the site administrator."
+msgstr ""
+
+#. translators: %d: number of invite codes generated
+#: includes/admin/admin-ajax.php:171
+#, php-format
+#| msgid "Invite send out successfully"
+msgid "%d Invites Codes generated successfully"
+msgstr "Invitar enviar con éxito"
+
+#: includes/admin/admin-settings.php:11 includes/admin/tree.php:11
+msgid "All in One Invite Codes Settings"
+msgstr "Configuración de todos en uno de los códigos de invitación"
+
+#: includes/admin/admin-settings.php:11
+msgid "Settings"
+msgstr "Ajustes"
+
+#: includes/admin/admin-settings.php:188
+msgid "General Settings"
+msgstr "Configuración general"
+
+#: includes/admin/admin-settings.php:195
+msgid "Add Invite only Validation to the WordPress default registration form"
+msgstr ""
+"Añadir invitar solo validación al formulario de registro predeterminado de "
+"WordPress"
+
+#: includes/admin/admin-settings.php:215
+#| msgid ""
+#| "How manny now Invite Codes should get generated after the new user is "
+#| "activated?"
+msgid ""
+"How many new Invite Codes should be generated after a new user is activated?"
+msgstr ""
+"¿Cómo se deben generar los códigos de invitación ahora tripulante después de "
+"activar el nuevo usuario?"
+
+#: includes/admin/admin-settings.php:226
+#| msgid "Invite code not exist"
+msgid "Invite code character length"
+msgstr "El código de invitación no existe"
+
+#: includes/admin/admin-settings.php:281
+msgid "Invite eMail Settings"
+msgstr "Invitar a la configuración de correo electrónico"
+
+#: includes/admin/admin-settings.php:287
+msgid "You can use Shortcodes to dynamically add data to the text."
+msgstr ""
+
+#: includes/admin/admin-settings.php:297
+msgid "Subject"
+msgstr "Asunto"
+
+#: includes/admin/admin-settings.php:309
+msgid "Message Text"
+msgstr "Texto del mensaje"
+
+#: includes/admin/invite-codes-bulk.php:11
+#| msgid "All in One Invite Codes"
+msgid "All in One Invite Codes Bulk"
+msgstr "Todos en uno Códigos de invitación BuddyPress"
+
+#: includes/admin/invite-codes-bulk.php:11
+msgid "Bulk Process"
+msgstr ""
+
+#: includes/admin/invite-codes-bulk.php:63
+msgid "Create Bulk Invites"
+msgstr ""
+
+#: includes/admin/invite-codes-bulk.php:67
+msgid "Create multiple invites codes at once."
+msgstr ""
+
+#: includes/admin/invite-codes-bulk.php:75
+#| msgid "All in One Invite Codes"
+msgid "Generate new Invites Codes"
+msgstr "Todos en uno Códigos de invitación BuddyPress"
+
+#: includes/admin/invite-codes-bulk.php:76
+msgid "Enter the amount of invites codes to generate."
+msgstr ""
+
+#: includes/admin/invite-codes-bulk.php:89
+#: includes/admin/invite-codes-options.php:92 includes/shortcodes.php:300
+msgid "Generate new Invite Codes after account activation"
+msgstr ""
+"Generar nuevos códigos de invitación después de la activación de la cuenta"
+
+#: includes/admin/invite-codes-bulk.php:90
+#: includes/admin/invite-codes-options.php:93 includes/shortcodes.php:301
+#| msgid ""
+#| "Enter a number to generate new invite codes if this invite code got used."
+msgid ""
+"Enter a number to generate new invite codes when this invite code is used."
+msgstr ""
+"Introduzca un número para generar nuevos códigos de invitación si se ha "
+"utilizado este código de invitación."
+
+#: includes/admin/invite-codes-bulk.php:94
+#: includes/admin/invite-codes-options.php:97
+#| msgid "Invite code not exist"
+msgid "Enter invite code number of uses"
+msgstr "El código de invitación no existe"
+
+#: includes/admin/invite-codes-bulk.php:106
+#: includes/admin/invite-codes-options.php:110 includes/shortcodes.php:314
+msgid "Purpose?"
+msgstr "¿Propósito?"
+
+#: includes/admin/invite-codes-bulk.php:107
+#: includes/admin/invite-codes-options.php:111 includes/shortcodes.php:315
+#| msgid ""
+#| "Select an Action to limit the usage of the invite code to one particular "
+#| "action on your site and set the coupon code to used after thais action is "
+#| "done."
+msgid ""
+"Select an action to limit this invite code to one specific action on your "
+"site. The code will be marked as used after that action is completed."
+msgstr ""
+"Seleccione una acción para limitar el uso del código de invitación a una "
+"acción en particular en su sitio y establezca el código de cupón que se "
+"usará después de que se realice la acción thais."
+
+#: includes/admin/invite-codes-bulk.php:113
+#: includes/admin/invite-codes-options.php:117 includes/shortcodes.php:320
+msgid "Any"
+msgstr "Cualquiera"
+
+#: includes/admin/invite-codes-bulk.php:114
+#: includes/admin/invite-codes-options.php:118 includes/shortcodes.php:321
+msgid "Register"
+msgstr "Registrarse"
+
+#: includes/admin/invite-codes-options.php:62 includes/shortcodes.php:285
+msgid "Assign to specific email"
+msgstr "Asignar a correo electrónico específico"
+
+#: includes/admin/invite-codes-options.php:63 includes/shortcodes.php:286
+#| msgid ""
+#| "Restrict usage of this invite code for a specific email address. Leave "
+#| "blank if you want to make this invite code public accessible for any "
+#| "registration."
+msgid ""
+"Restrict the use of this invite code to a specific email address. Leave "
+"blank to make this invite code publicly accessible for any registration."
+msgstr ""
+"Restringir el uso de este código de invitación para una dirección de correo "
+"electrónico específica. Deje en blanco si desea que este código de "
+"invitación sea público accesible para cualquier registro."
+
+#: includes/admin/invite-codes-options.php:77
+msgid "Set this invite code as multiple use"
+msgstr ""
+
+#: includes/admin/invite-codes-options.php:242
+#: includes/generate-invite-codes.php:62
+msgid "You've Been Invited!"
+msgstr "¡Te han invitado!"
+
+#: includes/admin/invite-codes-options.php:243
+#: includes/generate-invite-codes.php:65
+msgid ""
+"You got an invite from the site [site_name]. Please use this link to "
+"register with your invite code [invite_link]"
+msgstr ""
+"Recibió una invitación del sitio [site_name]. Utilice este enlace para "
+"registrarse con su código de invitación [invite_link]"
+
+#: includes/admin/invite-codes-post-type.php:17
+#: includes/admin/invite-codes-post-type.php:22
+msgid "Invite Codes"
+msgstr "Códigos de Invitación"
+
+#: includes/admin/invite-codes-post-type.php:18
+msgid "Invite Code"
+msgstr "Código de Invitación"
+
+#: includes/admin/invite-codes-post-type.php:93
+msgid "Code"
+msgstr "Código"
+
+#: includes/admin/invite-codes-post-type.php:94
+msgid "Status"
+msgstr "Estado"
+
+#: includes/admin/invite-codes-post-type.php:95
+msgid "eMail"
+msgstr "Email"
+
+#: includes/admin/invite-codes-post-type.php:96
+msgid "Multiple Use"
+msgstr ""
+
+#: includes/admin/invite-codes-post-type.php:97
+msgid "Generate new codes after account activation"
+msgstr "Generar nuevos códigos después de la activación de la cuenta"
+
+#: includes/admin/pricing-page-config.php:24
+#| msgid "Invite Codes"
+msgid "Get the Invite Codes Bundle"
+msgstr "Códigos de Invitación"
+
+#: includes/admin/pricing-page-config.php:25
+msgid ""
+"Unlock the full Invite Codes family — BuddyPress, BuddyForms and WooCommerce "
+"extensions, with a year of updates and support."
+msgstr ""
+
+#: includes/admin/pricing-page-config.php:31
+#| msgid "Invite Codes"
+msgid "Invite Codes Bundle"
+msgstr "Códigos de Invitación"
+
+#: includes/admin/pricing-page-config.php:36
+msgid "All Invite Codes add-ons included"
+msgstr ""
+
+#: includes/admin/pricing-page-config.php:44
+#| msgid "All in One Invite Codes"
+msgid "All in One Invite Codes BuddyPress"
+msgstr "Todos en uno Códigos de invitación BuddyPress"
+
+#: includes/admin/pricing-page-config.php:48
+#| msgid "All in One Invite Codes"
+msgid "All in One Invite Codes BuddyForms"
+msgstr "Todos en uno Códigos de invitación BuddyPress"
+
+#: includes/admin/pricing-page-config.php:52
+#| msgid "All in One Invite Codes"
+msgid "All in One Invite Codes WooCommerce Checkout"
+msgstr "Todos en uno Códigos de invitación BuddyPress"
+
+#: includes/admin/pricing-page-config.php:55
+msgid "One year of support"
+msgstr ""
+
+#: includes/admin/pricing-page-config.php:56
+msgid "One year of updates"
+msgstr ""
+
+#: includes/admin/pricing-page-config.php:62
+msgid "Personal Plan"
+msgstr ""
+
+#: includes/admin/pricing-page-config.php:63
+msgid "One Site"
+msgstr ""
+
+#: includes/admin/pricing-page-config.php:70
+msgid "Professional Plan"
+msgstr ""
+
+#: includes/admin/pricing-page-config.php:71
+msgid "Five Sites"
+msgstr ""
+
+#: includes/admin/pricing-page-config.php:79
+msgid "Agency Plan"
+msgstr ""
+
+#: includes/admin/pricing-page-config.php:80
+msgid "Unlimited Sites"
+msgstr ""
+
+#: includes/admin/tree.php:11
+msgid "Tree View"
+msgstr "Título"
+
+#: includes/default-registration.php:48
+msgid "Invitation Code"
+msgstr "Código de invitación"
+
+#: includes/default-registration.php:78 includes/default-registration.php:100
+msgid "ERROR"
+msgstr "ERROR"
+
+#: includes/default-registration.php:79
+#| msgid "You must include a Invite Code."
+msgid "You must include an Invite Code."
+msgstr "Debe incluir un código de invitación."
+
+#: includes/functions.php:65
+msgid "Disabled"
+msgstr "Desactivado"
+
+#: includes/functions.php:68
+msgid "Used"
+msgstr "Usado"
+
+#: includes/functions.php:71
+#| msgid "Valide"
+msgid "Valid"
+msgstr "Valide"
+
+#: includes/generate-invite-codes.php:11
+#| msgid "You must include a Invite Code."
+msgid "You must be logged in to create invite codes."
+msgstr "Debe incluir un código de invitación."
+
+#: includes/generate-invite-codes.php:94 includes/send-invite-email.php:74
+#| msgid "Invite could not get send. Please contact the Support."
+msgid "Invite could not be sent. Please contact support."
+msgstr ""
+"Invitar no pudo recibir el envío. Póngase en contacto con el equipo de "
+"soporte."
+
+#: includes/generate-invite-codes.php:98 includes/send-invite-email.php:85
+#| msgid "Invite send out successfully"
+msgid "Invite sent successfully."
+msgstr "Invitar enviar con éxito"
+
+#: includes/process-invite-code.php:48
+msgid "Use limit reached for this multi-use invite code."
+msgstr ""
+
+#: includes/process-invite-code.php:55
+msgid "This invite code has already been used or has been deactivated."
+msgstr ""
+
+#: includes/process-invite-code.php:67
+#| msgid "eMail address does not below to this invite code."
+msgid "Email address does not belong to this invite code."
+msgstr ""
+"Dirección de correo electrónico no a continuación a este código de "
+"invitación."
+
+#. translators: %s: page type / purpose for which the invite code was issued.
+#: includes/process-invite-code.php:80
+#, php-format
+#| msgid "This invite code can´t be applied on this page, is for : "
+msgid ""
+"This invite code can't be applied on this page; it is for the %s page only."
+msgstr "Este código de invitación no se puede aplicar en esta página, es para:"
+
+#: includes/process-invite-code.php:95
+#| msgid "Invite code not exist"
+msgid "Invite code does not exist."
+msgstr "El código de invitación no existe"
+
+#: includes/send-invite-email.php:41
+#| msgid "Invite could not get send. Please contact the Support."
+msgid "Invite could not be sent: the destination email is empty."
+msgstr ""
+"Invitar no pudo recibir el envío. Póngase en contacto con el equipo de "
+"soporte."
+
+#: includes/shortcodes.php:22
+msgid "Please login to manage your invite codes."
+msgstr "Por favor, inicie sesión para administrar sus códigos de invitación."
+
+#: includes/shortcodes.php:69
+msgid ""
+"Give this Invite Code to friends, they can use it to register on the site"
+msgstr ""
+
+#: includes/shortcodes.php:71
+#| msgid "Invite code invalid"
+msgid "Invite Code limit reached"
+msgstr "Invitar código no válido"
+
+#: includes/shortcodes.php:97
+#| msgid "Invite was sent to: "
+msgid "Invite a Friend Now"
+msgstr "Se envió la invitación a:"
+
+#: includes/shortcodes.php:99
+msgid "Invite was sent to: "
+msgstr "Se envió la invitación a:"
+
+#. translators: 1: invited user's display name, 2: inviter's display name
+#: includes/shortcodes.php:175
+#, php-format
+msgid "The user : %1$s was invited by %2$s on  "
+msgstr ""
+
+#. translators: %s: user's display name
+#: includes/shortcodes.php:187
+#, php-format
+msgid "The user : %s was not invited by anyone"
+msgstr ""
+
+#: includes/shortcodes.php:194
+msgid "No user was found with the ID : "
+msgstr ""
+
+#: includes/shortcodes.php:241
+#| msgid "Code"
+msgid "Code:"
+msgstr "Código"
+
+#: includes/shortcodes.php:247
+msgid "Sorry, no unassigned invite codes were found."
+msgstr ""
+
+#~ msgid "Parent"
+#~ msgstr "Superior"

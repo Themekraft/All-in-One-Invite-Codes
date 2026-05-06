@@ -91,9 +91,9 @@ function all_in_one_invite_codes_create_code() {
 		$send = wp_mail( $email_param['to'], $email_param['subject'], $email_param['body'], $email_param['headers'] );
 
 		if ( ! $send ) {
-			wp_send_json( array( 'error' => esc_html__( 'Invite could not get send. Please contact the Support.', 'all-in-one-invite-codes' ) ) );
+			wp_send_json( array( 'error' => esc_html__( 'Invite could not be sent. Please contact support.', 'all-in-one-invite-codes' ) ) );
 		}
 	}
 
-	wp_send_json( array( 'message' => esc_html__( 'Invite send out successfully', 'all-in-one-invite-codes' ) ) );
+	wp_send_json( array( 'message' => esc_html__( 'Invite sent successfully.', 'all-in-one-invite-codes' ) ) );
 }

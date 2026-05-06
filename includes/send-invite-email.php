@@ -38,7 +38,7 @@ function all_in_one_invite_codes_send_invite() {
 	$headers = array( 'Content-Type: text/html; charset=UTF-8' );
 
 	if ( empty( $to ) ) {
-		wp_send_json( array( 'error' => esc_html__( 'Invite could not get send. destination email is empty.', 'all-in-one-invite-codes' ) ) );
+		wp_send_json( array( 'error' => esc_html__( 'Invite could not be sent: the destination email is empty.', 'all-in-one-invite-codes' ) ) );
 	}
 
 	$invite_code = get_post_meta( $post_id, 'tk_all_in_one_invite_code', true );
@@ -71,7 +71,7 @@ function all_in_one_invite_codes_send_invite() {
 	$send = wp_mail( $email_param['to'], $email_param['subject'], $email_param['body'], $email_param['headers'] );
 
 	if ( ! $send ) {
-		wp_send_json( array( 'error' => esc_html__( 'Invite could not get send. Please contact the Support.', 'all-in-one-invite-codes' ) ) );
+		wp_send_json( array( 'error' => esc_html__( 'Invite could not be sent. Please contact support.', 'all-in-one-invite-codes' ) ) );
 	}
 
 	// Bind the recipient email to the code only after a successful send, so a delivery
@@ -82,7 +82,7 @@ function all_in_one_invite_codes_send_invite() {
 		update_post_meta( $post_id, 'all_in_one_invite_codes_options', $all_in_one_invite_codes_options );
 	}
 
-	wp_send_json( array( 'message' => esc_html__( 'Invite send out successfully', 'all-in-one-invite-codes' ) ) );
+	wp_send_json( array( 'message' => esc_html__( 'Invite sent successfully.', 'all-in-one-invite-codes' ) ) );
 }
 
 add_action( 'wp_ajax_all_in_one_invite_codes_send_invite', 'all_in_one_invite_codes_send_invite' );

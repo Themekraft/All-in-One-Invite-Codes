@@ -60,7 +60,7 @@ function all_in_one_invite_codes_render_metabox( $post ) {
 
 			<label for="all_in_one_invite_codes_options_email">
 				<b><?php esc_html_e( 'Assign to specific email', 'all-in-one-invite-codes' ); ?></b>
-				<p><?php esc_html_e( 'Restrict usage of this invite code for a specific email address. Leave blank if you want to make this invite code public accessible for any registration.', 'all-in-one-invite-codes' ); ?></p>
+				<p><?php esc_html_e( 'Restrict the use of this invite code to a specific email address. Leave blank to make this invite code publicly accessible for any registration.', 'all-in-one-invite-codes' ); ?></p>
 			</label>
 
 			<p> eMail: <input
@@ -90,7 +90,7 @@ function all_in_one_invite_codes_render_metabox( $post ) {
 		<div>
 			<label for="all_in_one_invite_codes_options_email" id="label_single_use">
 				<b><?php esc_html_e( 'Generate new Invite Codes after account activation', 'all-in-one-invite-codes' ); ?></b>
-				<p><?php esc_html_e( 'Enter a number to generate new invite codes if this invite code got used.', 'all-in-one-invite-codes' ); ?></p>
+				<p><?php esc_html_e( 'Enter a number to generate new invite codes when this invite code is used.', 'all-in-one-invite-codes' ); ?></p>
 			</label>
 			<label for="all_in_one_invite_codes_options_email" id="label_multiple_use">
 
@@ -108,7 +108,7 @@ function all_in_one_invite_codes_render_metabox( $post ) {
 		<div>
 			<label for="all_in_one_invite_codes_options_type">
 				<b><?php esc_html_e( 'Purpose?', 'all-in-one-invite-codes' ); ?></b>
-				<p><?php esc_html_e( 'Select an Action to limit the usage of the invite code to one particular action on your site and set the coupon code to used after thais action is done.', 'all-in-one-invite-codes' ); ?></p>
+				<p><?php esc_html_e( 'Select an action to limit this invite code to one specific action on your site. The code will be marked as used after that action is completed.', 'all-in-one-invite-codes' ); ?></p>
 			</label>
 
 			<?php

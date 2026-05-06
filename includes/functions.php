@@ -68,7 +68,7 @@ function all_in_one_invite_codes_get_status( $post_id ) {
 			$status = __( 'Used', 'all-in-one-invite-codes' );
 			break;
 		case 'valide':
-			$status = __( 'Valide', 'all-in-one-invite-codes' );
+			$status = __( 'Valid', 'all-in-one-invite-codes' );
 			break;
 	}
 

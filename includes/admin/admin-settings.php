@@ -212,7 +212,7 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 										</tr>
 										<tr valign="top">
 											<th scope="row" valign="top">
-												<?php esc_html_e( 'How manny now Invite Codes should get generated after the new user is activated?', 'all-in-one-invite-codes' ); ?>
+												<?php esc_html_e( 'How many new Invite Codes should be generated after a new user is activated?', 'all-in-one-invite-codes' ); ?>
 											</th>
 											<td>
 												<input type="number"
@@ -223,7 +223,7 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 										</tr>
 										<tr valign="top">
 											<th scope="row" valign="top">
-												<?php esc_html_e( 'Invites codes characters length', 'all-in-one-invite-codes' ); ?>
+												<?php esc_html_e( 'Invite code character length', 'all-in-one-invite-codes' ); ?>
 											</th>
 											<td>
 												<input type="number"

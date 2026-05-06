@@ -76,7 +76,7 @@ function all_in_one_invite_code_registration_errors( $errors, $sanitized_user_lo
 			sprintf(
 				'<strong>%s</strong>: %s',
 				esc_html__( 'ERROR', 'all-in-one-invite-codes' ),
-				esc_html__( 'You must include a Invite Code.', 'all-in-one-invite-codes' )
+				esc_html__( 'You must include an Invite Code.', 'all-in-one-invite-codes' )
 			)
 		);
 		return $errors;

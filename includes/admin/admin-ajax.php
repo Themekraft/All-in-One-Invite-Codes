@@ -68,7 +68,7 @@ function all_in_one_invite_codes_disable_code() {
 	$status = get_post_meta( $post_id, 'tk_all_in_one_invite_code_status', true );
 
 	if ( 'Used' === $status || 'Disabled' === $status ) {
-		wp_send_json( array( 'error' => esc_html__( 'Used or Disabled Invite Codes can not get changed.', 'all-in-one-invite-codes' ) ) );
+		wp_send_json( array( 'error' => esc_html__( 'Used or Disabled Invite Codes cannot be changed.', 'all-in-one-invite-codes' ) ) );
 	}
 
 	update_post_meta( $post_id, 'tk_all_in_one_invite_code_status', 'disabled' );
@@ -98,13 +98,13 @@ function all_in_one_invite_codes_send_invite_mail() {
 	$status = get_post_meta( $post_id, 'tk_all_in_one_invite_code_status', true );
 
 	if ( 'Used' === $status || 'Disabled' === $status ) {
-		wp_send_json( array( 'error' => esc_html__( 'Used or Disabled Invite Codes can not get resent.', 'all-in-one-invite-codes' ) ) );
+		wp_send_json( array( 'error' => esc_html__( 'Used or Disabled Invite Codes cannot be resent.', 'all-in-one-invite-codes' ) ) );
 	}
 
 	$all_in_one_invite_codes_options = get_post_meta( $post_id, 'all_in_one_invite_codes_options', true );
 
 	if ( empty( $all_in_one_invite_codes_options['email'] ) ) {
-		wp_send_json( array( 'error' => esc_html__( 'This invite code does not below to any email address', 'all-in-one-invite-codes' ) ) );
+		wp_send_json( array( 'error' => esc_html__( 'This invite code does not belong to any email address.', 'all-in-one-invite-codes' ) ) );
 	}
 
 	wp_send_json( array( 'refresh' => 'true' ) );

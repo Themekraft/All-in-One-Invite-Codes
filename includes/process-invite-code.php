@@ -45,14 +45,14 @@ function all_in_one_invite_codes_validate_code( $code, $user_email = '', $type =
 
 					$all_in_one_invite_codes_options['generate_codes'] = 0;
 					update_post_meta( get_the_ID(), 'all_in_one_invite_codes_options', $all_in_one_invite_codes_options );
-					$result['error'] = __( 'Multi use invite code limit reached', 'all-in-one-invite-codes' );
+					$result['error'] = __( 'Use limit reached for this multi-use invite code.', 'all-in-one-invite-codes' );
 					return $result;
 
 				}
 			} else {
 				// IF the status is set this code is not free to use and was already used before or got deactivated.
 				if ( ! all_in_one_invite_codes_is_valide( get_the_ID() ) ) {
-					$result['error'] = __( 'This invite code was already used before or got deactivated', 'all-in-one-invite-codes' );
+					$result['error'] = __( 'This invite code has already been used or has been deactivated.', 'all-in-one-invite-codes' );
 
 					return $result;
 				} else {
@@ -64,7 +64,7 @@ function all_in_one_invite_codes_validate_code( $code, $user_email = '', $type =
 					if ( isset( $all_in_one_invite_codes_options['email'] ) ) {
 
 						if ( ! empty( $all_in_one_invite_codes_options['email'] ) && strtolower( $all_in_one_invite_codes_options['email'] ) != strtolower( $user_email ) ) {
-							$result['error'] = __( 'eMail address does not below to this invite code.', 'all-in-one-invite-codes' );
+							$result['error'] = __( 'Email address does not belong to this invite code.', 'all-in-one-invite-codes' );
 
 							return $result;
 						}
@@ -77,7 +77,7 @@ function all_in_one_invite_codes_validate_code( $code, $user_email = '', $type =
 							if ( strtolower( $all_in_one_invite_codes_options['type'] ) != $type ) {
 								$result['error'] = sprintf(
 									/* translators: %s: page type / purpose for which the invite code was issued. */
-									__( 'This invite code can´t be applied on this page, is for : %s page only.', 'all-in-one-invite-codes' ),
+									__( 'This invite code can\'t be applied on this page; it is for the %s page only.', 'all-in-one-invite-codes' ),
 									$all_in_one_invite_codes_options['type']
 								);
 
@@ -92,7 +92,7 @@ function all_in_one_invite_codes_validate_code( $code, $user_email = '', $type =
 
 	} else {
 		// Error, something went wrong there where no code found
-		$result['error'] = __( 'Invite code not exist', 'all-in-one-invite-codes' );
+		$result['error'] = __( 'Invite code does not exist.', 'all-in-one-invite-codes' );
 
 		return $result;
 
