@@ -3,7 +3,7 @@
  * Pricing page filter registration for the All in One Invite Codes plugin.
  * Provides bundle credentials, copy, and tier data to the shared pricing-page submodule.
  *
- * @package all_in_one_invite_codes
+ * @package All in One Invite Codes
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

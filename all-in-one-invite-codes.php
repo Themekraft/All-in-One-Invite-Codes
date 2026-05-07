@@ -65,7 +65,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		/**
 		 * Initiate the class
 		 *
-		 * @package all_in_one_invite_codes
+		 * @package All in One Invite Codes
 		 * @since  0.1
 		 */
 		public function __construct() {
@@ -98,7 +98,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		/**
 		 * Defines constants needed throughout AllinOneInviteCodes
 		 *
-		 * @package all_in_one_invite_codes
+		 * @package All in One Invite Codes
 		 * @since  0.1
 		 */
 		public function load_constants() {
@@ -145,7 +145,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		 * as well as other dependent plugins, to hook into the loading process in an
 		 * orderly fashion.
 		 *
-		 * @package all_in_one_invite_codes
+		 * @package All in One Invite Codes
 		 * @since  0.1
 		 */
 		public function init_hook() {
@@ -156,7 +156,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		/**
 		 * Setup all globals
 		 *
-		 * @package all_in_one_invite_codes
+		 * @package All in One Invite Codes
 		 * @since  0.1
 		 */
 		static function set_globals() {
@@ -176,7 +176,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		/**
 		 * Include files needed by AllinOneInviteCodes
 		 *
-		 * @package all_in_one_invite_codes
+		 * @package All in One Invite Codes
 		 * @since  0.1
 		 */
 		public function includes() {
@@ -207,7 +207,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		 *
 		 * @since  0.1
 		 *
-		 * @package all_in_one_invite_codes
+		 * @package All in One Invite Codes
 		 */
 		function admin_styles( $hook_suffix ) {
 
@@ -220,7 +220,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		 *
 		 * @since  0.1
 		 *
-		 * @package all_in_one_invite_codes
+		 * @package All in One Invite Codes
 		 */
 		function admin_js( $hook_suffix ) {
 			wp_enqueue_script( 'all-in-one-invite_codes-admin-js', TK_ALL_IN_ONE_INVITE_CODES_PLUGIN_URL . 'assets/admin/js/admin.js', array(), self::getVersion(), true );
@@ -230,7 +230,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		/**
 		 * Check if a all_in_one_invite_codes view is displayed and load the needed styles and scripts
 		 *
-		 * @package all_in_one_invite_codes
+		 * @package All in One Invite Codes
 		 * @since  0.1
 		 */
 		function front_js_loader() {
@@ -291,7 +291,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		/**
 		 * Enqueue the needed JS for the form in the frontend
 		 *
-		 * @package all_in_one_invite_codes
+		 * @package All in One Invite Codes
 		 * @since  0.1
 		 */
 		function front_js_css() {
@@ -301,7 +301,7 @@ if ( ! class_exists( 'AllinOneInviteCodes' ) ) {
 		/**
 		 * Update form 1.x version
 		 *
-		 * @package all_in_one_invite_codes
+		 * @package All in One Invite Codes
 		 * @since  0.1
 		 */
 		function update_db_check() {

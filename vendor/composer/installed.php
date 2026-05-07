@@ -3,7 +3,7 @@
         'name' => 'themekraft/all-in-one-invite-codes',
         'pretty_version' => 'dev-develop',
         'version' => 'dev-develop',
-        'reference' => '3e48412444f0d9535a2a9d7613be6e61f8e15ce5',
+        'reference' => '428de4ff3921b761d2d04049ee142cb79c7c12ec',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'themekraft/all-in-one-invite-codes' => array(
             'pretty_version' => 'dev-develop',
             'version' => 'dev-develop',
-            'reference' => '3e48412444f0d9535a2a9d7613be6e61f8e15ce5',
+            'reference' => '428de4ff3921b761d2d04049ee142cb79c7c12ec',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
