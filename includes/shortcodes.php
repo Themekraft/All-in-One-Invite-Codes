@@ -222,6 +222,8 @@ function all_in_one_invite_codes_list_codes_not_assigend( $attr ) {
 	$generated_codes = wp_cache_get( $cache_key, 'all_in_one_invite_codes' );
 	if ( false === $generated_codes ) {
 		global $wpdb;
+		// Direct query because we only need post IDs and the result is cached for a minute.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$generated_codes = $wpdb->get_col( $wpdb->prepare(
 			"SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_status = %s",
 			'tk_invite_codes',

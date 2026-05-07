@@ -139,9 +139,11 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 	// All inputs here come from the WP-rendered admin URL on a read-only screen
 	// (tab routing + post-save banner). Capability check above is the gate;
 	// no nonce is required to render the screen.
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only admin screen routing; capability checked above.
 	$page_param = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
 	$tab        = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'general';
 	$updated    = isset( $_GET['updated'] ) ? sanitize_key( wp_unslash( $_GET['updated'] ) ) : '';
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	?>
 	<div id="poststuff">
 
@@ -254,7 +256,7 @@ function all_in_one_invite_codes_settings_page_tabs_content() {
 						add_option( 'all_in_one_invite_codes_mail_templates', $all_in_one_invite_codes_mail_templates, '', 'yes' );
 					}
 
-					$message_text_default = __( 'You got an invite from the site [site_name]. Please use this link to register with your invite code [invite_link]' );
+					$message_text_default = __( 'You got an invite from the site [site_name]. Please use this link to register with your invite code [invite_link]', 'all-in-one-invite-codes' );
 					?>
 					<div class="metabox-holder">
 						<div class="postbox all_in_one_invite_codes-metabox">

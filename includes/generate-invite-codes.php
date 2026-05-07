@@ -20,7 +20,7 @@ function all_in_one_invite_codes_create_code() {
 		return;
 	}
 
-	$tk_invite_code = sanitize_key( trim( wp_unslash( $_POST['tk_invite_code'] ) ) );
+	$tk_invite_code = sanitize_key( wp_unslash( $_POST['tk_invite_code'] ) );
 
 	$user_id = get_current_user_id();
 	$args    = array(

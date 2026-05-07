@@ -193,6 +193,7 @@ function all_in_one_invite_codes_save_options( $post_id, $post ) {
 		return $post_id;
 	}
 
+	// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- each scalar value is run through wp_kses_post in the foreach below; PCP can't follow the array branch.
 	$raw_options = wp_unslash( $_POST['all_in_one_invite_codes_options'] );
 	$sanitized   = array();
 	foreach ( $raw_options as $key => $detail ) {
@@ -313,7 +314,7 @@ function all_in_one_invite_codes_save_code( $post_id, $post ) {
 		return $post_id;
 	}
 
-	$tk_invite_code = sanitize_key( trim( wp_unslash( $_POST['tk_all_in_one_invite_code'] ) ) );
+	$tk_invite_code = sanitize_key( wp_unslash( $_POST['tk_all_in_one_invite_code'] ) );
 
 	update_post_meta( $post_id, 'tk_all_in_one_invite_code', $tk_invite_code );
 
@@ -355,7 +356,7 @@ function all_in_one_invite_codes_change_title( $data ) {
 		return $data;
 	}
 
-	$data['post_title'] = sanitize_key( trim( wp_unslash( $_POST['tk_all_in_one_invite_code'] ) ) );
+	$data['post_title'] = sanitize_key( wp_unslash( $_POST['tk_all_in_one_invite_code'] ) );
 
 	return $data;
 }

@@ -76,9 +76,11 @@ function all_in_one_invite_codes_tree_tabs_content() {
 
 	// Tab navigation links carry their own admin URLs; this is a read-only
 	// admin screen, so a nonce isn't required for routing — capability is.
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only admin screen routing; capability checked above.
 	$page_param = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
 	$tab        = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'general';
 	$updated    = isset( $_GET['updated'] ) ? sanitize_key( wp_unslash( $_GET['updated'] ) ) : '';
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	?>
 	<div id="poststuff">
 
@@ -349,6 +351,9 @@ function all_in_one_invite_codes_exclude_drafts_branches() {
 
 	global $wpdb;
 
+	// Direct query is needed because we want to walk parent → child draft chains via
+	// post_parent in a single round-trip; WP_Query has no equivalent. Cached above.
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 	$results = $wpdb->get_col( $wpdb->prepare(
 		"SELECT ID FROM {$wpdb->posts} WHERE post_status = %s AND post_type = %s",
 		'draft',
@@ -360,13 +365,15 @@ function all_in_one_invite_codes_exclude_drafts_branches() {
 		$results = array_map( 'intval', (array) $results );
 		$placeholders = implode( ',', array_fill( 0, count( $results ), '%d' ) );
 		$args = array_merge( array( 'tk_invite_codes', 'publish' ), $results );
-		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- placeholders generated via array_fill, all args bound below.
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
+		// $placeholders is built from array_fill('%d', N) and $args carries the matching N integer values plus the two leading strings; safe under prepare().
 		$results = $wpdb->get_col( $wpdb->prepare(
 			"SELECT DISTINCT ID FROM {$wpdb->posts}
 			 WHERE post_type = %s AND post_status = %s
 			   AND post_parent > 0 AND post_parent IN ($placeholders)",
 			$args
 		) );
+		// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
 		$exclude = array_merge( $exclude, array_map( 'intval', (array) $results ) );
 	}
 

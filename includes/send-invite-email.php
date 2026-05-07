@@ -25,6 +25,8 @@ function all_in_one_invite_codes_send_invite() {
 
 	all_in_one_invite_codes_ajax_check_nonce( 'all_in_one_invite_code_nonce' );
 
+	// Nonce verified above by all_in_one_invite_codes_ajax_check_nonce(); PCP can't follow the helper.
+	// phpcs:disable WordPress.Security.NonceVerification.Missing
 	$post_id = isset( $_POST['post_id'] ) ? absint( wp_unslash( $_POST['post_id'] ) ) : 0;
 	if ( ! $post_id ) {
 		wp_die();
@@ -35,6 +37,7 @@ function all_in_one_invite_codes_send_invite() {
 	$to      = isset( $_POST['to'] ) ? sanitize_email( wp_unslash( $_POST['to'] ) ) : '';
 	$subject = isset( $_POST['subject'] ) ? sanitize_text_field( wp_unslash( $_POST['subject'] ) ) : '';
 	$body    = isset( $_POST['message_text'] ) ? wp_kses_post( wp_unslash( $_POST['message_text'] ) ) : '';
+	// phpcs:enable WordPress.Security.NonceVerification.Missing
 	$headers = array( 'Content-Type: text/html; charset=UTF-8' );
 
 	if ( empty( $to ) ) {

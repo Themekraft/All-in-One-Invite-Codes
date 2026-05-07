@@ -58,6 +58,7 @@ function all_in_one_invite_codes_disable_code() {
 
 	all_in_one_invite_codes_ajax_check_nonce( 'all_in_one_invite_code_nonce' );
 
+	// phpcs:ignore WordPress.Security.NonceVerification.Missing -- nonce verified above by helper.
 	$post_id = isset( $_POST['post_id'] ) ? absint( wp_unslash( $_POST['post_id'] ) ) : 0;
 	if ( ! $post_id ) {
 		wp_die();
@@ -88,6 +89,7 @@ function all_in_one_invite_codes_send_invite_mail() {
 
 	all_in_one_invite_codes_ajax_check_nonce( 'all_in_one_invite_code_nonce' );
 
+	// phpcs:ignore WordPress.Security.NonceVerification.Missing -- nonce verified above by helper.
 	$post_id = isset( $_POST['post_id'] ) ? absint( wp_unslash( $_POST['post_id'] ) ) : 0;
 	if ( ! $post_id ) {
 		wp_die();
@@ -120,10 +122,11 @@ function aioic_generate_multiple_invites() {
 	}
 
 	// The bulk-create form serialises its inputs into a single 'data' field;
-	// parse_str() into a fresh array then pull values out of there.
+	// parse_str() into a fresh array then pull values out of there. The
+	// individual values are sanitized again below as they're consumed.
 	$form_data = array();
 	if ( isset( $_POST['data'] ) ) {
-		parse_str( wp_unslash( $_POST['data'] ), $form_data );
+		parse_str( sanitize_text_field( wp_unslash( $_POST['data'] ) ), $form_data );
 	}
 
 	$nonce = isset( $form_data['_wpnonce'] ) ? sanitize_text_field( $form_data['_wpnonce'] ) : '';

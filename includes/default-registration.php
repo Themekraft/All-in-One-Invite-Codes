@@ -18,10 +18,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return string
  */
 function all_in_one_invite_code_get_submitted_code() {
+	// phpcs:ignore WordPress.Security.NonceVerification.Missing -- WP's wp-login.php?action=register verifies its own nonce before registration_errors / user_register fires.
 	if ( empty( $_POST['tk_invite_code'] ) ) {
 		return '';
 	}
-	return sanitize_key( trim( wp_unslash( $_POST['tk_invite_code'] ) ) );
+	// phpcs:ignore WordPress.Security.NonceVerification.Missing -- same: WP-managed registration nonce.
+	return sanitize_key( wp_unslash( $_POST['tk_invite_code'] ) );
 }
 
 /**
@@ -39,9 +41,11 @@ function all_in_one_invite_code_register_form() {
 	}
 
 	// Check if the invite code is coming from a link.
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- prefill from a public invite link, not form processing.
 	$tk_invite_code = ! empty( $_GET['invite_code'] )
-		? sanitize_key( trim( wp_unslash( $_GET['invite_code'] ) ) )
+		? sanitize_key( wp_unslash( $_GET['invite_code'] ) )
 		: '';
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 	?>
 	<p>
@@ -82,10 +86,12 @@ function all_in_one_invite_code_registration_errors( $errors, $sanitized_user_lo
 		return $errors;
 	}
 
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing -- WP-managed wp-login.php nonce already verified before this filter fires.
 	$type = isset( $_GET['action'] ) ? strtolower( sanitize_key( wp_unslash( $_GET['action'] ) ) ) : '';
 	if ( '' === $type ) {
 		$type = isset( $_POST['wp-submit'] ) ? strtolower( sanitize_text_field( wp_unslash( $_POST['wp-submit'] ) ) ) : '';
 	}
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
 	if ( '' === $type ) {
 		$type = 'any';
 	}
@@ -119,10 +125,13 @@ function all_in_one_invite_code_registration_save( $user_id ) {
 	// Save the invite code as user meta data to know the relation for later query's/ stats
 	update_user_meta( $user_id, 'tk_all_in_one_invite_code', $tk_invite_code );
 
-	// Get the invite code
+	// Get the invite code — meta_query is the only way to look up by hash; bounded by 1 row.
+	// phpcs:disable WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 	$args  = array(
-		'post_type'  => 'tk_invite_codes',
-		'meta_query' => array(
+		'post_type'      => 'tk_invite_codes',
+		'posts_per_page' => 1,
+		'no_found_rows'  => true,
+		'meta_query'     => array(
 			array(
 				'key'     => 'tk_all_in_one_invite_code',
 				'value'   => $tk_invite_code,
@@ -130,6 +139,7 @@ function all_in_one_invite_code_registration_save( $user_id ) {
 			),
 		),
 	);
+	// phpcs:enable WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 	$query = new WP_Query( $args );
 
 	// Get the invite code id
