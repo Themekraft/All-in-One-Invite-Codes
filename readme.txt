@@ -95,6 +95,10 @@ Have fun!
 * Reworked the Go Pro page to use the parameterized shared pricing-page submodule with three site-license tiers.
 * Refreshed the Go Pro page card layout to a responsive CSS grid.
 * Highlighted the Go Pro menu link in the admin sidebar.
+* Plugin Check: cleaned up second-pass scan residuals — annotated helper-verified AJAX nonce reads (the `_check_nonce` helper sits between PCP and the unslashed `$_POST` access), suppressed sanitize-after-unslash false positives on the metabox save flow, repositioned the dynamic `$wpdb->prepare` placeholder ignore block in the bulk tree query, and aligned the read-only `$_GET` admin-tab routing reads with proper phpcs:disable/enable annotations. Three TextDomainMismatch warnings on the shared pricing-page submodule are now suppressed at the submodule layer.
+* Plugin Check: aligned `@package` docblocks with the readable Plugin Name "All in One Invite Codes" (was the snake_case slug `all_in_one_invite_codes`).
+* Trashed a stray `vendor/freemius/wordpress-sdk/assets/img/wc4bp.png` left over from cross-plugin Freemius admin browsing.
+* Release tooling: bumped the shared tk_script + pricing-page submodules — release zips now install production-only deps inside the release tree (no more dev deps shipped) and skip the empty `*.free.zip` artifact on premium-only plugins.
 * Tested up to WordPress 6.9.
 
 = 1.2.0 - 26 Jun 2025 =
